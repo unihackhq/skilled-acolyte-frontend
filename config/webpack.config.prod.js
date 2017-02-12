@@ -117,7 +117,8 @@ module.exports = {
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
+          /\.scss/
         ],
         loader: 'url',
         query: {
@@ -147,6 +148,25 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss')
+        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+      },
+      // The notation here is somewhat confusing.
+      // "postcss" loader applies autoprefixer to our CSS.
+      // "css" loader resolves paths in CSS and adds assets as dependencies.
+      // "style" loader normally turns CSS into JS modules injecting <style>,
+      // "modules" loader enables css modules
+      // "sass" loader processes sass into css
+      // but unlike in development configuration, we do something different.
+      // `ExtractTextPlugin` first applies the "postcss", "css", "sass" loaders
+      // (second argument), then grabs the result CSS and puts it into a
+      // separate file in our build process. This way we actually ship
+      // a single CSS file in production instead of JS code injecting <style>
+      // tags. If you use code splitting, however, any async bundles will still
+      // use the "style" loader inside the async code so CSS from them won't be
+      // in the main CSS file.
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style', 'css?modules&camelCase&importLoaders=1!postcss!sass')
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify

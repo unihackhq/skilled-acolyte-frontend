@@ -145,8 +145,8 @@ module.exports = {
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
       // "style" loader turns CSS into JS modules that inject <style> tags.
-      // "modules" to enable css modules
-      // "sass" to enable sass preprocessor
+      // "modules" loader enables css modules
+      // "sass" loader processes sass into css
       {
         test: /\.scss$/,
         loader: 'style!css?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'
