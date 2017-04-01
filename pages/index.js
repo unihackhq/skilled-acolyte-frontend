@@ -1,3 +1,9 @@
+import Head from '../components/head'
+import { Container } from 'semantic-ui-react'
+
 export default () => (
-  <div>Welcome to next.js!</div>
+  <Container text>
+    <Head title='Home' menuKey='home'></Head>
+    <p>Welcome 👋</p>
+</Container>
 )
