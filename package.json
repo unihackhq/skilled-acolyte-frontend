@@ -4,6 +4,9 @@
   "description": "Project Skilled Acolyte front end",
   "main": "index.js",
   "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/unihackhq/skilled-acolyte-frontend/issues"
   },
-  "homepage": "https://github.com/unihackhq/skilled-acolyte-frontend#readme"
+  "homepage": "https://github.com/unihackhq/skilled-acolyte-frontend#readme",
+  "dependencies": {
+    "next": "^2.0.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
 }
