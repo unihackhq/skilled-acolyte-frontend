@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import Router from 'next/router'
+import { connect } from 'react-redux'
+import { selectors as userSelectors } from '../ducks/user'
 import { Container, Menu } from 'semantic-ui-react'
 
-export default class extends React.Component {
+class AppHead extends React.Component {
   constructor(props) {
     super(props);
     const { menuKey } = props;
@@ -27,7 +29,7 @@ export default class extends React.Component {
 
   render () {
     const { activeItem } = this.state
-    const { title } = this.props
+    const { title, loggedIn } = this.props
     return (
       <Container>
         <Head>
@@ -44,25 +46,43 @@ export default class extends React.Component {
           >
             Home
           </Menu.Item>
-
-          <Menu.Item
-            name='register'
-            active={activeItem === 'register'}
-            onClick={this.handleItemClick}
-          >
-            Register
-          </Menu.Item>
-
-          <Menu.Item
-            name='login'
-            active={activeItem === 'login'}
-            onClick={this.handleItemClick}
-          >
-            Login
-          </Menu.Item>
+          { loggedIn ? [
+            <Menu.Item
+              key='team'
+              name='team'
+              active={activeItem === 'team'}
+              onClick={this.handleItemClick}
+            >
+              My team
+            </Menu.Item>
+          ] : [
+            <Menu.Item
+              key='register'
+              name='register'
+              active={activeItem === 'register'}
+              onClick={this.handleItemClick}
+            >
+              Register
+            </Menu.Item>,
+            <Menu.Item
+              key='login'
+              name='login'
+              active={activeItem === 'login'}
+              onClick={this.handleItemClick}
+            >
+              Login
+            </Menu.Item>
+          ] }
         </Menu>
       </Container>
     )
   }
-
 }
+
+const mapState = (state) => ({
+  loggedIn: userSelectors.loggedIn(state)
+})
+
+export default connect(
+  mapState
+)(AppHead)

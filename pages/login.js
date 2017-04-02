@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import { initStore } from '../store'

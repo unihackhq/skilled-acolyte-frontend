@@ -1,4 +1,5 @@
-import React from 'react'
+import withRedux from 'next-redux-wrapper'
+import { initStore } from '../store'
 import { Button, Checkbox, Container, Dropdown, Form, Header } from 'semantic-ui-react'
 
 import Head from '../components/head'
@@ -39,4 +40,4 @@ const Register = () => (
   </Container>
 )
 
-export default Register
+export default withRedux(initStore)(Register)
