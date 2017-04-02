@@ -1,18 +1,21 @@
 export const types = {
   LOGIN: 'USER/LOGIN',
-  LOGOUT: 'USER/LOGOUT'
+  LOGOUT: 'USER/LOGOUT',
+  // saga actions
+  SUCCESS_LOGIN: 'USER/SUCCESS_LOGIN',
+  SUCCESS_LOGOUT: 'USER/SUCCESS_LOGOUT',
 }
 
 const initialState = {}
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN:
+    case types.SUCCESS_LOGIN:
       return {
-        ...action.data
+        ...action.userData
       }
 
-    case types.LOGOUT:
+    case types.SUCCESS_LOGOUT:
       return initialState
 
     default:
@@ -21,8 +24,11 @@ export default (state = initialState, action) => {
 }
 
 export const actions = {
-  login: (userData) => ({ type: types.LOGIN, data: userData }),
-  logout: () => ({ type: types.LOGOUT })
+  login: (loginForm) => ({ type: types.LOGIN, loginForm }),
+  logout: () => ({ type: types.LOGOUT }),
+  // saga actions
+  successLogin: (userData) => ({ type: types.SUCCESS_LOGIN, userData }),
+  successLogout: () => ({ type: types.SUCCESS_LOGOUT })
 }
 
 export const selectors = {

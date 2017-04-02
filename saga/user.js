@@ -1,8 +1,8 @@
 import { call, put, fork, takeLatest } from 'redux-saga/effects'
-import { types as userTypes } from '../ducks/user'
+import { types as userTypes, actions as userActions } from '../ducks/user'
 
-function login(action) {
-  // TODO
+function* login(action) {
+  yield put(userActions.successLogin(action.loginForm)) // TODO: do actual work not pass through
 }
 
 function* watchLogin() {
