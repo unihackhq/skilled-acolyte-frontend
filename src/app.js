@@ -7,7 +7,7 @@ import Login from './components/login';
 import Team from './components/team';
 import '../styles/index.scss';
 
-export default ({ store }) => (
+const App = ({ store }) => (
   <Provider store={store}>
     <Router>
       <div>
@@ -19,3 +19,4 @@ export default ({ store }) => (
     </Router>
   </Provider>
 );
+export default App;

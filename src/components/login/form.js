@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 
-export default ({ onSubmit }) => (
+const LoginForm = ({ onSubmit }) => (
   <Form>
     <Form.Field>
       <label>Email address</label>
@@ -10,3 +10,5 @@ export default ({ onSubmit }) => (
     <Button type='submit' onClick={onSubmit}>Submit</Button>
   </Form>
 );
+
+export default LoginForm;
