@@ -18,4 +18,4 @@ export default ({ store }) => (
       </div>
     </Router>
   </Provider>
-)
+);
