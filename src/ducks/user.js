@@ -33,5 +33,5 @@ export const actions = {
 
 export const selectors = {
   details: (state) => state.user,
-  loggedIn: (state) => typeof state.user.email != 'undefined'
+  loggedIn: (state) => typeof state.user.email !== 'undefined'
 }
