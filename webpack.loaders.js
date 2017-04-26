@@ -1,5 +1,11 @@
 module.exports = [
   {
+    enforce: 'pre',
+    test: /\.js?$/,
+    loader: 'eslint-loader',
+    exclude: ['node_modules']
+  },
+  {
     test: /\.jsx?$/,
     exclude: /(node_modules|bower_components|public\/)/,
     loader: 'babel-loader',

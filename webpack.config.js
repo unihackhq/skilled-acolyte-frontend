@@ -9,12 +9,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HOST = process.env.HOST || '127.0.0.1';
 const PORT = process.env.PORT || '8888';
 
-loaders.push({
-  test: /\.scss$/,
-  loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
-  exclude: ['node_modules']
-});
-
 module.exports = {
   entry: [
     'react-hot-loader/patch',
@@ -30,8 +24,17 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   module: {
-    loaders
+    rules: [
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
+        exclude: ['node_modules']
+      },
+      ...loaders
+    ],
   },
+  // eslint: {
+  // },
   devServer: {
     contentBase: './public',
     // do not print bundle build stats
