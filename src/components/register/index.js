@@ -13,7 +13,7 @@ class Register extends Component {
         lname: 'Norozi',
         tshirt: 'S'
       }
-    }
+    };
   }
 
   componentWillMount() {

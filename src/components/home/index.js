@@ -12,8 +12,8 @@ class Home extends Component {
       <Container>
         <p>Welcome 👋</p>
       </Container>
-    )
+    );
   }
 }
 
-export default Home
+export default Home;

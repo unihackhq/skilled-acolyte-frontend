@@ -1,7 +1,7 @@
-import user from './user'
-import team from './team'
+import user from './user';
+import team from './team';
 
 export default {
   user,
   team
-}
+};

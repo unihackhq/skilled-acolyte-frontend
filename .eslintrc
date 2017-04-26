@@ -43,7 +43,7 @@
     "brace-style": ["warn"],
     "comma-spacing": ["warn"],
     "eol-last": ["warn"],
-    "indent": ["warn", 2],
+    "indent": ["warn", 2, {"SwitchCase": 1}],
     "no-trailing-spaces": ["warn"],
     "semi": ["warn"],
     "array-callback-return": "warn",

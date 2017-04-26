@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
-import { Button, Form, Input, Dropdown } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Form, Input, Dropdown } from 'semantic-ui-react';
 
 const sizes = ['Small', 'Medium', 'Large', 'Extra Large'].map( size => ({key: size[0], value: size[0], text: size}) );
 
