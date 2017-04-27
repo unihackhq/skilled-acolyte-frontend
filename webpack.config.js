@@ -33,8 +33,6 @@ module.exports = {
       ...loaders
     ],
   },
-  // eslint: {
-  // },
   devServer: {
     contentBase: './public',
     // do not print bundle build stats
