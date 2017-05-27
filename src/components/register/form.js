@@ -10,30 +10,87 @@ class RegisterForm extends Component {
       email: PropTypes.string,
       fname: PropTypes.string,
       lname: PropTypes.string,
-    }).isRequired
+    }).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: props.data
+    };
+  }
+
+  handleChange = (key, e) => {
+    this.setState({
+      data: {
+        ...this.state.data,
+        [key]: e.target.value
+      }
+    });
+  }
+
+  handleSelect = (e, data) => {
+    this.setState({
+      data: {
+        ...this.state.data,
+        tshirt: data.value
+      }
+    });
+  }
+
+  handleSubmit = (e) => {
+    this.props.onSubmit(e, this.state.data);
   }
 
   render() {
-    const { data, onSubmit } = this.props;
+    const { loading } = this.props;
+    const { data } = this.state;
+
     return (
       <Form>
         <Form.Field>
           <label>Email address</label>
-          <Input type="email" placeholder="Email Address" defaultValue={data.email} required/>
+          <Input
+            type="email"
+            placeholder="Email Address"
+            value={data.email}
+            onChange={(e) => this.handleChange('email', e)}
+            required
+          />
         </Form.Field>
         <Form.Field>
           <label>First Name</label>
-          <Input placeholder="First Name" defaultValue={data.fname} required/>
+          <Input
+            placeholder="First Name"
+            value={data.fname}
+            onChange={(e) => this.handleChange('fname', e)}
+            required
+          />
         </Form.Field>
         <Form.Field>
           <label>Last Name</label>
-          <Input placeholder="Last Name" defaultValue={data.lname} required/>
+          <Input
+            placeholder="Last Name"
+            value={data.lname}
+            onChange={(e) => this.handleChange('lname', e)}
+            required
+          />
         </Form.Field>
         <Form.Field>
           <label>T-Shirt Size</label>
-          <Dropdown placeholder="Select Your T-Shirt Size" fluid search selection options={sizes} />
+          <Dropdown
+            placeholder="Select Your T-Shirt Size"
+            fluid
+            search
+            selection
+            options={sizes}
+            value={data.tshirt}
+            onChange={this.handleSelect}
+          />
         </Form.Field>
-        <Button type="submit" onClick={onSubmit}>Submit</Button>
+        <Button type="submit" onClick={this.handleSubmit} loading={loading}>Submit</Button>
       </Form>
     );
   }
