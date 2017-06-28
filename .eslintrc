@@ -39,6 +39,13 @@
     }
   },
   "rules": {
+    "quotes": ["warn", "single"],
+    "brace-style": ["warn"],
+    "comma-spacing": ["warn"],
+    "eol-last": ["warn"],
+    "indent": ["warn", 2, {"SwitchCase": 1}],
+    "no-trailing-spaces": ["warn"],
+    "semi": ["warn"],
     "array-callback-return": "warn",
     "default-case": [
       "warn",
@@ -231,6 +238,7 @@
       "warn",
       "never"
     ],
+    "jsx-quotes": ["warn"],
     "react/jsx-no-duplicate-props": [
       "warn",
       {

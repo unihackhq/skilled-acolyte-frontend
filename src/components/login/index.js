@@ -11,21 +11,21 @@ class Login extends Component {
   }
 
   login = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     // dummy action to change state
     const dummyDetails = {
       name: 'Erfan Norozi',
       email: 'i@erfan.io'
-    } // I am the dummy
+    }; // I am the dummy
 
-    this.props.dispatch(userActions.login(dummyDetails))
+    this.props.dispatch(userActions.login(dummyDetails));
   }
 
   render() {
     return (
       <Container>
-        <Header as='h2'>Login</Header>
+        <Header as="h2">Login</Header>
         {/* show login form if not logged in */}
         { !this.props.loggedIn ? (
           <LoginForm onSubmit={this.login} />
@@ -33,12 +33,12 @@ class Login extends Component {
           <div>LOGGED IN!</div>
         ) }
       </Container>
-    )
+    );
   }
 }
 
 const stateMap = (state) => ({
   loggedIn: userSelectors.loggedIn(state)
-})
+});
 
 export default connect(stateMap)(Login);

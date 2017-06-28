@@ -6,11 +6,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-loaders.push({
-  test: /\.scss$/,
-  loader: ExtractTextPlugin.extract({fallback: 'style-loader', use : 'css-loader?sourceMap&localIdentName=[local]___[hash:base64:5]!sass-loader?outputStyle=expanded'}),
-  exclude: ['node_modules']
-});
 
 module.exports = {
   entry: [
@@ -26,7 +21,14 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   module: {
-    loaders
+    rules: [
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({fallback: 'style-loader', use : 'css-loader?sourceMap&localIdentName=[local]___[hash:base64:5]!sass-loader?outputStyle=expanded'}),
+        exclude: ['node_modules']
+      },
+      ...loaders
+    ]
   },
   plugins: [
     new WebpackCleanupPlugin(),

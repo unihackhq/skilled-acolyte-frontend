@@ -66,7 +66,7 @@ class Nav extends React.Component {
           ) }
         </Menu>
       </Container>
-    )
+    );
   }
 }
 

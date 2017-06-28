@@ -18,4 +18,4 @@ export const initStore = (initialState) => {
   sagaMiddleware.run(rootSaga);
   // then return store
   return store;
-}
+};
