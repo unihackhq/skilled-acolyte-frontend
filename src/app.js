@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Nav from './components/global/nav';
 import Home from './components/home';
 import Login from './components/login';
+import Logout from './components/logout';
 import Team from './components/team';
 import Register from './components/register';
 import '../styles/index.scss';
@@ -15,6 +16,7 @@ const App = ({ store }) => (
         <Nav />
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
         <Route path="/team" component={Team} />
         <Route path="/register/:token" component={Register} />
       </div>

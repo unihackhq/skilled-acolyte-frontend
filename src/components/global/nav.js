@@ -53,6 +53,14 @@ class Nav extends React.Component {
               onClick={this.handleItemClick}
             >
               My team
+            </Menu.Item>,
+            <Menu.Item
+              key="logout"
+              name="logout"
+              active={activeItem === 'logout'}
+              onClick={this.handleItemClick}
+            >
+              Logout
             </Menu.Item>
           ) : (
             <Menu.Item
