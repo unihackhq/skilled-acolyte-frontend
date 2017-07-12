@@ -26,7 +26,7 @@ class Login extends Component {
         { !this.props.loggedIn ? (
           <LoginForm onSubmit={this.login} />
         ) : (
-          <Redirect to="/" />
+          <Redirect to="/#loggedin" />
         ) }
       </Container>
     );

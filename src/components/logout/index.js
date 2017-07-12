@@ -20,7 +20,7 @@ class Logout extends Component {
             <Button onClick={this.logout}>Logout</Button>
           </Container>
         ) : (
-          <Redirect to="/" />
+          <Redirect to="/#loggedout" />
         ) }
       </Container>
     );

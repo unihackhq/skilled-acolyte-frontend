@@ -39,12 +39,12 @@ class Nav extends React.Component {
     return (
       <Container>
         <Menu>
-          <SmartMenuItem path="/" name="Home" routeProps={{exact: true}} />
+          <SmartMenuItem key="home" path="/" name="Home" routeProps={{exact: true}} />
           { loggedIn ? [
-            <SmartMenuItem path="/team" name="My Team" />,
-            <SmartMenuItem path="/logout" name="Logout" />
+            <SmartMenuItem key="team" path="/team" name="My Team" />,
+            <SmartMenuItem key="logout" path="/logout" name="Logout" />
           ] : [
-            <SmartMenuItem path="/login" name="Login" />
+            <SmartMenuItem key="login" path="/login" name="Login" />
           ] }
         </Menu>
       </Container>
