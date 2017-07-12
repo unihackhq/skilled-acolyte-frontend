@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setTitle } from '../../utils';
 import { getInfo, register } from '../../api/register';
 import { Container, Header, Loader, Dimmer } from 'semantic-ui-react';
 import RegisterForm from './form';
@@ -24,8 +23,6 @@ class Register extends Component {
   }
 
   componentWillMount() {
-    setTitle('Register');
-
     // get the user info using the token
     getInfo(this.props.match.params.token)
       .then((data) => {

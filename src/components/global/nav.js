@@ -1,77 +1,51 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Route } from 'react-router-dom';
 import { selectors as userSelectors } from '../../ducks/user';
+import { setTitle } from '../../utils';
 import { Container, Menu } from 'semantic-ui-react';
 
+class SmartMenuItem extends React.Component {
+  render() {
+    const { path, name, routeProps } = this.props;
+
+    return (
+      <Route {...routeProps} path={path} children={
+        ({ history, match }) => {
+          if (match !== null) {
+            setTitle(name);
+          }
+
+          return (
+            <Menu.Item
+              name={path}
+              active={match !== null}
+              onClick={() => history.push(path)}
+            >
+              {name}
+            </Menu.Item>
+          );
+        }
+      } />
+    );
+  }
+}
+
 class Nav extends React.Component {
-  constructor(props) {
-    super(props);
-    const { menuKey } = props;
-    this.state = { activeItem: menuKey };
-  }
-
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeItem: name });
-
-    let route;
-    switch(name) {
-      case 'home':
-        route = '';
-        break;
-
-      default:
-        route = name;
-    }
-    this.props.history.push(`/${route}`);
-  }
-
-  render () {
-    const { activeItem } = this.state;
-    const { title, loggedIn } = this.props;
-
-    // update the page title
-    if (typeof title === 'string' && document.title !== title) {
-      document.title = title;
-    }
+  render() {
+    const { loggedIn } = this.props;
 
     return (
       <Container>
         <Menu>
-          <Menu.Item
-            name="home"
-            active={activeItem === 'home'}
-            onClick={this.handleItemClick}
-          >
-            Home
-          </Menu.Item>
-          { loggedIn ? (
-            <Menu.Item
-              key="team"
-              name="team"
-              active={activeItem === 'team'}
-              onClick={this.handleItemClick}
-            >
-              My team
-            </Menu.Item>,
-            <Menu.Item
-              key="logout"
-              name="logout"
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick}
-            >
-              Logout
-            </Menu.Item>
-          ) : (
-            <Menu.Item
-              key="login"
-              name="login"
-              active={activeItem === 'login'}
-              onClick={this.handleItemClick}
-            >
-              Login
-            </Menu.Item>
-          ) }
+          <SmartMenuItem path="/" name="Home" routeProps={{exact: true}} />
+          { loggedIn ? [
+            <SmartMenuItem path="/team" name="My Team" />,
+            <SmartMenuItem path="/logout" name="Logout" />
+          ] : [
+            <SmartMenuItem path="/login" name="Login" />
+          ] }
         </Menu>
       </Container>
     );

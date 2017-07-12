@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions as userActions, selectors as userSelectors } from '../../ducks/user';
-import { setTitle } from '../../utils';
 import { Container, Header } from 'semantic-ui-react';
 import LoginForm from './form';
 
 class Login extends Component {
-  componentWillMount() {
-    setTitle('Login');
-  }
-
   login = (event) => {
     event.preventDefault();
 
@@ -30,7 +26,7 @@ class Login extends Component {
         { !this.props.loggedIn ? (
           <LoginForm onSubmit={this.login} />
         ) : (
-          <div>LOGGED IN!</div>
+          <Redirect to="/" />
         ) }
       </Container>
     );
