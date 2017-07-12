@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getInfo, register } from '../../api/register';
+import { getRegisterInfo, register } from '../../api/user';
 import { Container, Header, Loader, Dimmer } from 'semantic-ui-react';
 import RegisterForm from './form';
 
@@ -24,7 +24,7 @@ class Register extends Component {
 
   componentWillMount() {
     // get the user info using the token
-    getInfo(this.props.match.params.token)
+    getRegisterInfo(this.props.match.params.token)
       .then((data) => {
         this.setState({
           fetching: false,

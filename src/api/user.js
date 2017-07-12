@@ -1,4 +1,10 @@
-export const getInfo = (token) => {
+export const requestEmail = (email) => {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(), 1000);
+  });
+};
+
+export const getRegisterInfo = (token) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => resolve({
