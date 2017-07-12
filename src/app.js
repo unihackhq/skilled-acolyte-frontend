@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { selectors as userSelectors } from './ducks/user';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Nav from './components/global/nav';
-import FourOhThree from './components/global/403';
+import FourOhThree from './components/403';
 import Home from './components/home';
 import Login from './components/login';
+import LoginEntry from './components/loginEntry';
 import Logout from './components/logout';
 import Team from './components/team';
 import Register from './components/register';
@@ -30,6 +31,7 @@ const App = ({ store, loggedIn }) => {
           <Nav />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/login/:token" component={LoginEntry} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
             <PrivateRoute path="/team" component={Team} />

@@ -47,7 +47,7 @@ class Login extends Component {
         { !loggedIn ? (
           <LoginForm onSubmit={this.login} loading={loading} emailSent={emailSent} />
         ) : (
-          <Redirect to="/#loggedin" />
+          <Redirect to="/" />
         ) }
       </Container>
     );
