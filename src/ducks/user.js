@@ -1,18 +1,36 @@
 export const types = {
+  REQUEST_LOGIN_EMAIL: 'USER/REQUEST_LOGIN_EMAIL',
   LOGIN: 'USER/LOGIN',
   LOGOUT: 'USER/LOGOUT',
   // saga actions
-  SUCCESS_LOGIN: 'USER/SUCCESS_LOGIN',
-  SUCCESS_LOGOUT: 'USER/SUCCESS_LOGOUT',
+  SUCCESS_LOGIN_EMAIL: 'USER/SUCCESS_LOGIN_EMAIL',
+  SUCCESS_LOGOUT: 'USER/SUCCESS_LOGOUT'
 };
 
-const initialState = {};
+const initialState = {
+  sent: false,
+  user: {},
+  token: null
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.SUCCESS_LOGIN:
+    case types.REQUEST_LOGIN_EMAIL:
       return {
-        ...action.userData
+        ...state,
+        sent: false
+      };
+
+    case types.SUCCESS_LOGIN_EMAIL:
+      return {
+        ...state,
+        sent: true
+      };
+
+    case types.LOGIN:
+      return {
+        ...state,
+        token: action.token
       };
 
     case types.SUCCESS_LOGOUT:
@@ -24,14 +42,16 @@ export default (state = initialState, action) => {
 };
 
 export const actions = {
-  login: (loginForm) => ({ type: types.LOGIN, loginForm }),
+  loginEmail: (email) => ({ type: types.REQUEST_LOGIN_EMAIL, email }),
+  login: (token) => ({ type: types.LOGIN, token }),
   logout: () => ({ type: types.LOGOUT }),
   // saga actions
-  successLogin: (userData) => ({ type: types.SUCCESS_LOGIN, userData }),
+  successLoginEmail: () => ({ type: types.SUCCESS_LOGIN_EMAIL }),
   successLogout: () => ({ type: types.SUCCESS_LOGOUT })
 };
 
 export const selectors = {
-  details: (state) => state.user,
-  loggedIn: (state) => typeof state.user.email !== 'undefined'
+  emailSent: (state) => state.user.sent,
+  loggedIn: (state) => state.user.token !== null,
+  details: (state) => state.user
 };

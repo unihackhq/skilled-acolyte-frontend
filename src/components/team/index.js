@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setTitle } from '../../utils';
 import { actions as teamActions, selectors as teamSelectors } from '../../ducks/team';
 import { Container, Header, Dropdown } from 'semantic-ui-react';
 
@@ -19,8 +18,6 @@ const TeamSearchSelection = ({teams}) => (
 
 class Team extends Component {
   componentWillMount() {
-    setTitle('My Team');
-
     this.props.dispatch(teamActions.fetchTeams());
   }
 

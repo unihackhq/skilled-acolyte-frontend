@@ -1,36 +1,53 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions as userActions, selectors as userSelectors } from '../../ducks/user';
-import { setTitle } from '../../utils';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Message } from 'semantic-ui-react';
 import LoginForm from './form';
 
 class Login extends Component {
-  componentWillMount() {
-    setTitle('Login');
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
   }
 
-  login = (event) => {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.emailSent === false && nextProps.emailSent === true) {
+      this.setState({
+        loading: false
+      });
+    }
+  }
+
+  login = (event, email) => {
     event.preventDefault();
 
-    // dummy action to change state
-    const dummyDetails = {
-      name: 'Erfan Norozi',
-      email: 'i@erfan.io'
-    }; // I am the dummy
-
-    this.props.dispatch(userActions.login(dummyDetails));
+    this.setState({
+      loading: true
+    });
+    this.props.login(email);
   }
 
   render() {
+    const { emailSent, loggedIn } = this.props;
+    const { loading } = this.state;
+
     return (
       <Container>
         <Header as="h2">Login</Header>
+        { emailSent && (
+          <Message compact>
+            <Message.Header>Check your inbox</Message.Header>
+            An email with login instructions has been sent to your email.
+          </Message>
+        ) }
         {/* show login form if not logged in */}
-        { !this.props.loggedIn ? (
-          <LoginForm onSubmit={this.login} />
+        { !loggedIn ? (
+          <LoginForm onSubmit={this.login} loading={loading} emailSent={emailSent} />
         ) : (
-          <div>LOGGED IN!</div>
+          <Redirect to="/" />
         ) }
       </Container>
     );
@@ -38,7 +55,12 @@ class Login extends Component {
 }
 
 const stateMap = (state) => ({
+  emailSent: userSelectors.emailSent(state),
   loggedIn: userSelectors.loggedIn(state)
 });
 
-export default connect(stateMap)(Login);
+const actionMap = (dispatch) => ({
+  login: (email) => dispatch(userActions.loginEmail(email))
+});
+
+export default connect(stateMap, actionMap)(Login);

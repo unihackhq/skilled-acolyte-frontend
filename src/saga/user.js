@@ -1,25 +1,17 @@
-import { put, fork, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest } from 'redux-saga/effects';
+import * as api from '../api/user';
 import { types as userTypes, actions as userActions } from '../ducks/user';
 
 function* login(action) {
-  yield put(userActions.successLogin(action.loginForm)); // TODO: do actual work not pass through
+  yield call(api.requestEmail, action.email);
+  yield put(userActions.successLoginEmail());
 }
 
 function* logout() {
   yield put(userActions.successLogout()); // TODO: also should actually logout the user
 }
 
-function* watchLogin() {
-  yield takeLatest(userTypes.LOGIN, login);
-}
-
-function* watchLogout() {
-  yield takeLatest(userTypes.LOGOUT, logout);
-}
-
 export default function* rootUser() {
-  yield [
-    fork(watchLogin),
-    fork(watchLogout)
-  ];
+  yield takeLatest(userTypes.REQUEST_LOGIN_EMAIL, login);
+  yield takeLatest(userTypes.LOGOUT, logout);
 }
