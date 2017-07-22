@@ -24,7 +24,7 @@ class Team extends Component {
   render() {
     return (
       <Container>
-        <Header as="h1">Team</Header>
+        <Header as="h1">My Team</Header>
         <TeamSearchSelection teams={this.props.teams}></TeamSearchSelection>
       </Container>
     );

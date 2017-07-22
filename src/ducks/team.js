@@ -1,21 +1,39 @@
 export const types = {
-  FETCHTEAMS: 'TEAMS/FETCHTEAMS',
+  REQUEST_FETCH: 'TEAMS/REQUEST_FETCH',
   // saga actions
-  SUCCESS_FETCHTEAMS: 'TEAMS/SUCCESS_FETCHTEAMS',
-  FAILURE_FETCHTEAMS: 'TEAMS/FAILURE_FETCHTEAMS',
+  SUCCESS_FETCH: 'TEAMS/SUCCESS_FETCH',
+  FAILURE_FETCH: 'TEAMS/FAILURE_FETCH'
 };
 
-const initialState = {};
+const initialState = {
+  fetched: false,
+  loading: false,
+  error: null,
+  data: {}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.SUCCESS_FETCHTEAMS:
+    case types.REQUEST_FETCH:
       return {
-        ...action.teamData
+        ...state,
+        loading: true,
+        error: null
       };
 
-    case types.FAILURE_FETCHTEAMS:
-      return initialState;
+    case types.SUCCESS_FETCH:
+      return {
+        ...state,
+        fetched: true,
+        loading: false,
+        data: action.team
+      };
+
+    case types.FAILURE_FETCH:
+      return {
+        loading: false,
+        error: action.error
+      };
 
     default:
       return state;
@@ -23,10 +41,14 @@ export default (state = initialState, action) => {
 };
 
 export const actions = {
-  fetchTeams: () => ({ type: types.FETCHTEAMS }),
-  successFetchTeams: (teamData) => ({ type: types.SUCCESS_FETCHTEAMS, teamData }),
+  fetch: () => ({ type: types.REQUEST_FETCH }),
+  successFetch: (team) => ({ type: types.SUCCESS_FETCH, team }),
+  failureFetch: (error) => ({ type: types.REQUEST_FETCH, error })
 };
 
 export const selectors = {
-  teams: (state) => state.team,
+  isFetched: (state) => state.team.fetched,
+  isLoading: (state) => state.team.loading,
+  error: (state) => state.team.error || '',
+  team: (state) => state.team.data
 };
