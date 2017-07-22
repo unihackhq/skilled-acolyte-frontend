@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectors as teamSelectors } from '../../ducks/team';
 import * as smartActions from '../../ducks/smartActions';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Loader } from 'semantic-ui-react';
+import CreateTeam from './create';
+import TeamDetails from './details';
 
 class Team extends Component {
   componentWillMount() {
@@ -13,12 +15,12 @@ class Team extends Component {
   renderContent() {
     const { loading, team } = this.props;
     if (loading === true) {
-      return <p>Loading</p>;
+      return <Loader active inline="centered" />;
     }
     if (team === null) {
-      return <p>Create</p>;
+      return <CreateTeam />;
     }
-    return <p>Display</p>;
+    return <TeamDetails team={team} />;
   }
 
   render() {
