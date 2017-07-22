@@ -53,5 +53,5 @@ export const actions = {
 export const selectors = {
   emailSent: (state) => state.user.sent,
   loggedIn: (state) => state.user.token !== null,
-  details: (state) => state.user
+  details: (state) => state.user.user
 };
