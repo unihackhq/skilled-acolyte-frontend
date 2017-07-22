@@ -9,7 +9,7 @@ const initialState = {
   fetched: false,
   loading: false,
   error: null,
-  data: {}
+  team: null
 };
 
 export default (state = initialState, action) => {
@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
         ...state,
         fetched: true,
         loading: false,
-        data: action.team
+        team: action.team
       };
 
     case types.FAILURE_FETCH:
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
 };
 
 export const actions = {
-  fetch: () => ({ type: types.REQUEST_FETCH }),
+  fetch: (userId) => ({ type: types.REQUEST_FETCH, userId }),
   successFetch: (team) => ({ type: types.SUCCESS_FETCH, team }),
   failureFetch: (error) => ({ type: types.REQUEST_FETCH, error })
 };
@@ -50,5 +50,5 @@ export const selectors = {
   isFetched: (state) => state.team.fetched,
   isLoading: (state) => state.team.loading,
   error: (state) => state.team.error || '',
-  team: (state) => state.team.data
+  team: (state) => state.team.team
 };

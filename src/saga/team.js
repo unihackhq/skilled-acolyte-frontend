@@ -1,10 +1,16 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest } from 'redux-saga/effects';
+import * as api from '../api/team';
 import { types as teamTypes, actions as teamActions } from '../ducks/team';
 
-function* fetchTeams() {
-  yield put(teamActions.successFetchTeams(['Team 1', 'Team 2'])); // TODO: do actual work not pass through
+function* fetchTeam(action) {
+  try {
+    const team = yield call(api.getUserTeam, action.userId);
+    yield put(teamActions.successFetch(team));
+  } catch (error) {
+    yield put(teamActions.failureFetch(error.message));
+  }
 }
 
 export default function* rootTeam() {
-  yield takeLatest(teamTypes.FETCHTEAMS, fetchTeams);
+  yield takeLatest(teamTypes.REQUEST_FETCH, fetchTeam);
 }
