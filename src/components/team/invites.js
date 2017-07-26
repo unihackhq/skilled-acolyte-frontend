@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Message, Button, Icon, List } from 'semantic-ui-react';
 import { getInvites } from '../../api/team';
 
 class TeamInvites extends Component {
+  static propTypes = {
+    userId: PropTypes.string.isRequired
+  }
   state = { invites: null }
 
   componentWillMount() {
