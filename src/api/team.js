@@ -1,4 +1,4 @@
-import { team, justJoined } from './fakedata';
+import { team, justJoined, invites } from './fakedata';
 
 export const getStudentsTeam = (studentId) => {
   // TODO: do actual server calls
@@ -14,6 +14,15 @@ export const inviteStudentToTeam = (studentId) => {
     setTimeout(() => {
       team.students.push({...justJoined, pending: true}); // invite a student to the team in fakedata
       resolve();
+    }, 1000);
+  });
+};
+
+export const getInvites = (studentId) => {
+  // TODO: do actual server calls
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(invites);
     }, 1000);
   });
 };

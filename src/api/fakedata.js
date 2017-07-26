@@ -31,3 +31,14 @@ export const justJoined = {
   name: 'Extra',
   email: 'ijustjoined@this.team'
 };
+
+export const invites = [
+  {
+    id: 0,
+    teamName: 'Some Team'
+  },
+  {
+    id: 1,
+    teamName: 'Some Other Team'
+  }
+];

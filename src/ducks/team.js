@@ -65,8 +65,8 @@ export default (state = initialState, action) => {
 };
 
 export const actions = {
-  fetch: (userId) => ({ type: types.REQUEST_FETCH, userId }),
-  inviteStudent: (userId) => ({ type: types.REQUEST_INVITE_STUDENT, userId }),
+  fetch: () => ({ type: types.REQUEST_FETCH }),
+  inviteStudent: (studentId) => ({ type: types.REQUEST_INVITE_STUDENT, studentId }),
   // saga actions
   successFetch: (team) => ({ type: types.SUCCESS_FETCH, team }),
   failureFetch: (error) => ({ type: types.FAILURE_FETCH, error }),
