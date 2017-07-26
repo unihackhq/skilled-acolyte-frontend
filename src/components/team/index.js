@@ -5,6 +5,7 @@ import * as smartActions from '../../ducks/smartActions';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import CreateTeam from './create';
 import TeamDetails from './details';
+import TeamInvites from './invites';
 
 class Team extends Component {
   componentWillMount() {
@@ -27,6 +28,7 @@ class Team extends Component {
     return (
       <Container>
         <Header as="h1">My Team</Header>
+        <TeamInvites />
         {this.renderContent()}
       </Container>
     );

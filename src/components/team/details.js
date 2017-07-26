@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Header, List, Button } from 'semantic-ui-react';
-import InviteForm from './inviteForm';
+import TeamInviteForm from './inviteForm';
 
 class TeamDetails extends Component {
   static propTypes = {
@@ -46,7 +46,7 @@ class TeamDetails extends Component {
         </List>
         {inviteOpen ? (
           <div>
-            <InviteForm inviting={inviting} inviteStudent={inviteStudent} />
+            <TeamInviteForm inviting={inviting} inviteStudent={inviteStudent} />
             <Button onClick={this.stopInviting}>Close</Button>
           </div>
         ) : (

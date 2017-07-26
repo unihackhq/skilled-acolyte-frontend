@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Dropdown } from 'semantic-ui-react';
 import * as api from '../../api/student.js';
 
-class InviteForm extends Component {
+class TeamInviteForm extends Component {
   static propTypes = {
     inviting: PropTypes.bool.isRequired,
     inviteStudent: PropTypes.func.isRequired
@@ -64,4 +64,4 @@ class InviteForm extends Component {
   }
 }
 
-export default InviteForm;
+export default TeamInviteForm;
