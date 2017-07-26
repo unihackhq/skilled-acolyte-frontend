@@ -1,78 +1,57 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Header, List, Button, Form, Dropdown } from 'semantic-ui-react';
-
-// fake data for now
-const members = [
-  {
-    key: '1',
-    value: '1',
-    text: 'Erfan'
-  },
-  {
-    key: '2',
-    value: '2',
-    text: 'Someone'
-  },
-  {
-    key: '3',
-    value: '3',
-    text: 'Someone else'
-  }
-];
+import { Header, List, Button } from 'semantic-ui-react';
+import InviteForm from './inviteForm';
 
 class TeamDetails extends Component {
   static propTypes = {
-    team: PropTypes.object.isRequired
+    team: PropTypes.object.isRequired,
+    inviting: PropTypes.bool.isRequired,
+    inviteStudent: PropTypes.func.isRequired
   }
-  state = { inviting: false }
+  state = { inviteOpen: false }
 
   startInviting = (event) => {
     this.setState({
-      inviting: true
+      inviteOpen: true
     });
   }
 
   stopInviting = (event) => {
     event.preventDefault();
     this.setState({
-      inviting: false
+      inviteOpen: false
     });
   }
 
-  handleChange = (event, data) => {
-    // TODO: actually add to list
-  }
-
   render() {
-    const { team } = this.props;
-    const { inviting } = this.state;
+    const { team, inviting, inviteStudent } = this.props;
+    const { inviteOpen } = this.state;
 
     return (
       <div>
         <Header as="h2">{team.name}</Header>
         <List divided>
-          {team.members.map(
-            (member) => (
-              <List.Item key={member.email}>
+          {team.students.map(
+            (student) => (
+              <List.Item key={student.id}>
+                {/* TODO: handle pending invitations */}
                 <List.Content>
-                  <List.Header>{member.name}</List.Header>
-                  <List.Description>{member.email}</List.Description>
+                  <List.Header>{student.name}</List.Header>
+                  <List.Description>{student.email}</List.Description>
                 </List.Content>
               </List.Item>
             )
           )}
         </List>
-        {inviting ? (
-          <Form>
-            <Form.Group>
-              <Dropdown placeholder="Members" search selection openOnFocus options={members} onChange={this.handleChange} />
-              <Form.Button onClick={this.stopInviting}>Close</Form.Button>
-            </Form.Group>
-          </Form>
+        {inviteOpen ? (
+          <div>
+            <InviteForm inviting={inviting} inviteStudent={inviteStudent} />
+            <Button onClick={this.stopInviting}>Close</Button>
+          </div>
         ) : (
           <div>
-            <Button primary onClick={this.startInviting}>Invite members</Button>
+            <Button primary onClick={this.startInviting}>Invite students</Button>
             <Button>Leave team</Button>
           </div>
         )}
