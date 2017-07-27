@@ -4,7 +4,7 @@ import { types as teamTypes, actions as teamActions, selectors as teamSelectors 
 import { selectors as userSelectors } from '../ducks/user';
 
 function* fetchTeam(action) {
-  const userDetails = yield select(userSelectors.details);
+  const userDetails = yield select(userSelectors.user);
   try {
     const team = yield call(api.getStudentsTeam, userDetails.id); // send user's id
     yield put(teamActions.successFetch(team));
@@ -25,18 +25,18 @@ function* inviteStudent(action) {
 }
 
 function* create(action) {
-  const user = yield select(userSelectors.details);
+  const user = yield select(userSelectors.user);
   try {
     yield call(api.createTeam, user.id, action.teamName); // send user id and team name
-    yield put(teamActions.successInviteStudent());
+    yield put(teamActions.successCreate());
   } catch (error) {
-    yield put(teamActions.failureInviteStudent(error.message));
+    yield put(teamActions.failureCreate(error.message));
   }
   yield put(teamActions.fetch());
 }
 
 function* leave(action) {
-  const user = yield select(userSelectors.details);
+  const user = yield select(userSelectors.user);
   const team = yield select(teamSelectors.team);
   try {
     yield call(api.leaveTeam, user.id, team.id); // send user id and team id

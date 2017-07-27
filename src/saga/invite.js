@@ -5,9 +5,9 @@ import { selectors as userSelectors } from '../ducks/user';
 import { actions as teamActions } from '../ducks/team';
 
 function* fetchInvites(action) {
-  const userDetails = yield select(userSelectors.details);
+  const user = yield select(userSelectors.user);
   try {
-    const team = yield call(api.getInvites, userDetails.id); // send user's id
+    const team = yield call(api.getInvites, user.id); // send user's id
     yield put(inviteActions.successFetch(team));
   } catch (error) {
     yield put(inviteActions.failureFetch(error.message));
@@ -21,8 +21,8 @@ function* accept(action) {
   } catch (error) {
     yield put(inviteActions.failureAccept(error.message));
   }
-  yield put(inviteActions.fetch());
-  yield put(teamActions.fetch());
+  yield put(inviteActions.fetch()); // get updated invites
+  yield put(teamActions.fetch()); // get new team (just joined)
 }
 
 function* ignore(action) {
@@ -32,8 +32,7 @@ function* ignore(action) {
   } catch (error) {
     yield put(inviteActions.failureIgnore(error.message));
   }
-  yield put(inviteActions.fetch());
-  yield put(teamActions.fetch());
+  yield put(inviteActions.fetch()); // get updated invites
 }
 
 export default function* rootInvite() {
