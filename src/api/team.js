@@ -1,14 +1,16 @@
-import { team, justJoined, invites } from './fakedata';
+import { team as aTeam, justJoined, invites } from './fakedata';
 
-export const getStudentsTeam = (studentId) => {
+let team = null;
+// let team = aTeam;
+
+export const getStudentsTeam = (userId) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
-    setTimeout(() => resolve(null), 1000);
-    // setTimeout(() => resolve(team), 1000);
+    setTimeout(() => resolve(team), 1000);
   });
 };
 
-export const inviteStudentToTeam = (studentId) => {
+export const inviteStudentToTeam = (teamId, studentId) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => {
@@ -18,7 +20,7 @@ export const inviteStudentToTeam = (studentId) => {
   });
 };
 
-export const getInvites = (studentId) => {
+export const getInvites = (userId) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => {
@@ -26,3 +28,14 @@ export const getInvites = (studentId) => {
     }, 1000);
   });
 };
+
+export const createTeam = (userId, teamName) => {
+  // TODO: do actual server calls
+  return new Promise(resolve => {
+    setTimeout(() => {
+      team = aTeam;
+      resolve();
+    }, 1000);
+  });
+};
+

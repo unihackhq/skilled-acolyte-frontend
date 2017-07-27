@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Header, Button, Form } from 'semantic-ui-react';
 
 class CreateTeam extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false
-    };
+  static propTypes = {
+    creating: PropTypes.bool.isRequired,
+    onCreate: PropTypes.func.isRequired
   }
+  state = { active: false }
 
   handleClick = (event) => {
     this.setState({
@@ -17,9 +17,11 @@ class CreateTeam extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.props.onCreate(event.target.value);
   }
 
   render() {
+    const { creating } = this.props;
     const { active } = this.state;
 
     if (active === false) {
@@ -37,7 +39,7 @@ class CreateTeam extends Component {
         <Form>
           <Form.Group>
             <Form.Input inline placeholder="Team Name" />
-            <Form.Button inline content="Create" onClick={this.handleSubmit} />
+            <Form.Button inline content="Create" onClick={this.handleSubmit} loading={creating} />
           </Form.Group>
         </Form>
       </div>
