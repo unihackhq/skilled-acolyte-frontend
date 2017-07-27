@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions as teamActions, selectors as teamSelectors } from '../../ducks/team';
-import { selectors as userSelectors } from '../../ducks/user';
 import * as smartActions from '../../ducks/smartActions';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import CreateTeam from './create';
@@ -26,12 +25,12 @@ class Team extends Component {
   }
 
   render() {
-    const { userDetails } = this.props;
+    const { team } = this.props;
 
     return (
       <Container>
         <Header as="h1">My Team</Header>
-        <TeamInvites userId={userDetails.id} />
+        <TeamInvites hasTeam={team !== null} />
         {this.renderContent()}
       </Container>
     );
@@ -44,7 +43,6 @@ const stateMap = (state) => ({
   inviting: teamSelectors.isInviting(state),
   creating: teamSelectors.isCreating(state),
   team: teamSelectors.team(state),
-  userDetails: userSelectors.details(state),
   state: state
 });
 
