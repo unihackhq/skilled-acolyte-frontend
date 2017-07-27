@@ -38,7 +38,7 @@ const invitesData = [
   }
 ];
 export let invites = invitesData;
-export const setInvites = () => {
+export const unsetInvites = () => {
   invites = [];
 };
 
@@ -49,4 +49,7 @@ const teamData = {
 export let team = null;
 export const setTeam = () => {
   team = teamData;
+};
+export const unsetTeam = () => {
+  team = null;
 };

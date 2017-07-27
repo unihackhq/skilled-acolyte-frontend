@@ -2,13 +2,16 @@ export const types = {
   REQUEST_FETCH: 'TEAMS/REQUEST_FETCH',
   REQUEST_INVITE_STUDENT: 'TEAMS/REQUEST_INVITE_STUDENT',
   REQUEST_CREATE: 'TEAMS/REQUEST_CREATE',
+  REQUEST_LEAVE: 'TEAMS/REQUEST_LEAVE',
   // saga actions
   SUCCESS_FETCH: 'TEAMS/SUCCESS_FETCH',
   FAILURE_FETCH: 'TEAMS/FAILURE_FETCH',
   SUCCESS_INVITE_STUDENT: 'TEAMS/SUCCESS_INVITE_STUDENT',
   FAILURE_INVITE_STUDENT: 'TEAMS/FAILURE_INVITE_STUDENT',
   SUCCESS_CREATE: 'TEAMS/SUCCESS_CREATE',
-  FAILURE_CREATE: 'TEAMS/FAILURE_CREATE'
+  FAILURE_CREATE: 'TEAMS/FAILURE_CREATE',
+  SUCCESS_LEAVE: 'TEAMS/SUCCESS_LEAVE',
+  FAILURE_LEAVE: 'TEAMS/FAILURE_LEAVE'
 };
 
 const initialState = {
@@ -16,6 +19,7 @@ const initialState = {
   loading: false,
   inviting: false,
   creating: false,
+  leaving: false,
   error: null,
   team: null
 };
@@ -41,6 +45,15 @@ export default (state = initialState, action) => {
         creating: true
       };
 
+    case types.REQUEST_LEAVE:
+      return {
+        ...state,
+        leaving: true
+      };
+
+    /*
+     * SUCCESS
+     */
     case types.SUCCESS_FETCH:
       return {
         ...state,
@@ -61,6 +74,16 @@ export default (state = initialState, action) => {
         creating: false
       };
 
+    case types.SUCCESS_LEAVE:
+      return {
+        ...state,
+        leaving: false,
+        team: null
+      };
+
+    /*
+     * FAILURE
+     */
     case types.FAILURE_FETCH:
       return {
         ...state,
@@ -82,6 +105,13 @@ export default (state = initialState, action) => {
         error: action.error
       };
 
+    case types.FAILURE_LEAVE:
+      return {
+        ...state,
+        leaving: false,
+        error: action.error
+      };
+
     default:
       return state;
   }
@@ -91,13 +121,16 @@ export const actions = {
   fetch: () => ({ type: types.REQUEST_FETCH }),
   inviteStudent: (studentId) => ({ type: types.REQUEST_INVITE_STUDENT, studentId }),
   create: (teamName) => ({ type: types.REQUEST_CREATE, teamName }),
+  leave: () => ({ type: types.REQUEST_LEAVE }),
   // saga actions
   successFetch: (team) => ({ type: types.SUCCESS_FETCH, team }),
   failureFetch: (error) => ({ type: types.FAILURE_FETCH, error }),
   successInviteStudent: () => ({ type: types.SUCCESS_INVITE_STUDENT }),
   failureInviteStudent: (error) => ({ type: types.FAILURE_INVITE_STUDENT, error }),
   successCreate: () => ({ type: types.SUCCESS_CREATE }),
-  failureCreate: (error) => ({ type: types.FAILURE_CREATE, error })
+  failureCreate: (error) => ({ type: types.FAILURE_CREATE, error }),
+  successLeave: () => ({ type: types.SUCCESS_LEAVE }),
+  failureLeave: (error) => ({ type: types.FAILURE_LEAVE, error })
 };
 
 export const selectors = {
@@ -105,6 +138,7 @@ export const selectors = {
   isLoading: (state) => state.team.loading,
   isInviting: (state) => state.team.inviting,
   isCreating: (state) => state.team.creating,
+  isLeaving: (state) => state.team.leaving,
   error: (state) => state.team.error || '',
   team: (state) => state.team.team
 };

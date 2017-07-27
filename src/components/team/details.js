@@ -7,7 +7,9 @@ class TeamDetails extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
     inviting: PropTypes.bool.isRequired,
-    inviteStudent: PropTypes.func.isRequired
+    leaving: PropTypes.bool.isRequired,
+    inviteStudent: PropTypes.func.isRequired,
+    leaveTeam: PropTypes.func.isRequired
   }
   state = { inviteOpen: false }
 
@@ -18,14 +20,13 @@ class TeamDetails extends Component {
   }
 
   stopInviting = (event) => {
-    event.preventDefault();
     this.setState({
       inviteOpen: false
     });
   }
 
   render() {
-    const { team, inviting, inviteStudent } = this.props;
+    const { team, inviting, leaving, inviteStudent, leaveTeam } = this.props;
     const { inviteOpen } = this.state;
 
     return (
@@ -52,7 +53,7 @@ class TeamDetails extends Component {
         ) : (
           <div>
             <Button primary onClick={this.startInviting}>Invite students</Button>
-            <Button>Leave team</Button>
+            <Button onClick={leaveTeam} loading={leaving}>Leave team</Button>
           </div>
         )}
       </div>

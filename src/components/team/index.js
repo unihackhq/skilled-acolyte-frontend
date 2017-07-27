@@ -14,14 +14,14 @@ class Team extends Component {
   }
 
   renderContent() {
-    const { loading, inviting, creating, team, inviteStudent, createTeam } = this.props;
+    const { loading, inviting, creating, leaving, team, inviteStudent, createTeam, leaveTeam } = this.props;
     if (loading === true) {
       return <Loader active inline="centered" />;
     }
     if (team === null) {
       return <CreateTeam onCreate={createTeam} creating={creating} />;
     }
-    return <TeamDetails team={team} inviting={inviting} inviteStudent={inviteStudent} />;
+    return <TeamDetails team={team} inviting={inviting} inviteStudent={inviteStudent} leaveTeam={leaveTeam} leaving={leaving} />;
   }
 
   render() {
@@ -37,11 +37,12 @@ class Team extends Component {
   }
 }
 
+// TODO: maybe split these up and put them in the child components
 const stateMap = (state) => ({
-  // TODO: Split these up and add them to the child components
   loading: teamSelectors.isLoading(state),
   inviting: teamSelectors.isInviting(state),
   creating: teamSelectors.isCreating(state),
+  leaving: teamSelectors.isLeaving(state),
   team: teamSelectors.team(state),
   state: state
 });
@@ -49,7 +50,8 @@ const stateMap = (state) => ({
 const actionMap = (dispatch) => ({
   smartFetch: (state) => smartActions.fetchTeam(dispatch, state),
   inviteStudent: (studentId) => dispatch(teamActions.inviteStudent(studentId)),
-  createTeam: (teamName) => dispatch(teamActions.create(teamName))
+  createTeam: (teamName) => dispatch(teamActions.create(teamName)),
+  leaveTeam: () => dispatch(teamActions.leave())
 });
 
 export default connect(stateMap, actionMap)(Team);

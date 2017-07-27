@@ -25,12 +25,24 @@ function* inviteStudent(action) {
 }
 
 function* create(action) {
+  const user = yield select(userSelectors.details);
   try {
-    const userDetails = yield select(userSelectors.details);
-    yield call(api.createTeam, userDetails.id, action.teamName); // send user id and team name
+    yield call(api.createTeam, user.id, action.teamName); // send user id and team name
     yield put(teamActions.successInviteStudent());
   } catch (error) {
     yield put(teamActions.failureInviteStudent(error.message));
+  }
+  yield put(teamActions.fetch());
+}
+
+function* leave(action) {
+  const user = yield select(userSelectors.details);
+  const team = yield select(teamSelectors.team);
+  try {
+    yield call(api.leaveTeam, user.id, team.id); // send user id and team id
+    yield put(teamActions.successLeave());
+  } catch (error) {
+    yield put(teamActions.failureLeave(error.message));
   }
   yield put(teamActions.fetch());
 }
@@ -39,4 +51,5 @@ export default function* rootTeam() {
   yield takeLatest(teamTypes.REQUEST_FETCH, fetchTeam);
   yield takeLatest(teamTypes.REQUEST_INVITE_STUDENT, inviteStudent);
   yield takeLatest(teamTypes.REQUEST_CREATE, create);
+  yield takeLatest(teamTypes.REQUEST_LEAVE, leave);
 }

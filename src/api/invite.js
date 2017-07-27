@@ -1,4 +1,4 @@
-import { invites, setInvites, setTeam } from './fakedata';
+import { invites, unsetInvites, setTeam } from './fakedata';
 
 export const getInvites = (userId) => {
   // TODO: do actual server calls
@@ -11,7 +11,7 @@ export const acceptInvite = (inviteId) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => {
-      setInvites();
+      unsetInvites();
       setTeam();
       resolve();
     }, 500);
@@ -22,7 +22,7 @@ export const ignoreInvite = (inviteId) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => {
-      setInvites();
+      unsetInvites();
       resolve();
     }, 500);
   });
