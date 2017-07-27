@@ -45,7 +45,7 @@ class TeamInvites extends Component {
         <List divided relaxed>
           {invites.map(
             ({ id, teamName }) => (
-              <List.Item>
+              <List.Item key={id}>
                 <p>Invite from: <b>{teamName}</b></p>
                 <Button positive size="mini"><Icon name="checkmark" /> Accept</Button>
                 <Button negative size="mini"><Icon name="remove" /> Ignore</Button>
