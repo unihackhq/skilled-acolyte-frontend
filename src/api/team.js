@@ -1,7 +1,5 @@
-import { team as aTeam, justJoined } from './fakedata';
+import { team, justJoined, setTeam } from './fakedata';
 
-let team = null;
-// let team = aTeam;
 
 export const getStudentsTeam = (userId) => {
   // TODO: do actual server calls
@@ -24,7 +22,7 @@ export const createTeam = (userId, teamName) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => {
-      team = aTeam;
+      setTeam();
       resolve();
     }, 1000);
   });

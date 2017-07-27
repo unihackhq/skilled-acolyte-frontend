@@ -21,7 +21,7 @@ function* inviteStudent(action) {
   } catch (error) {
     yield put(teamActions.failureInviteStudent(error.message));
   }
-  yield put(teamActions.fetch(action.studentId));
+  yield put(teamActions.fetch());
 }
 
 function* create(action) {
@@ -32,7 +32,7 @@ function* create(action) {
   } catch (error) {
     yield put(teamActions.failureInviteStudent(error.message));
   }
-  yield put(teamActions.fetch(action.studentId));
+  yield put(teamActions.fetch());
 }
 
 export default function* rootTeam() {

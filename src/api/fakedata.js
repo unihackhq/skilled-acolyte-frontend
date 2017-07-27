@@ -21,18 +21,13 @@ export const students = [
   }
 ];
 
-export const team = {
-  name: 'something something team',
-  students: students.slice(0, 2).map( (student) => ({...student, pending: false }) )
-};
-
 export const justJoined = {
   id: 4,
   name: 'Extra',
   email: 'ijustjoined@this.team'
 };
 
-export const invites = [
+const invitesData = [
   {
     id: 0,
     teamName: 'Some Team'
@@ -42,3 +37,16 @@ export const invites = [
     teamName: 'Some Other Team'
   }
 ];
+export let invites = invitesData;
+export const setInvites = () => {
+  invites = [];
+};
+
+const teamData = {
+  name: 'something something team',
+  students: students.slice(0, 2).map( (student) => ({...student, pending: false }) )
+};
+export let team = null;
+export const setTeam = () => {
+  team = teamData;
+};
