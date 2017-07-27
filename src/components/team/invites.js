@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Message, Button, Icon, List } from 'semantic-ui-react';
+import { Message, Button, Icon, List, Loader } from 'semantic-ui-react';
 import { selectors as inviteSelectors } from '../../ducks/invite';
 import * as smartActions from '../../ducks/smartActions';
 
@@ -39,8 +39,13 @@ class TeamInvites extends Component {
   }
 
   render() {
-    const { hasTeam, invites } = this.props;
-    if (invites === null) {
+    const { loading, hasTeam, invites } = this.props;
+
+    if (loading === true) {
+      return <Loader active inline="centered" size="mini" />;
+    }
+
+    if (invites === null || invites.length === 0) {
       return null;
     }
 
@@ -77,6 +82,7 @@ class TeamInvites extends Component {
 }
 
 const stateMap = (state) => ({
+  loading: inviteSelectors.isLoading(state),
   invites: inviteSelectors.invites(state),
   state,
 });

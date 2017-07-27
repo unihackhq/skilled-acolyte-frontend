@@ -25,12 +25,12 @@ class Team extends Component {
   }
 
   render() {
-    const { team } = this.props;
+    const { team, loading } = this.props;
 
     return (
       <Container>
         <Header as="h1">My Team</Header>
-        <TeamInvites hasTeam={team !== null} />
+        { !loading && <TeamInvites hasTeam={team !== null} /> }
         {this.renderContent()}
       </Container>
     );

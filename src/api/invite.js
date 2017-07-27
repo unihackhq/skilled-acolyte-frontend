@@ -5,7 +5,7 @@ export const getInvites = (userId) => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(invites);
-    }, 1000);
+    }, 2000);
   });
 };
 
