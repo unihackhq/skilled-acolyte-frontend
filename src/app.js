@@ -44,7 +44,7 @@ const App = ({ store, loggedIn }) => {
 };
 
 const stateMap = (state) => ({
-  loggedIn: userSelectors.loggedIn(state)
+  loggedIn: userSelectors.isLoggedIn(state)
 });
 
 export default connect(stateMap)(App);

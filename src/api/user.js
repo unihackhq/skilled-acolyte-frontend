@@ -4,13 +4,25 @@ export const requestEmail = (email) => {
   });
 };
 
+export const login = (token) => {
+  // TODO: do actual server calls
+  return new Promise(resolve => {
+    setTimeout(() => resolve({
+      id: '123',
+      email: 'i@erfan.io',
+      firstName: 'Erfan',
+      lastName: 'Norozi',
+    }), 1000);
+  });
+};
+
 export const getRegisterInfo = (token) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => resolve({
       email: 'i@erfan.io',
-      fname: 'Erfan',
-      lname: 'Norozi',
+      firstName: 'Erfan',
+      lastName: 'Norozi',
     }), 1000);
   });
 };

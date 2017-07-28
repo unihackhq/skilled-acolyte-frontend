@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const { onSubmit, loading, emailSent } = this.props;
+    const { onSubmit, loading, sent } = this.props;
     const { email } = this.state;
 
     return (
@@ -28,7 +28,7 @@ class LoginForm extends React.Component {
         {loading === true ? (
           <Button type="submit" disabled loading>Loading</Button>
         ) : (
-          <Button type="submit" onClick={(e) => onSubmit(e, email)}>{emailSent ? 'Resend' : 'Login'}</Button>
+          <Button type="submit" onClick={(e) => onSubmit(e, email)}>{sent ? 'Resend' : 'Login'}</Button>
         )}
       </Form>
     );
