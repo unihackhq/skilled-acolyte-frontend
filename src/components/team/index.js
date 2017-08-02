@@ -34,6 +34,7 @@ class TeamEventSelector extends Component {
     const options = events.map(({ name, id }) => ({ key: id, value: id, text: name }));
     return (
       <div>
+        {/* hide for now...
         <div>Selected Event</div>
         <Dropdown
           placeholder="Events"
@@ -43,6 +44,7 @@ class TeamEventSelector extends Component {
           value={currEvent}
           onChange={this.handleChange}
         />
+        */}
         <Team eventId={currEvent} />
       </div>
     );
