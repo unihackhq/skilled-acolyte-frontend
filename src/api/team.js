@@ -18,7 +18,7 @@ export const inviteStudentToTeam = (teamId, studentId) => {
   });
 };
 
-export const createTeam = (userId, teamName) => {
+export const createTeam = (eventId, userId, teamName) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => {

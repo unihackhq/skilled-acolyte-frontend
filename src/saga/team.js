@@ -25,9 +25,10 @@ function* inviteStudent(action) {
 }
 
 function* create(action) {
+  const team = yield select(teamSelectors.team);
   const user = yield select(userSelectors.user);
   try {
-    yield call(api.createTeam, user.id, action.teamName); // send user id and team name
+    yield call(api.createTeam, team.eventId, user.id, action.teamName); // send event id, user id and team name
     yield put(teamActions.successCreate());
   } catch (error) {
     yield put(teamActions.failureCreate(error.message));
