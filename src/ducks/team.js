@@ -16,7 +16,7 @@ export const types = {
 
 const initialState = {
   fetched: false,
-  loading: false,
+  loading: true,
   inviting: false,
   creating: false,
   leaving: false,
