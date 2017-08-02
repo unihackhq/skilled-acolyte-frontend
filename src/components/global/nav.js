@@ -53,7 +53,7 @@ class Nav extends React.Component {
 }
 
 const mapState = (state) => ({
-  loggedIn: userSelectors.loggedIn(state)
+  loggedIn: userSelectors.isLoggedIn(state)
 });
 
 export default withRouter(connect(

@@ -6,38 +6,18 @@ import { Container, Header, Message } from 'semantic-ui-react';
 import LoginForm from './form';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.emailSent === false && nextProps.emailSent === true) {
-      this.setState({
-        loading: false
-      });
-    }
-  }
-
   login = (event, email) => {
     event.preventDefault();
-
-    this.setState({
-      loading: true
-    });
     this.props.login(email);
   }
 
   render() {
-    const { emailSent, loggedIn } = this.props;
-    const { loading } = this.state;
+    const { sent, loading, loggedIn } = this.props;
 
     return (
       <Container>
         <Header as="h2">Login</Header>
-        { emailSent && (
+        { sent && (
           <Message compact>
             <Message.Header>Check your inbox</Message.Header>
             An email with login instructions has been sent to your email.
@@ -45,7 +25,7 @@ class Login extends Component {
         ) }
         {/* show login form if not logged in */}
         { !loggedIn ? (
-          <LoginForm onSubmit={this.login} loading={loading} emailSent={emailSent} />
+          <LoginForm onSubmit={this.login} loading={loading} sent={sent} />
         ) : (
           <Redirect to="/" />
         ) }
@@ -55,8 +35,9 @@ class Login extends Component {
 }
 
 const stateMap = (state) => ({
-  emailSent: userSelectors.emailSent(state),
-  loggedIn: userSelectors.loggedIn(state)
+  sent: userSelectors.isEmailSent(state),
+  loading: userSelectors.isLoading(state),
+  loggedIn: userSelectors.isLoggedIn(state)
 });
 
 const actionMap = (dispatch) => ({
