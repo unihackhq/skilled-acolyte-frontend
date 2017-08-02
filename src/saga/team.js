@@ -6,8 +6,8 @@ import { selectors as userSelectors } from '../ducks/user';
 function* fetchTeam(action) {
   const userDetails = yield select(userSelectors.user);
   try {
-    const team = yield call(api.getStudentsTeam, userDetails.id); // send user's id
-    yield put(teamActions.successFetch(team));
+    const team = yield call(api.getStudentsTeam, userDetails.id, action.eventId); // send user's id and target event id
+    yield put(teamActions.successFetch(team, action.eventId));
   } catch (error) {
     yield put(teamActions.failureFetch(error.message));
   }
