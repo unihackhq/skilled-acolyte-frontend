@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actions as teamActions, selectors as teamSelectors } from '../../ducks/team';
-import * as smartActions from '../../ducks/smartActions';
 import { Loader } from 'semantic-ui-react';
 import CreateTeam from './create';
 import TeamDetails from './details';
@@ -14,14 +13,16 @@ class Team extends Component {
   }
 
   componentWillMount() {
-    const { smartFetch, state, eventId } = this.props;
-    smartFetch(state, eventId);
+    const { fetchTeam, eventId } = this.props;
+    fetchTeam(eventId);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { smartFetch, state, eventId } = nextProps;
+    const { fetchTeam, eventId } = nextProps;
+
+    // eventId changed
     if (this.props.eventId !== eventId) {
-      smartFetch(state, eventId);
+      fetchTeam(eventId);
     }
   }
 
@@ -54,12 +55,11 @@ const stateMap = (state) => ({
   inviting: teamSelectors.isInviting(state),
   creating: teamSelectors.isCreating(state),
   leaving: teamSelectors.isLeaving(state),
-  team: teamSelectors.team(state),
-  state: state
+  team: teamSelectors.team(state)
 });
 
 const actionMap = (dispatch) => ({
-  smartFetch: (state, eventId) => smartActions.fetchTeam(dispatch, state, eventId),
+  fetchTeam: (eventId) => dispatch(teamActions.fetch(eventId)),
   inviteStudent: (studentId) => dispatch(teamActions.inviteStudent(studentId)),
   createTeam: (teamName) => dispatch(teamActions.create(teamName)),
   leaveTeam: () => dispatch(teamActions.leave())
