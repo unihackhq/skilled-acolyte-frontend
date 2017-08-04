@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Message, Button, Icon, List, Loader } from 'semantic-ui-react';
 import { actions as inviteActions, selectors as inviteSelectors } from '../../ducks/invite';
-import * as smartActions from '../../ducks/smartActions';
 
 class TeamInvites extends Component {
   static propTypes = {
@@ -11,8 +10,7 @@ class TeamInvites extends Component {
   }
 
   componentWillMount() {
-    const { state, smartFetch } = this.props;
-    smartFetch(state);
+    this.props.fetchInvites();
   }
 
   handleAccept(id, event) {
@@ -83,12 +81,11 @@ class TeamInvites extends Component {
 
 const stateMap = (state) => ({
   loading: inviteSelectors.isLoading(state),
-  invites: inviteSelectors.invites(state),
-  state,
+  invites: inviteSelectors.invites(state)
 });
 
 const actionMap = (dispatch) => ({
-  smartFetch: (state) => smartActions.fetchInvite(dispatch, state),
+  fetchInvites: (state) => dispatch(inviteActions.fetch()),
   accept: (id) => dispatch(inviteActions.accept(id)),
   ignore: (id) => dispatch(inviteActions.ignore(id))
 });
