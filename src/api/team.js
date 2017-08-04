@@ -1,10 +1,10 @@
-import { team, justJoined, setTeam, unsetTeam } from './fakedata';
+import { getTeam, team, justJoined, setTeam, unsetTeam } from './fakedata';
 
 
-export const getStudentsTeam = (userId) => {
+export const getStudentsTeam = (userId, eventId) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
-    setTimeout(() => resolve(team), 1000);
+    setTimeout(() => resolve(getTeam(eventId)), 1000);
   });
 };
 
@@ -18,7 +18,7 @@ export const inviteStudentToTeam = (teamId, studentId) => {
   });
 };
 
-export const createTeam = (userId, teamName) => {
+export const createTeam = (eventId, userId, teamName) => {
   // TODO: do actual server calls
   return new Promise(resolve => {
     setTimeout(() => {

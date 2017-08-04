@@ -1,57 +1,63 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { actions as teamActions, selectors as teamSelectors } from '../../ducks/team';
-import * as smartActions from '../../ducks/smartActions';
-import { Container, Header, Loader } from 'semantic-ui-react';
-import CreateTeam from './create';
-import TeamDetails from './details';
-import TeamInvites from './invites';
+import { Container, Header, Loader, Dropdown } from 'semantic-ui-react';
+import * as api from '../../api/event.js';
+import Team from './team';
 
-class Team extends Component {
+class TeamEventSelector extends Component {
+  state = {
+    currEvent: '',
+    events: null
+  }
+
   componentWillMount() {
-    const { smartFetch, state } = this.props;
-    smartFetch(state);
+    api.getAllEvents()
+      .then((events) => {
+        this.setState({
+          events,
+          currEvent: events[0].id
+        });
+      });
+  }
+
+  handleChange = (event, data) => {
+    this.setState({
+      currEvent: data.value
+    });
   }
 
   renderContent() {
-    const { loading, inviting, creating, leaving, team, inviteStudent, createTeam, leaveTeam } = this.props;
-    if (loading === true) {
+    const { currEvent, events } = this.state;
+    if (events === null) {
       return <Loader active inline="centered" />;
     }
-    if (team === null) {
-      return <CreateTeam onCreate={createTeam} creating={creating} />;
-    }
-    return <TeamDetails team={team} inviting={inviting} inviteStudent={inviteStudent} leaveTeam={leaveTeam} leaving={leaving} />;
+
+    const options = events.map(({ name, id }) => ({ key: id, value: id, text: name }));
+    return (
+      <div>
+        {/* hide for now...
+        <div>Selected Event</div>
+        <Dropdown
+          placeholder="Events"
+          label="Selected Event"
+          selection
+          options={options}
+          value={currEvent}
+          onChange={this.handleChange}
+        />
+        */}
+        <Team eventId={currEvent} />
+      </div>
+    );
   }
 
   render() {
-    const { team, loading } = this.props;
-
     return (
       <Container>
         <Header as="h1">My Team</Header>
-        { !loading && <TeamInvites hasTeam={team !== null} /> }
         {this.renderContent()}
       </Container>
     );
   }
 }
 
-// TODO: maybe split these up and put them in the child components
-const stateMap = (state) => ({
-  loading: teamSelectors.isLoading(state),
-  inviting: teamSelectors.isInviting(state),
-  creating: teamSelectors.isCreating(state),
-  leaving: teamSelectors.isLeaving(state),
-  team: teamSelectors.team(state),
-  state: state
-});
-
-const actionMap = (dispatch) => ({
-  smartFetch: (state) => smartActions.fetchTeam(dispatch, state),
-  inviteStudent: (studentId) => dispatch(teamActions.inviteStudent(studentId)),
-  createTeam: (teamName) => dispatch(teamActions.create(teamName)),
-  leaveTeam: () => dispatch(teamActions.leave())
-});
-
-export default connect(stateMap, actionMap)(Team);
+export default TeamEventSelector;

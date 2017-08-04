@@ -27,6 +27,17 @@ export const justJoined = {
   email: 'ijustjoined@this.team'
 };
 
+export const events = [
+  {
+    id: '11',
+    name: 'Unihack Melbourne'
+  },
+  {
+    id: '00',
+    name: 'Unihack Sydney'
+  }
+];
+
 const invitesData = [
   {
     id: 0,
@@ -42,14 +53,15 @@ export const unsetInvites = () => {
   invites = [];
 };
 
-const teamData = {
+let teamSet = true;
+export const team = {
   name: 'something something team',
   students: students.slice(0, 2).map( (student) => ({...student, pending: false }) )
 };
-export let team = null;
+export const getTeam = (eventId) => (teamSet && {...team, eventId}) || null;
 export const setTeam = () => {
-  team = teamData;
+  teamSet = true;
 };
 export const unsetTeam = () => {
-  team = null;
+  teamSet = false;
 };

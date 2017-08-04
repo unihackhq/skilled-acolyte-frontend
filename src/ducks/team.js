@@ -21,6 +21,7 @@ const initialState = {
   creating: false,
   leaving: false,
   error: null,
+  event: null,
   team: null
 };
 
@@ -59,6 +60,7 @@ export default (state = initialState, action) => {
         ...state,
         fetched: true,
         loading: false,
+        event: action.eventId,
         team: action.team
       };
 
@@ -118,12 +120,12 @@ export default (state = initialState, action) => {
 };
 
 export const actions = {
-  fetch: () => ({ type: types.REQUEST_FETCH }),
+  fetch: (eventId) => ({ type: types.REQUEST_FETCH, eventId }),
   inviteStudent: (studentId) => ({ type: types.REQUEST_INVITE_STUDENT, studentId }),
   create: (teamName) => ({ type: types.REQUEST_CREATE, teamName }),
   leave: () => ({ type: types.REQUEST_LEAVE }),
   // saga actions
-  successFetch: (team) => ({ type: types.SUCCESS_FETCH, team }),
+  successFetch: (team, eventId) => ({ type: types.SUCCESS_FETCH, team, eventId }),
   failureFetch: (error) => ({ type: types.FAILURE_FETCH, error }),
   successInviteStudent: () => ({ type: types.SUCCESS_INVITE_STUDENT }),
   failureInviteStudent: (error) => ({ type: types.FAILURE_INVITE_STUDENT, error }),
@@ -140,5 +142,6 @@ export const selectors = {
   isCreating: (state) => state.team.creating,
   isLeaving: (state) => state.team.leaving,
   error: (state) => state.team.error || '',
+  event: (state) => state.team.event,
   team: (state) => state.team.team
 };
