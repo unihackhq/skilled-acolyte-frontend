@@ -1,0 +1,29 @@
+{
+  "name": "skilled-acolyte-frontend",
+  "description": "Skilled Acolyte's frontend",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unihackhq/skilled-acolyte-frontend.git"
+  },
+  "author": "Unihack HQ",
+  "license": "MIT",
+  "homepage": "https://github.com/unihackhq/skilled-acolyte-frontend#readme",
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "semantic-ui-react": "^0.80.1"
+  },
+  "resolutions": {
+    "@babel/runtime": "7.0.0-beta.46"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
