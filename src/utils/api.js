@@ -6,6 +6,13 @@ class ApiError extends Error {
     this.body = body;
     this.original = original;
   }
+
+  toJSON() {
+    return {
+      message: this.message,
+      body: this.body,
+    };
+  }
 }
 
 const wrap = promise =>
