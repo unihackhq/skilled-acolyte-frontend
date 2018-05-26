@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
-import { setTitle } from '../utils';
+import { observer, inject } from 'mobx-react';
 import { Container, Menu } from 'semantic-ui-react';
+import { setTitle } from '../utils';
 
 const NavMenuItem = ({ path, label, routeProps }) => (
   <Route
@@ -29,16 +30,17 @@ const NavMenuItem = ({ path, label, routeProps }) => (
 
 class Nav extends React.Component {
   static propTypes = {
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
   }
 
   logout = () => {
-    const { history } = this.props;
+    const { history, user } = this.props;
+    user.logout();
     history.push('/');
   }
 
   render() {
-    const loggedIn = false;
+    const loggedIn = this.props.user.loggedIn;
 
     return (
       <Container>
@@ -58,4 +60,4 @@ class Nav extends React.Component {
 }
 
 
-export default withRouter(Nav);
+export default withRouter(inject('user')(observer(Nav)));

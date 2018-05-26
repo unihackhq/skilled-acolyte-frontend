@@ -10,6 +10,8 @@
   "license": "MIT",
   "homepage": "https://github.com/unihackhq/skilled-acolyte-frontend#readme",
   "dependencies": {
+    "mobx": "^4.3.0",
+    "mobx-react": "^5.1.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-router": "^4.2.0",

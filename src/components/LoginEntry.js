@@ -1,9 +1,10 @@
 import React from 'react';
+import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
 
-class LoginEntry extends React.PureComponent {
+class LoginEntry extends React.Component {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -12,9 +13,20 @@ class LoginEntry extends React.PureComponent {
     }).isRequired
   }
 
+  componentDidMount() {
+    const { user, match } = this.props;
+    const { token } = match.params;
+    user.login(token);
+  }
+
   render() {
-    // return <Redirect to="/" />;
+    const { user } = this.props;
+    const { loggedIn } = user;
+
+    if (loggedIn) {
+      return <Redirect to="/" />;
+    }
     return <Loader active inline="centered" />;
   }
 }
-export default LoginEntry;
+export default inject('user')(observer(LoginEntry));
