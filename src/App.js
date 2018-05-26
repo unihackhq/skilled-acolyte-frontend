@@ -9,7 +9,7 @@ import User from './stores/user';
 
 const userStore = new User();
 
-const App = () =>  (
+const App = () => (
   <Router>
     <Provider user={userStore}>
       <div>

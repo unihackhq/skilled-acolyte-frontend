@@ -1,33 +1,55 @@
 import { decorate, observable, computed, action, runInAction } from 'mobx';
-import { apiPost } from '../utils/api';
+import jwtDecode from 'jwt-decode';
+import { apiPostNoAuth, apiGet } from '../utils/api';
 
 class User {
   jwt = null;
-  loading = false;
+  loading = true;
   error = null;
+  details = null;
 
   get loggedIn() {
-    return this.jwt !== null;
+    return this.details !== null;
   }
 
   async login(token) {
-    runInAction(() => {
-      this.loading = true;
-    });
     try {
-      const resp = await apiPost(`/token`, { token });
+      const resp = await apiPostNoAuth('/token', { token });
       const { token: jwt } = await resp.json();
 
-      runInAction(() => {
-        this.loading = false;
+      runInAction('loginSuccess', () => {
         this.jwt = jwt;
-        console.log(jwt);
+        this.fetchDetails();
       });
     } catch (error) {
       const { message } = error.body;
-      runInAction(() => {
+
+      runInAction('loginFail', () => {
+        this.error = message;
         this.loading = false;
-        this.error = error.body;
+      });
+    }
+  }
+
+  get id() {
+    return jwtDecode(this.jwt).userId;
+  }
+
+  async fetchDetails() {
+    try {
+      const resp = await apiGet(`/students/${this.id}`, this.jwt);
+      const details = await resp.json();
+
+      runInAction('fetchSuccess', () => {
+        this.details = details;
+        this.loading = false;
+      });
+    } catch (error) {
+      const { message } = error.body;
+
+      runInAction('fetchFail', () => {
+        this.error = message;
+        this.loading = false;
       });
     }
   }
@@ -39,8 +61,10 @@ class User {
 
 export default decorate(User, {
   jwt: observable,
+  loading: observable,
+  error: observable,
+  details: observable,
   loggedIn: computed,
-  // login is async, so being action doesn't help it
-  // login: action,
+  id: computed,
   logout: action,
 });

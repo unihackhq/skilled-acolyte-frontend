@@ -1,11 +1,15 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { observer, inject } from 'mobx-react';
+import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container, Header, Message } from 'semantic-ui-react';
-import { apiPost } from '../../utils/api';
+import { apiPostNoAuth } from '../../utils/api';
 import LoginForm from './Form';
 
 class Login extends React.Component {
+  static propTypes = {
+    user: MobxPropTypes.observableObject.isRequired,
+  }
+
   state = {
     loading: false,
     sent: false,
@@ -16,7 +20,7 @@ class Login extends React.Component {
     this.setState({ loading: true, sent: false, error: null });
 
     try {
-      await apiPost(`/token/${email}`);
+      await apiPostNoAuth(`/token/${email}`);
       this.setState({ sent: true, loading: false });
     } catch (error) {
       const { message } = error.body;
@@ -25,7 +29,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const loggedIn = this.props.user.loggedIn;
+    const { loggedIn } = this.props.user;
     const { sent, error, loading } = this.state;
 
     if (loggedIn) {
