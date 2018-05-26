@@ -56,6 +56,9 @@ class User {
 
   logout() {
     this.jwt = null;
+    this.loading = true;
+    this.error = null;
+    this.details = null;
   }
 }
 
