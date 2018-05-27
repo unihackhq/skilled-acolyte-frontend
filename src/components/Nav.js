@@ -57,11 +57,16 @@ class Nav extends React.Component {
       <Container>
         <Menu>
           <NavMenuItem key="home" path="/" label="Home" routeProps={{ exact: true }} />
+
+          {loggedIn && [
+            <NavMenuItem key="team" path="/team" label="Team" />,
+          ]}
+
           <Menu.Menu position="right">
             {loggedIn ? (
-              <Menu.Item key="logout" name="logout" onClick={this.logout}>Logout</Menu.Item>
+              <Menu.Item name="logout" onClick={this.logout}>Logout</Menu.Item>
             ) : (
-              <NavMenuItem key="login" path="/login" label="Login" />
+              <NavMenuItem path="/login" label="Login" />
             )}
           </Menu.Menu>
         </Menu>
