@@ -18,7 +18,12 @@ class User {
 
   setJwt(jwt) {
     this.jwt = jwt;
-    localStorage.setItem('jwt', jwt);
+
+    if (jwt) {
+      localStorage.setItem('jwt', jwt);
+    } else {
+      localStorage.removeItem('jwt');
+    }
   }
 
   get loggedIn() {
