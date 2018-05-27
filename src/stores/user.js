@@ -4,9 +4,22 @@ import { apiPostNoAuth, apiGet } from '../utils/api';
 
 class User {
   jwt = null;
-  loading = true;
   error = null;
   details = null;
+
+  constructor() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      // continue from last session
+      this.jwt = jwt;
+      this.fetchDetails();
+    }
+  }
+
+  setJwt(jwt) {
+    this.jwt = jwt;
+    localStorage.setItem('jwt', jwt);
+  }
 
   get loggedIn() {
     return this.details !== null;
@@ -18,7 +31,7 @@ class User {
       const { token: jwt } = await resp.json();
 
       runInAction('loginSuccess', () => {
-        this.jwt = jwt;
+        this.setJwt(jwt);
         this.fetchDetails();
       });
     } catch (error) {
@@ -26,7 +39,6 @@ class User {
 
       runInAction('loginFail', () => {
         this.error = message;
-        this.loading = false;
       });
     }
   }
@@ -42,21 +54,18 @@ class User {
 
       runInAction('fetchSuccess', () => {
         this.details = details;
-        this.loading = false;
       });
     } catch (error) {
       const { message } = error.body;
 
       runInAction('fetchFail', () => {
         this.error = message;
-        this.loading = false;
       });
     }
   }
 
   logout() {
-    this.jwt = null;
-    this.loading = true;
+    this.setJwt(null);
     this.error = null;
     this.details = null;
   }
@@ -64,10 +73,10 @@ class User {
 
 export default decorate(User, {
   jwt: observable,
-  loading: observable,
   error: observable,
   details: observable,
   loggedIn: computed,
   id: computed,
+  setJwt: action,
   logout: action,
 });
