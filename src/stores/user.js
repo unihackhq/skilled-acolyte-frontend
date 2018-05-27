@@ -16,6 +16,10 @@ class User {
     }
   }
 
+  get loggedIn() {
+    return this.details !== null;
+  }
+
   setJwt(jwt) {
     this.jwt = jwt;
 
@@ -26,47 +30,39 @@ class User {
     }
   }
 
-  get loggedIn() {
-    return this.details !== null;
+  login(token) {
+    apiPostNoAuth('/token', { token })
+      .then(
+        async (resp) => {
+          const { token: jwt } = await resp.json();
+
+          runInAction('loginSuccess', () => {
+            this.setJwt(jwt);
+            this.fetchDetails();
+          });
+        },
+        error => this.apiFail(error),
+      );
   }
 
-  async login(token) {
-    try {
-      const resp = await apiPostNoAuth('/token', { token });
-      const { token: jwt } = await resp.json();
+  fetchDetails() {
+    const { userId } = jwtDecode(this.jwt);
 
-      runInAction('loginSuccess', () => {
-        this.setJwt(jwt);
-        this.fetchDetails();
-      });
-    } catch (error) {
-      const { message } = error.body;
+    apiGet(`/students/${userId}`, this.jwt)
+      .then(
+        async (resp) => {
+          const details = await resp.json();
 
-      runInAction('loginFail', () => {
-        this.error = message;
-      });
-    }
+          runInAction('fetchSuccess', () => {
+            this.details = details;
+          });
+        },
+        error => this.apiFail(error),
+      );
   }
 
-  get id() {
-    return jwtDecode(this.jwt).userId;
-  }
-
-  async fetchDetails() {
-    try {
-      const resp = await apiGet(`/students/${this.id}`, this.jwt);
-      const details = await resp.json();
-
-      runInAction('fetchSuccess', () => {
-        this.details = details;
-      });
-    } catch (error) {
-      const { message } = error.body;
-
-      runInAction('fetchFail', () => {
-        this.error = message;
-      });
-    }
+  apiFail(error) {
+    this.error = error.body.message;
   }
 
   logout() {
@@ -81,7 +77,7 @@ export default decorate(User, {
   error: observable,
   details: observable,
   loggedIn: computed,
-  id: computed,
   setJwt: action,
+  apiFail: action,
   logout: action,
 });

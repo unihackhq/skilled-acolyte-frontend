@@ -16,16 +16,18 @@ class Login extends React.Component {
     error: null,
   };
 
-  login = async (email) => {
+  login = (email) => {
     this.setState({ loading: true, sent: false, error: null });
 
-    try {
-      await apiPostNoAuth(`/token/${email}`);
-      this.setState({ sent: true, loading: false });
-    } catch (error) {
-      const { message } = error.body;
-      this.setState({ error: message, loading: false });
-    }
+    apiPostNoAuth(`/token/${email}`)
+      .then(
+        () => {
+          this.setState({ sent: true, loading: false });
+        },
+        (error) => {
+          this.setState({ error: error.body.message, loading: false });
+        },
+      );
   }
 
   render() {
