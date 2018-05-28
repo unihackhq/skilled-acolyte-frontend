@@ -13,7 +13,7 @@ class LoginForm extends React.PureComponent {
 
   handleChange = (event) => {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
     });
   }
 
@@ -28,14 +28,18 @@ class LoginForm extends React.PureComponent {
     return (
       <Form>
         <Form.Field>
-          <label>Email address</label>
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={this.handleChange}
-            required
-          />
+          <label htmlFor="email">
+            Email address
+
+            <input
+              id="email"
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={this.handleChange}
+              required
+            />
+          </label>
         </Form.Field>
 
         {loading ? (

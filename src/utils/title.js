@@ -1,4 +1,4 @@
-export const setTitle = (title) => {
+export default (title) => {
   if (document) {
     document.title = `Unihack - ${title}`;
   }

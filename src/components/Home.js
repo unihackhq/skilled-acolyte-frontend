@@ -1,10 +1,17 @@
 import React from 'react';
+import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container } from 'semantic-ui-react';
 
-const Home = () => (
+const Home = ({ user }) => (
   <Container>
-    <p>Welcome <span role="img" aria-label="wave">👋</span></p>
+    <p>
+      Welcome {user.loggedIn ? user.details.user.preferredName : 'stranger'}
+      <span role="img" aria-label="wave">👋</span>
+    </p>
   </Container>
 );
+Home.propTypes = {
+  user: MobxPropTypes.observableObject.isRequired,
+};
 
-export default Home;
+export default inject('user')(observer(Home));

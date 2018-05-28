@@ -1,31 +1,37 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { observer, inject } from 'mobx-react';
+import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container, Header, Message } from 'semantic-ui-react';
-import { apiPost } from '../../utils/api';
+import { apiPostNoAuth } from '../../utils/api';
 import LoginForm from './Form';
 
 class Login extends React.Component {
+  static propTypes = {
+    user: MobxPropTypes.observableObject.isRequired,
+  }
+
   state = {
     loading: false,
     sent: false,
     error: null,
   };
 
-  login = async (email) => {
+  login = (email) => {
     this.setState({ loading: true, sent: false, error: null });
 
-    try {
-      await apiPost(`/token/${email}`);
-      this.setState({ sent: true, loading: false });
-    } catch (error) {
-      const { message } = error.body;
-      this.setState({ error: message, loading: false });
-    }
+    apiPostNoAuth(`/token/${email}`)
+      .then(
+        () => {
+          this.setState({ sent: true, loading: false });
+        },
+        (error) => {
+          this.setState({ error: error.body.message, loading: false });
+        },
+      );
   }
 
   render() {
-    const loggedIn = this.props.user.loggedIn;
+    const { loggedIn } = this.props.user;
     const { sent, error, loading } = this.state;
 
     if (loggedIn) {

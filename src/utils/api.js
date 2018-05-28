@@ -17,6 +17,9 @@ class ApiError extends Error {
 
 const wrap = promise =>
   promise
+    .catch((error) => {
+      throw new ApiError('Fetch error', { message: 'Network error!' }, error);
+    })
     .then(async (resp) => {
       if (resp.ok) {
         return resp;
@@ -24,14 +27,18 @@ const wrap = promise =>
 
       const json = await resp.json();
       throw new ApiError('API Error', json);
-    })
-    .catch((error) => {
-      throw new ApiError('Fetch error', { message: 'Network error!' }, error)
     });
 
 
-export const apiPost = (url, body = null) =>
+export const apiPostNoAuth = (url, body = null) =>
   wrap(fetch(`${BASE_URL}${url}`, {
     method: 'POST',
     body: body && JSON.stringify(body),
+  }));
+
+export const apiGet = (url, jwt) =>
+  wrap(fetch(`${BASE_URL}${url}`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
   }));
