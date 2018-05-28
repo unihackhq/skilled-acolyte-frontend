@@ -5,10 +5,15 @@ import { apiGet } from '../utils/api';
 
 class Teams {
   list = null;
+  fetching = false;
   error = null;
 
   get fetched() {
     return this.list !== null;
+  }
+
+  get loading() {
+    return this.fetching || !this.fetched;
   }
 
   findByEvent = createTransformer(
@@ -24,6 +29,7 @@ class Teams {
     }
 
     const { userId } = jwtDecode(jwt);
+    this.fetching = true;
 
     apiGet(`/students/${userId}/teams`)
       .then(
@@ -32,6 +38,7 @@ class Teams {
 
           runInAction('fetchSuccess', () => {
             this.list = teams;
+            this.fetching = false;
           });
         },
         error => this.apiFail(error),
@@ -44,13 +51,16 @@ class Teams {
 
   apiFail(error) {
     this.error = error.body.message;
+    this.fetching = false;
   }
 }
 
 export default decorate(Teams, {
   list: observable,
+  fetching: observable,
   error: observable,
   fetched: computed,
+  loading: computed,
   fetchList: action.bound,
   append: action.bound,
   apiFail: action.bound,

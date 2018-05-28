@@ -21,9 +21,20 @@ class DisplayTeam extends React.Component {
 
   render() {
     const { teams, eventId } = this.props;
-    const { fetched, findByEvent } = teams;
+    const { loading, error, findByEvent } = teams;
 
-    if (!fetched) {
+    if (error) {
+      return (
+        <Message
+          compact
+          negative
+          header="Something went wrong!"
+          content={error}
+        />
+      );
+    }
+
+    if (loading) {
       return <Loader active inline="centered" />;
     }
 
@@ -40,7 +51,7 @@ class DisplayTeam extends React.Component {
             <p>Looks like through some technical problem you have multiple teams!</p>
             <p>Please leave the extra teams.</p>
           </Message>
-          {eventTeams.map(team => <p key={team.id}>{team.name}</p>)}
+          {eventTeams.map(team => <TeamDetails key={team.id} team={team} leaveOnly />)}
         </div>
       );
     }
