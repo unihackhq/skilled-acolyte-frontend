@@ -42,16 +42,20 @@ class Login extends React.Component {
       <Container>
         <Header as="h2">Login</Header>
         {sent && (
-          <Message compact>
-            <Message.Header>Check your inbox</Message.Header>
-            An email with login instructions has been sent to your email.
-          </Message>
+          <Message
+            compact
+            positive
+            header="Check your inbox"
+            content="An email with login instructions has been sent to your email."
+          />
         )}
         {error && (
-          <Message compact error>
-            <Message.Header>Something went wrong</Message.Header>
-            {error}
-          </Message>
+          <Message
+            compact
+            negative
+            header="Something went wrong!"
+            content={error}
+          />
         )}
 
         <LoginForm onSubmit={this.login} sent={sent} loading={loading} />

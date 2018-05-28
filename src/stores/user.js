@@ -48,7 +48,7 @@ class User {
   fetchDetails() {
     const { userId } = jwtDecode(this.jwt);
 
-    apiGet(`/students/${userId}`, this.jwt)
+    apiGet(`/students/${userId}`)
       .then(
         async (resp) => {
           const details = await resp.json();

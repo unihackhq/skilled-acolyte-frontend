@@ -36,9 +36,18 @@ export const apiPostNoAuth = (url, body = null) =>
     body: body && JSON.stringify(body),
   }));
 
-export const apiGet = (url, jwt) =>
+export const apiPost = (url, body = null) =>
+  wrap(fetch(`${BASE_URL}${url}`, {
+    method: 'POST',
+    body: body && JSON.stringify(body),
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
+  }));
+
+export const apiGet = url =>
   wrap(fetch(`${BASE_URL}${url}`, {
     headers: {
-      Authorization: `Bearer ${jwt}`,
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
     },
   }));

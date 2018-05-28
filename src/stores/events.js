@@ -20,7 +20,7 @@ class Events {
 
     const { userId } = jwtDecode(jwt);
 
-    apiGet(`/students/${userId}/events`, jwt)
+    apiGet(`/students/${userId}/events`)
       .then(
         async (resp) => {
           const events = await resp.json();

@@ -40,10 +40,12 @@ class EventSelector extends React.Component {
 
     if (error) {
       return (
-        <Message compact>
-          <Message.Header>Something went wrong</Message.Header>
-          {error}
-        </Message>
+        <Message
+          compact
+          negative
+          header="Something went wrong!"
+          content={error}
+        />
       );
     }
     if (!fetched) {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Loader, Message } from 'semantic-ui-react';
 import TeamDetails from './details';
+import CreateTeam from './create';
 
 class DisplayTeam extends React.Component {
   static propTypes = {
@@ -27,14 +28,14 @@ class DisplayTeam extends React.Component {
     }
 
     const eventTeams = findByEvent(eventId);
-    if (!eventTeams) {
-      return <p>Create a team</p>;
+    if (eventTeams.length === 0) {
+      return <CreateTeam eventId={eventId} />;
     }
 
     if (eventTeams.length > 1) {
       return (
         <div>
-          <Message compact>
+          <Message compact warning>
             <Message.Header>You can&apos;t be part of many teams!</Message.Header>
             <p>Looks like through some technical problem you have multiple teams!</p>
             <p>Please leave the extra teams.</p>
@@ -43,7 +44,7 @@ class DisplayTeam extends React.Component {
         </div>
       );
     }
-    return eventTeams.map(team => <TeamDetails key={team.id} team={team} />);
+    return <TeamDetails team={eventTeams[0]} />;
   }
 }
 

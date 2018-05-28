@@ -25,7 +25,7 @@ class Teams {
 
     const { userId } = jwtDecode(jwt);
 
-    apiGet(`/students/${userId}/teams`, jwt)
+    apiGet(`/students/${userId}/teams`)
       .then(
         async (resp) => {
           const teams = await resp.json();
@@ -38,6 +38,10 @@ class Teams {
       );
   }
 
+  append(team) {
+    this.list.push(team);
+  }
+
   apiFail(error) {
     this.error = error.body.message;
   }
@@ -48,5 +52,6 @@ export default decorate(Teams, {
   error: observable,
   fetched: computed,
   fetchList: action.bound,
+  append: action.bound,
   apiFail: action.bound,
 });
