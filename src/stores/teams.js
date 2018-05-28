@@ -1,6 +1,6 @@
 import { decorate, observable, computed, action, runInAction } from 'mobx';
+import { createTransformer } from 'mobx-utils';
 import jwtDecode from 'jwt-decode';
-import groupBy from 'lodash.groupby';
 import { apiGet } from '../utils/api';
 
 class Teams {
@@ -11,9 +11,9 @@ class Teams {
     return this.list !== null;
   }
 
-  get grouped() {
-    return groupBy(this.list, 'eventId');
-  }
+  findByEvent = createTransformer(
+    eventId => this.list.filter(team => team.eventId === eventId),
+  )
 
   fetchList() {
     // if we're logged in, jwt is in localstorage
@@ -47,7 +47,6 @@ export default decorate(Teams, {
   list: observable,
   error: observable,
   fetched: computed,
-  grouped: computed,
   fetchList: action.bound,
   apiFail: action.bound,
 });

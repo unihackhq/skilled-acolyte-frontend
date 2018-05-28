@@ -1,10 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Loader, Message } from 'semantic-ui-react';
+import TeamDetails from './details';
 
 class DisplayTeam extends React.Component {
   static propTypes = {
     teams: MobxPropTypes.observableObject.isRequired,
+    eventId: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
@@ -17,14 +20,14 @@ class DisplayTeam extends React.Component {
 
   render() {
     const { teams, eventId } = this.props;
-    const { fetched, grouped } = teams;
+    const { fetched, findByEvent } = teams;
 
     if (!fetched) {
       return <Loader active inline="centered" />;
     }
 
-    const eventTeams = grouped[eventId];
-    if (!eventTeams || eventTeams.length === 0) {
+    const eventTeams = findByEvent(eventId);
+    if (!eventTeams) {
       return <p>Create a team</p>;
     }
 
@@ -40,7 +43,7 @@ class DisplayTeam extends React.Component {
         </div>
       );
     }
-    return eventTeams.map(team => <p key={team.id}>{team.name}</p>);
+    return eventTeams.map(team => <TeamDetails key={team.id} team={team} />);
   }
 }
 
