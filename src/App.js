@@ -11,10 +11,12 @@ import FourOhFour from './components/FourOhFour';
 import FourOhThree from './components/FourOhThree';
 import User from './stores/user';
 import Events from './stores/events';
+import Teams from './stores/teams';
 
 configure({ enforceActions: true });
 const userStore = new User();
 const eventStore = new Events();
+const teamStore = new Teams();
 
 // HOC to restrict access to a component when user isn't logged in
 const restricted = (C) => {
@@ -37,7 +39,7 @@ const restricted = (C) => {
 
 const App = () => (
   <Router>
-    <Provider user={userStore} events={eventStore}>
+    <Provider user={userStore} events={eventStore} teams={teamStore}>
       <div>
         <Nav />
         <Switch>

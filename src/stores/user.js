@@ -77,7 +77,9 @@ export default decorate(User, {
   error: observable,
   details: observable,
   loggedIn: computed,
-  setJwt: action,
-  apiFail: action,
-  logout: action,
+  setJwt: action.bound,
+  login: action.bound,
+  fetchDetails: action.bound,
+  apiFail: action.bound,
+  logout: action.bound,
 });

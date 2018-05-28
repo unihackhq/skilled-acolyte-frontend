@@ -1,13 +1,18 @@
 import { decorate, observable, computed, action, runInAction } from 'mobx';
 import jwtDecode from 'jwt-decode';
+import groupBy from 'lodash.groupby';
 import { apiGet } from '../utils/api';
 
-class Events {
+class Teams {
   list = null;
   error = null;
 
   get fetched() {
     return this.list !== null;
+  }
+
+  get grouped() {
+    return groupBy(this.list, 'eventId');
   }
 
   fetchList() {
@@ -20,13 +25,13 @@ class Events {
 
     const { userId } = jwtDecode(jwt);
 
-    apiGet(`/students/${userId}/events`, jwt)
+    apiGet(`/students/${userId}/teams`, jwt)
       .then(
         async (resp) => {
-          const events = await resp.json();
+          const teams = await resp.json();
 
           runInAction('fetchSuccess', () => {
-            this.list = events;
+            this.list = teams;
           });
         },
         error => this.apiFail(error),
@@ -38,10 +43,11 @@ class Events {
   }
 }
 
-export default decorate(Events, {
+export default decorate(Teams, {
   list: observable,
   error: observable,
   fetched: computed,
+  grouped: computed,
   fetchList: action.bound,
   apiFail: action.bound,
 });

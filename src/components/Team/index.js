@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 import EventSelector from '../EventSelector';
+import DisplayTeam from './display';
 
 class Team extends React.Component {
   state = { eventId: '' }
@@ -11,6 +12,7 @@ class Team extends React.Component {
 
   render() {
     const { eventId } = this.state;
+
     return (
       <Container>
         <EventSelector
@@ -18,6 +20,7 @@ class Team extends React.Component {
           onChange={this.handleEventChange}
           label="My team for"
         />
+        {eventId ? <DisplayTeam eventId={eventId} /> : null}
       </Container>
     );
   }
