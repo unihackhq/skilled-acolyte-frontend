@@ -20,6 +20,10 @@ class Teams {
     eventId => this.list.filter(team => team.eventId === eventId),
   )
 
+  findById = createTransformer(
+    teamId => this.list.filter(team => team.id === teamId)[0] || null,
+  )
+
   fetchList() {
     // if we're logged in, jwt is in localstorage
     const jwt = localStorage.getItem('jwt');

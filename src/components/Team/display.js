@@ -51,11 +51,11 @@ class DisplayTeam extends React.Component {
             <p>Looks like through some technical problem you have multiple teams!</p>
             <p>Please leave the extra teams.</p>
           </Message>
-          {eventTeams.map(team => <TeamDetails key={team.id} team={team} leaveOnly />)}
+          {eventTeams.map(team => <TeamDetails key={team.id} teamId={team.id} leaveOnly />)}
         </div>
       );
     }
-    return <TeamDetails team={eventTeams[0]} />;
+    return <TeamDetails teamId={eventTeams[0].id} />;
   }
 }
 

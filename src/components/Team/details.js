@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Header, Button, Message } from 'semantic-ui-react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { apiPost } from '../../utils/api';
+import SendInvite from '../SendInvite';
 
 class TeamDetails extends React.Component {
   static propTypes = {
-    team: MobxPropTypes.observableObject.isRequired,
+    teamId: PropTypes.string.isRequired,
     teams: MobxPropTypes.observableObject.isRequired,
     user: MobxPropTypes.observableObject.isRequired,
     leaveOnly: PropTypes.bool,
@@ -19,11 +20,11 @@ class TeamDetails extends React.Component {
   state = { leaving: false, error: null }
 
   handleLeave = () => {
-    const { team, teams, user } = this.props;
+    const { teamId, teams, user } = this.props;
 
     this.setState({ leaving: true });
 
-    apiPost(`/students/${user.details.id}/teams/${team.id}/leave`)
+    apiPost(`/students/${user.details.id}/teams/${teamId}/leave`)
       .then(
         async () => {
           this.setState({ leaving: false });
@@ -36,8 +37,9 @@ class TeamDetails extends React.Component {
   }
 
   render() {
-    const { team, leaveOnly } = this.props;
+    const { teamId, teams, leaveOnly } = this.props;
     const { leaving, error } = this.state;
+    const team = teams.findById(teamId);
 
     if (error) {
       return (
@@ -87,6 +89,7 @@ class TeamDetails extends React.Component {
         <Header as="h3">Invites</Header>
         {invited.length > 0 ? invited : <p>No invited!</p>}
 
+        <SendInvite teamId={teamId} />
         <Button
           negative
           onClick={this.handleLeave}
