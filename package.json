@@ -11,6 +11,8 @@
   "homepage": "https://github.com/unihackhq/skilled-acolyte-frontend#readme",
   "dependencies": {
     "jwt-decode": "^2.2.0",
+    "lodash.groupby": "^4.6.0",
+    "lodash.keyby": "^4.6.0",
     "mobx": "^4.3.0",
     "mobx-react": "^5.1.2",
     "mobx-utils": "^4.0.1",

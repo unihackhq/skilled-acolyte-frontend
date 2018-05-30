@@ -12,11 +12,8 @@ class DisplayTeam extends React.Component {
   }
 
   componentDidMount() {
-    const { fetched, fetchList } = this.props.teams;
-
-    if (!fetched) {
-      fetchList();
-    }
+    const { teams } = this.props;
+    teams.fetchList();
   }
 
   render() {

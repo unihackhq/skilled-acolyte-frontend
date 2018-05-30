@@ -36,7 +36,7 @@ class EventSelector extends React.Component {
 
   render() {
     const { label, eventId, events, onChange } = this.props;
-    const { list, error, fetched } = events;
+    const { list, error, loading } = events;
 
     if (error) {
       return (
@@ -48,7 +48,7 @@ class EventSelector extends React.Component {
         />
       );
     }
-    if (!fetched) {
+    if (loading) {
       return <Loader active inline="centered" />;
     }
 

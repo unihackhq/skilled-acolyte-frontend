@@ -1,8 +1,9 @@
 import { decorate, observable, computed, action, runInAction } from 'mobx';
+import { createTransformer } from 'mobx-utils';
 import jwtDecode from 'jwt-decode';
 import { apiGet } from '../utils/api';
 
-class Events {
+class Invites {
   list = null;
   error = null;
   fetching = false;
@@ -14,6 +15,14 @@ class Events {
   get loading() {
     return this.fetching || !this.fetched;
   }
+
+  get count() {
+    return this.fetched ? this.list.length : 0;
+  }
+
+  findByTeam = createTransformer(
+    teamId => this.list.find(team => team.id === teamId) || null,
+  )
 
   fetchList() {
     if (this.fetching) return;
@@ -28,13 +37,13 @@ class Events {
     const { userId } = jwtDecode(jwt);
     this.fetching = true;
 
-    apiGet(`/students/${userId}/events`)
+    apiGet(`/students/${userId}/invites`)
       .then(
         async (resp) => {
-          const events = await resp.json();
+          const invites = await resp.json();
 
           runInAction('fetchSuccess', () => {
-            this.list = events;
+            this.list = invites;
             this.fetching = false;
           });
         },
@@ -48,12 +57,13 @@ class Events {
   }
 }
 
-export default decorate(Events, {
+export default decorate(Invites, {
   list: observable,
   error: observable,
   fetching: observable,
   fetched: computed,
   loading: computed,
+  count: computed,
   fetchList: action.bound,
   apiFail: action.bound,
 });

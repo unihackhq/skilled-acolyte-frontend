@@ -20,7 +20,21 @@ class SendInvite extends React.Component {
   }
 
   componentDidMount() {
-    apiGet('/students')
+    this.fetchList();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.teamId !== this.props.teamId) {
+      this.fetchList();
+    }
+  }
+
+  fetchList = () => {
+    const { teams, teamId } = this.props;
+    const eventId = teams.findById(teamId).eventId;
+
+    this.setState({ loadingStudents: true, studentId: '' });
+    apiGet(`/events/${eventId}/attendees`)
       .then(
         async (resp) => {
           const students = await resp.json();
@@ -31,6 +45,7 @@ class SendInvite extends React.Component {
         },
       );
   }
+
 
   getStudentOptions = () => {
     const { user, teams, teamId } = this.props;
