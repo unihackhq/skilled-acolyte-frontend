@@ -4,6 +4,7 @@ import { Header, Button, Message } from 'semantic-ui-react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { apiPost } from '../../utils/api';
 import SendInvite from '../SendInvite';
+import FatalButton from '../FatalButton';
 
 class TeamDetails extends React.Component {
   static propTypes = {
@@ -56,8 +57,7 @@ class TeamDetails extends React.Component {
       return (
         <div>
           {`${team.name} (${team.members.length} members)`}
-          <Button
-            negative
+          <FatalButton
             size="mini"
             onClick={this.handleLeave}
             content="Leave"
@@ -90,8 +90,7 @@ class TeamDetails extends React.Component {
         {invited.length > 0 ? invited : <p>No invited!</p>}
 
         <SendInvite teamId={teamId} />
-        <Button
-          negative
+        <FatalButton
           onClick={this.handleLeave}
           content="Leave"
           loading={leaving}

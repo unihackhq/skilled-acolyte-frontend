@@ -77,7 +77,7 @@ class CreateTeam extends React.Component {
             onChange={this.handleDescChange}
           />
           <Form.Button
-            content="Confirm"
+            content="Create"
             onClick={this.handleCreate}
             loading={loading}
             disabled={loading}

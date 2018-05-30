@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { List, Button, Message } from 'semantic-ui-react';
 import { apiPost } from '../../utils/api';
+import FatalButton from '../FatalButton';
 
 class Invite extends React.Component {
   static propTypes = {
@@ -79,16 +80,14 @@ class Invite extends React.Component {
             onClick={this.handleAccept}
             loading={accepting}
             disabled={accepting || hasTeam}
-          >
-            Accept
-          </Button>
-          <Button
+            content="Accept"
+          />
+          <FatalButton
             onClick={this.handleReject}
             loading={rejecting}
             disabled={rejecting || hasTeam}
-          >
-            Reject
-          </Button>
+            content="Reject"
+          />
         </List.Content>
         <List.Content>
           {`${team.name} (${team.members.length})`}
