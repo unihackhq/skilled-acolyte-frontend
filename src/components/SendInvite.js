@@ -29,24 +29,6 @@ class SendInvite extends React.Component {
     }
   }
 
-  fetchList = () => {
-    const { teams, teamId } = this.props;
-    const eventId = teams.findById(teamId).eventId;
-
-    this.setState({ loadingStudents: true, studentId: '' });
-    apiGet(`/events/${eventId}/attendees`)
-      .then(
-        async (resp) => {
-          const students = await resp.json();
-          this.setState({ students, loadingStudents: false });
-        },
-        (error) => {
-          this.setState({ error: error.body.message, loadingStudents: false });
-        },
-      );
-  }
-
-
   getStudentOptions = () => {
     const { user, teams, teamId } = this.props;
     const { loadingStudents, students } = this.state;
@@ -62,6 +44,23 @@ class SendInvite extends React.Component {
     return students
       .filter(s => !alreadyMembers.includes(s.id))
       .map(s => ({ value: s.id, text: `${s.user.preferredName} ${s.user.lastName}` }));
+  }
+
+  fetchList = () => {
+    const { teams, teamId } = this.props;
+    const { eventId } = teams.findById(teamId);
+
+    this.setState({ loadingStudents: true, studentId: '' });
+    apiGet(`/events/${eventId}/attendees`)
+      .then(
+        async (resp) => {
+          const students = await resp.json();
+          this.setState({ students, loadingStudents: false });
+        },
+        (error) => {
+          this.setState({ error: error.body.message, loadingStudents: false });
+        },
+      );
   }
 
   handleSend = () => {

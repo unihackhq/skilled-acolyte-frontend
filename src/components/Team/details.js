@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Button, Message } from 'semantic-ui-react';
+import { Header, Message } from 'semantic-ui-react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { apiPost } from '../../utils/api';
 import SendInvite from '../SendInvite';
