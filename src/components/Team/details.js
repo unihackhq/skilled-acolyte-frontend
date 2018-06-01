@@ -84,9 +84,11 @@ class TeamDetails extends React.Component {
         <Header as="h2">{team.name}</Header>
         {team.shortDescription}
 
-        {team.devpostLink
+        <p>
+          {team.devpostLink
             ? <a href={team.devpostLink}>Team&apos;s devpost link</a>
-            : <p>No devpost link</p>}
+            : 'No devpost link'}
+        </p>
 
         <Header as="h3">Stack</Header>
         {team.stack ? team.stack : <p>Nothing here yet ;)</p>}

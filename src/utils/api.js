@@ -45,6 +45,15 @@ export const apiPost = (url, body = null) =>
     },
   }));
 
+export const apiPut = (url, body = null) =>
+  wrap(fetch(`${BASE_URL}${url}`, {
+    method: 'PUT',
+    body: body && JSON.stringify(body),
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
+  }));
+
 export const apiGet = url =>
   wrap(fetch(`${BASE_URL}${url}`, {
     headers: {
