@@ -82,12 +82,23 @@ class TeamDetails extends React.Component {
     return (
       <div>
         <Header as="h2">{team.name}</Header>
+        {team.shortDescription}
+
+        {team.devpostLink
+            ? <a href={team.devpostLink}>Team&apos;s devpost link</a>
+            : <p>No devpost link</p>}
+
+        <Header as="h3">Stack</Header>
+        {team.stack ? team.stack : <p>Nothing here yet ;)</p>}
+
+        <Header as="h3">Description</Header>
+        {team.longDescription ? team.longDescription : <p>Nothing here yet ;)</p>}
 
         <Header as="h3">Members</Header>
         {members.length > 0 ? members : <p>No members!</p>}
 
         <Header as="h3">Invites</Header>
-        {invited.length > 0 ? invited : <p>No invited!</p>}
+        {invited.length > 0 ? invited : <p>No one invited!</p>}
 
         <SendInvite teamId={teamId} />
         <FatalButton
