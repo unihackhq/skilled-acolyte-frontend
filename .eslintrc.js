@@ -11,6 +11,7 @@ module.exports = {
       ImportDeclaration: { consistent: true },
       ExportDeclaration: { consistent: true },
     }],
+    'function-paren-newline': ['error', 'consistent'],
 
     'react/jsx-filename-extension': 0,
     'react/forbid-prop-types': 0,

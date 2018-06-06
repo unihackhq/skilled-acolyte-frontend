@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
+import { reaction } from 'mobx';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container, Menu } from 'semantic-ui-react';
 import setTitle from '../utils/title';
@@ -42,6 +43,24 @@ class Nav extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     user: MobxPropTypes.observableObject.isRequired,
+    invites: MobxPropTypes.observableObject.isRequired,
+  }
+
+  componentDidMount() {
+    const { user, invites } = this.props;
+
+    if (!user.loggedIn) {
+      // setup a one time reaction for when user logs in
+      reaction(
+        () => user.loggedIn,
+        (loggedIn, self) => {
+          invites.fetchList();
+
+          // removes the reaction so this only runs once
+          self.dispose();
+        },
+      );
+    }
   }
 
   logout = () => {
@@ -51,17 +70,25 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { loggedIn } = this.props.user;
+    const { user, invites } = this.props;
+    const { loggedIn } = user;
+    const { count } = invites;
 
     return (
       <Container>
         <Menu>
           <NavMenuItem key="home" path="/" label="Home" routeProps={{ exact: true }} />
+
+          {loggedIn && [
+            <NavMenuItem key="team" path="/team" label="Team" />,
+            <NavMenuItem key="invites" path="/invites" label={`Invites (${count})`} />,
+          ]}
+
           <Menu.Menu position="right">
             {loggedIn ? (
-              <Menu.Item key="logout" name="logout" onClick={this.logout}>Logout</Menu.Item>
+              <Menu.Item name="logout" onClick={this.logout}>Logout</Menu.Item>
             ) : (
-              <NavMenuItem key="login" path="/login" label="Login" />
+              <NavMenuItem path="/login" label="Login" />
             )}
           </Menu.Menu>
         </Menu>
@@ -71,4 +98,4 @@ class Nav extends React.Component {
 }
 
 
-export default withRouter(inject('user')(observer(Nav)));
+export default withRouter(inject('user', 'invites')(observer(Nav)));

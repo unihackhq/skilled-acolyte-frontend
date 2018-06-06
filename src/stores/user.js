@@ -5,6 +5,7 @@ import { apiPostNoAuth, apiGet } from '../utils/api';
 class User {
   jwt = null;
   error = null;
+  fetching = false;
   details = null;
 
   constructor() {
@@ -46,15 +47,19 @@ class User {
   }
 
   fetchDetails() {
+    if (this.fetching) return;
+    this.fetching = true;
+
     const { userId } = jwtDecode(this.jwt);
 
-    apiGet(`/students/${userId}`, this.jwt)
+    apiGet(`/students/${userId}`)
       .then(
         async (resp) => {
           const details = await resp.json();
 
           runInAction('fetchSuccess', () => {
             this.details = details;
+            this.fetching = false;
           });
         },
         error => this.apiFail(error),
@@ -63,11 +68,13 @@ class User {
 
   apiFail(error) {
     this.error = error.body.message;
+    this.fetching = false;
   }
 
   logout() {
     this.setJwt(null);
     this.error = null;
+    this.fetching = false;
     this.details = null;
   }
 }
@@ -75,9 +82,12 @@ class User {
 export default decorate(User, {
   jwt: observable,
   error: observable,
+  fetching: observable,
   details: observable,
   loggedIn: computed,
-  setJwt: action,
-  apiFail: action,
-  logout: action,
+  setJwt: action.bound,
+  login: action.bound,
+  fetchDetails: action.bound,
+  apiFail: action.bound,
+  logout: action.bound,
 });
