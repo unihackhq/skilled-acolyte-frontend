@@ -106,7 +106,6 @@ class SendInvite extends React.Component {
       );
     }
 
-
     return (
       <Form>
         {open ? (

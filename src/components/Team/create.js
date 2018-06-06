@@ -33,7 +33,7 @@ class CreateTeam extends React.Component {
 
     apiPost('/teams', {
       name,
-      description: desc,
+      shortDescription: desc,
       eventId,
     })
       .then(

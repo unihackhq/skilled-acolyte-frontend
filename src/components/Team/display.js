@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Loader, Message } from 'semantic-ui-react';
+import { Loader, Message, Button } from 'semantic-ui-react';
 import TeamDetails from './details';
 import CreateTeam from './create';
+import EditTeam from './edit';
 
 class DisplayTeam extends React.Component {
   static propTypes = {
@@ -11,9 +12,15 @@ class DisplayTeam extends React.Component {
     eventId: PropTypes.string.isRequired,
   }
 
+  state = { editing: false };
+
   componentDidMount() {
     const { teams } = this.props;
     teams.fetchList();
+  }
+
+  toggleEditing = () => {
+    this.setState({ editing: !this.state.editing });
   }
 
   render() {
@@ -52,7 +59,23 @@ class DisplayTeam extends React.Component {
         </div>
       );
     }
-    return <TeamDetails teamId={eventTeams[0].id} />;
+
+    const teamId = eventTeams[0].id;
+    if (this.state.editing) {
+      return (
+        <React.Fragment>
+          <Button onClick={this.toggleEditing}>Back</Button>
+          <EditTeam teamId={teamId} onFinish={this.toggleEditing} />
+        </React.Fragment>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <Button onClick={this.toggleEditing}>Edit</Button>
+        <TeamDetails teamId={teamId} />
+      </React.Fragment>
+    );
   }
 }
 
