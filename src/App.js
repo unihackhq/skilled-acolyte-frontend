@@ -2,18 +2,20 @@ import React from 'react';
 import { Provider, observer } from 'mobx-react';
 import { configure } from 'mobx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import withLazyLoad from './utils/lazyLoad';
 import Nav from './components/Nav';
-import Home from './components/Home';
-import Login from './components/Login';
-import LoginEntry from './components/LoginEntry';
-import Team from './components/Team';
-import Invites from './components/Invites';
-import FourOhFour from './components/FourOhFour';
-import FourOhThree from './components/FourOhThree';
 import User from './stores/user';
 import Events from './stores/events';
 import Teams from './stores/teams';
 import InvitesStore from './stores/invites';
+
+const Home = withLazyLoad(() => import('./components/Home'));
+const Login = withLazyLoad(() => import('./components/Login'));
+const LoginEntry = withLazyLoad(() => import('./components/LoginEntry'));
+const Team = withLazyLoad(() => import('./components/Team'));
+const Invites = withLazyLoad(() => import('./components/Invites'));
+const FourOhThree = withLazyLoad(() => import('./components/FourOhThree'));
+const FourOhFour = withLazyLoad(() => import('./components/FourOhFour'));
 
 configure({ enforceActions: true });
 const userStore = new User();
