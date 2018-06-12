@@ -17,6 +17,8 @@ const Invites = withLazyLoad(() => import('./components/Invites'));
 const FourOhThree = withLazyLoad(() => import('./components/FourOhThree'));
 const FourOhFour = withLazyLoad(() => import('./components/FourOhFour'));
 const AdminEntry = withLazyLoad(() => import('./components/AdminEntry'));
+const Admin = withLazyLoad(() => import('./components/Admin'));
+const AdminStudents = withLazyLoad(() => import('./components/AdminStudents'));
 
 configure({ enforceActions: true });
 const userStore = new User();
@@ -55,11 +57,13 @@ const App = () => (
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/login/:token" component={LoginEntry} />
-          <Route path="/login" component={Login} />
-          <Route path="/admin-entry/:token" component={AdminEntry} />
-          <Route path="/team" component={restricted(Team)} />
-          <Route path="/invites" component={restricted(Invites)} />
+          <Route exact path="/login/:token" component={LoginEntry} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/admin/entry/:token" component={AdminEntry} />
+          <Route exact path="/admin/students" component={AdminStudents} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/team" component={restricted(Team)} />
+          <Route exact path="/invites" component={restricted(Invites)} />
           <Route component={FourOhFour} />
         </Switch>
       </div>
