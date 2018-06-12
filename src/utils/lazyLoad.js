@@ -3,22 +3,22 @@ import { Loader } from 'semantic-ui-react';
 
 const withLazyLoad = load =>
   class LazyLoad extends React.Component {
-    state = { Lazy: null }
+    state = { LazyComponent: null };
 
     async componentWillMount() {
-      const { default: Lazy } = await load();
-      this.setState({ Lazy });
+      const { default: LazyComponent } = await load();
+      this.setState({ LazyComponent });
     }
 
     render() {
-      const { Lazy } = this.state;
+      const { LazyComponent } = this.state;
 
-      if (Lazy) {
-        return <Lazy {...this.props} />
+      if (LazyComponent) {
+        return <LazyComponent {...this.props} />;
       }
 
       return <Loader active inline="centered" />;
     }
-  }
+  };
 
 export default withLazyLoad;
