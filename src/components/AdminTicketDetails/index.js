@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Message, Loader, Header } from 'semantic-ui-react';
-import { apiGet } from '../utils/api';
+import { apiGet } from '../../utils/api';
+import TicketTransfer from './Transfer';
 
 class AdminTicketDetails extends React.Component {
   static propTypes = {
@@ -58,6 +59,7 @@ class AdminTicketDetails extends React.Component {
       <Container>
         <Header as="h1">{ticket.name}</Header>
         <pre>{JSON.stringify(ticket, null, 4)}</pre>
+        <TicketTransfer ticketId={ticket.id} />
       </Container>
     );
   }
