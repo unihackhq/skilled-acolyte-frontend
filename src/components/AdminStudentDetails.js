@@ -48,7 +48,7 @@ class AdminStudentDetails extends React.Component {
             invites,
             tickets,
             events,
-            loading: false
+            loading: false,
           });
         },
         (error) => {
