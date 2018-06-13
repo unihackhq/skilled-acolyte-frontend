@@ -24,6 +24,8 @@ const AdminEvents = withLazyLoad(() => import('./components/AdminEvents'));
 const AdminTickets = withLazyLoad(() => import('./components/AdminTickets'));
 const AdminStudentDetails = withLazyLoad(() => import('./components/AdminStudentDetails'));
 const AdminTeamDetails = withLazyLoad(() => import('./components/AdminTeamDetails'));
+const AdminEventDetails = withLazyLoad(() => import('./components/AdminEventDetails'));
+const AdminTicketDetails = withLazyLoad(() => import('./components/AdminTicketDetails'));
 
 configure({ enforceActions: true });
 const userStore = new User();
@@ -69,7 +71,9 @@ const App = () => (
           <Route exact path="/admin/students" component={AdminStudents} />
           <Route exact path="/admin/teams/:id" component={AdminTeamDetails} />
           <Route exact path="/admin/teams" component={AdminTeams} />
+          <Route exact path="/admin/events/:id" component={AdminEventDetails} />
           <Route exact path="/admin/events" component={AdminEvents} />
+          <Route exact path="/admin/tickets/:id" component={AdminTicketDetails} />
           <Route exact path="/admin/tickets" component={AdminTickets} />
           <Route exact path="/admin" component={Admin} />
           <Route exact path="/team" component={restricted(Team)} />

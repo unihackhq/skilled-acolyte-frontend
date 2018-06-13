@@ -64,7 +64,7 @@ class AdminTickets extends React.Component {
 
     return (
       <Container>
-        <Input focus placeholder="Filter by name..." value={query} onChange={this.handleSearchChange} />
+        <Input focus placeholder="Filter by eventbrite order..." value={query} onChange={this.handleSearchChange} />
         <Accordion styled fluid panels={panels} />
       </Container>
     );
