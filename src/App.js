@@ -22,6 +22,7 @@ const AdminStudents = withLazyLoad(() => import('./components/AdminStudents'));
 const AdminTeams = withLazyLoad(() => import('./components/AdminTeams'));
 const AdminEvents = withLazyLoad(() => import('./components/AdminEvents'));
 const AdminTickets = withLazyLoad(() => import('./components/AdminTickets'));
+const AdminStudentDetails = withLazyLoad(() => import('./components/AdminStudentDetails'));
 
 configure({ enforceActions: true });
 const userStore = new User();
@@ -63,6 +64,7 @@ const App = () => (
           <Route exact path="/login/:token" component={LoginEntry} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/admin/entry/:token" component={AdminEntry} />
+          <Route exact path="/admin/students/:id" component={AdminStudentDetails} />
           <Route exact path="/admin/students" component={AdminStudents} />
           <Route exact path="/admin/teams" component={AdminTeams} />
           <Route exact path="/admin/events" component={AdminEvents} />
