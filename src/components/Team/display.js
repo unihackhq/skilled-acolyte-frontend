@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Loader, Message, Button } from 'semantic-ui-react';
-import TeamDetails from './details';
-import CreateTeam from './create';
-import EditTeam from './edit';
+import withLazyLoad from '../../utils/lazyLoad';
+
+const TeamDetails = withLazyLoad(() => import('./details'));
+const CreateTeam = withLazyLoad(() => import('./create'));
+const EditTeam = withLazyLoad(() => import('./edit'));
 
 class DisplayTeam extends React.Component {
   static propTypes = {

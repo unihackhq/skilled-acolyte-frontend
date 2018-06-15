@@ -87,7 +87,7 @@ class TeamDetails extends React.Component {
         <p>
           {team.devpostLink
             ? <a href={team.devpostLink}>Team&apos;s Devpost link</a>
-            : <p>Please create a <a href="https://devpost.com/">Devpost</a> team and link it here.</p>}
+            : <React.Fragment>Please create a <a href="https://devpost.com/">Devpost</a> team and link it here.</React.Fragment>}
         </p>
 
         <Header as="h3">Stack</Header>
