@@ -16,6 +16,16 @@ const Team = withLazyLoad(() => import('./components/Team'));
 const Invites = withLazyLoad(() => import('./components/Invites'));
 const FourOhThree = withLazyLoad(() => import('./components/FourOhThree'));
 const FourOhFour = withLazyLoad(() => import('./components/FourOhFour'));
+const AdminEntry = withLazyLoad(() => import('./components/AdminEntry'));
+const Admin = withLazyLoad(() => import('./components/Admin'));
+const AdminStudents = withLazyLoad(() => import('./components/AdminStudents'));
+const AdminTeams = withLazyLoad(() => import('./components/AdminTeams'));
+const AdminEvents = withLazyLoad(() => import('./components/AdminEvents'));
+const AdminTickets = withLazyLoad(() => import('./components/AdminTickets'));
+const AdminStudentDetails = withLazyLoad(() => import('./components/AdminStudentDetails'));
+const AdminTeamDetails = withLazyLoad(() => import('./components/AdminTeamDetails'));
+const AdminEventDetails = withLazyLoad(() => import('./components/AdminEventDetails'));
+const AdminTicketDetails = withLazyLoad(() => import('./components/AdminTicketDetails'));
 
 configure({ enforceActions: true });
 const userStore = new User();
@@ -54,10 +64,20 @@ const App = () => (
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/login/:token" component={LoginEntry} />
-          <Route path="/login" component={Login} />
-          <Route path="/team" component={restricted(Team)} />
-          <Route path="/invites" component={restricted(Invites)} />
+          <Route exact path="/login/:token" component={LoginEntry} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/admin/entry/:token" component={AdminEntry} />
+          <Route exact path="/admin/students/:id" component={AdminStudentDetails} />
+          <Route exact path="/admin/students" component={AdminStudents} />
+          <Route exact path="/admin/teams/:id" component={AdminTeamDetails} />
+          <Route exact path="/admin/teams" component={AdminTeams} />
+          <Route exact path="/admin/events/:id" component={AdminEventDetails} />
+          <Route exact path="/admin/events" component={AdminEvents} />
+          <Route exact path="/admin/tickets/:id" component={AdminTicketDetails} />
+          <Route exact path="/admin/tickets" component={AdminTickets} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/team" component={restricted(Team)} />
+          <Route exact path="/invites" component={restricted(Invites)} />
           <Route component={FourOhFour} />
         </Switch>
       </div>

@@ -2,60 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'semantic-ui-react';
 
-class LoginForm extends React.PureComponent {
-  static propTypes = {
-    sent: PropTypes.bool.isRequired,
-    loading: PropTypes.bool.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-  }
+const LoginForm = ({ sent, loading, email, onChange, onSubmit }) => (
+  <Form>
+    <Form.Field>
+      <label htmlFor="email">
+        Email address
 
-  state = { email: '' }
+        <input
+          id="email"
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={onChange}
+          required
+        />
+      </label>
+    </Form.Field>
 
-  handleChange = (event) => {
-    this.setState({
-      email: event.target.value,
-    });
-  }
-
-  handleSubmit = () => {
-    this.props.onSubmit(this.state.email);
-  }
-
-  render() {
-    const { loading, sent } = this.props;
-    const { email } = this.state;
-
-    return (
-      <Form>
-        <Form.Field>
-          <label htmlFor="email">
-            Email address
-
-            <input
-              id="email"
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={this.handleChange}
-              required
-            />
-          </label>
-        </Form.Field>
-
-        {loading ? (
-          <Button type="submit" disabled loading>Loading</Button>
-        ) : (
-          <Button
-            type="submit"
-            onClick={this.handleSubmit}
-            disabled={email.length === 0}
-          >
-            {sent ? 'Resend' : 'Login'}
-          </Button>
-        )}
-      </Form>
-    );
-  }
-}
+    {loading ? (
+      <Button type="submit" disabled loading>Loading</Button>
+    ) : (
+      <Button
+        type="submit"
+        onClick={onSubmit}
+        disabled={email.length === 0}
+      >
+        {sent ? 'Resend' : 'Login'}
+      </Button>
+    )}
+  </Form>
+);
+LoginForm.propTypes = {
+  sent: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  email: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default LoginForm;

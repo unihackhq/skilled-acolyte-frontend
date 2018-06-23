@@ -36,27 +36,27 @@ export const apiPostNoAuth = (url, body = null) =>
     body: body && JSON.stringify(body),
   }));
 
-export const apiPost = (url, body = null) =>
+export const apiPost = (url, body = null, jwt = null) =>
   wrap(fetch(`${BASE_URL}${url}`, {
     method: 'POST',
     body: body && JSON.stringify(body),
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${jwt || localStorage.getItem('jwt')}`,
     },
   }));
 
-export const apiPut = (url, body = null) =>
+export const apiPut = (url, body = null, jwt = null) =>
   wrap(fetch(`${BASE_URL}${url}`, {
     method: 'PUT',
     body: body && JSON.stringify(body),
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${jwt || localStorage.getItem('jwt')}`,
     },
   }));
 
-export const apiGet = url =>
+export const apiGet = (url, jwt = null) =>
   wrap(fetch(`${BASE_URL}${url}`, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      Authorization: `Bearer ${jwt || localStorage.getItem('jwt')}`,
     },
   }));

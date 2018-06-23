@@ -74,15 +74,21 @@ class Nav extends React.Component {
     const { loggedIn } = user;
     const { count } = invites;
 
+    const isAdmin = localStorage.getItem('adminJwt') !== null;
+
     return (
       <Container>
         <Menu>
           <NavMenuItem key="home" path="/" label="Home" routeProps={{ exact: true }} />
 
-          {loggedIn && [
+          {loggedIn ? [
             <NavMenuItem key="team" path="/team" label="Team" />,
             <NavMenuItem key="invites" path="/invites" label={`Invites (${count})`} />,
-          ]}
+          ] : null}
+
+          {isAdmin ? (
+            <NavMenuItem key="admin" path="/admin" label="Admin [internal]" routeProps={{ exact: true }} />
+          ) : null}
 
           <Menu.Menu position="right">
             {loggedIn ? (

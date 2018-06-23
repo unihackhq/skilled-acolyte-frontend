@@ -14,9 +14,21 @@ class Login extends React.Component {
     loading: false,
     sent: false,
     error: null,
+    email: '',
   };
 
-  login = (email) => {
+  handleChange = (event) => {
+    this.setState({
+      email: event.target.value,
+      // reset state when the email changes
+      sent: false,
+      error: null,
+    });
+  }
+
+  handleSubmit = () => {
+    const { email } = this.state;
+
     this.setState({ loading: true, sent: false, error: null });
 
     apiPostNoAuth(`/token/${email}`)
@@ -32,7 +44,7 @@ class Login extends React.Component {
 
   render() {
     const { loggedIn } = this.props.user;
-    const { sent, error, loading } = this.state;
+    const { sent, error, loading, email } = this.state;
 
     if (loggedIn) {
       return <Redirect to="/" />;
@@ -41,24 +53,30 @@ class Login extends React.Component {
     return (
       <Container>
         <Header as="h2">Login</Header>
-        {sent && (
+        {sent ? (
           <Message
             compact
             positive
             header="Check your inbox"
             content="An email with login instructions has been sent to your email."
           />
-        )}
-        {error && (
+        ) : null}
+        {error ? (
           <Message
             compact
             negative
             header="Something went wrong!"
             content={error}
           />
-        )}
+        ) : null}
 
-        <LoginForm onSubmit={this.login} sent={sent} loading={loading} />
+        <LoginForm
+          onSubmit={this.handleSubmit}
+          onChange={this.handleChange}
+          email={email}
+          sent={sent}
+          loading={loading}
+        />
       </Container>
     );
   }
