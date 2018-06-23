@@ -5,12 +5,7 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'object-curly-newline': ['error', {
-      ObjectExpression: { consistent: true },
-      ObjectPattern: { consistent: true },
-      ImportDeclaration: { consistent: true },
-      ExportDeclaration: { consistent: true },
-    }],
+    'object-curly-newline': ['error', { consistent: true }],
     'function-paren-newline': ['error', 'consistent'],
 
     'react/jsx-filename-extension': 0,
