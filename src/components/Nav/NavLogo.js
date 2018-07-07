@@ -1,12 +1,14 @@
 import React from 'react';
-import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import { reaction } from 'mobx';
+import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownContent, DropdownItem, Button } from 'bloomer';
 import ArrowDropdownIcon from '@material-ui/icons/ArrowDropDown';
 import './NavLogo.scss';
 
 class NavLogo extends React.Component {
   static propTypes = {
+    user: MobxPropTypes.observableObject.isRequired,
     events: MobxPropTypes.observableObject.isRequired,
   }
 
@@ -15,8 +17,18 @@ class NavLogo extends React.Component {
   }
 
   componentDidMount() {
-    const { events } = this.props;
-    events.fetchList();
+    const { user, events } = this.props;
+
+    // fetch list when user logged in
+    reaction(
+      () => user.loggedIn,
+      (loggedIn) => {
+        if (loggedIn) {
+          events.fetchList();
+        }
+      },
+      { fireImmediately: true },
+    );
   }
 
   toggleDropdown = () => {
@@ -79,4 +91,4 @@ class NavLogo extends React.Component {
   }
 }
 
-export default inject('events')(observer(NavLogo));
+export default inject('user', 'events')(observer(NavLogo));

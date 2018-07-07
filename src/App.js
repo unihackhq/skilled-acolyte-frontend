@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider, observer } from 'mobx-react';
-import { configure } from 'mobx';
+import { configure, reaction } from 'mobx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import withLazyLoad from './utils/lazyLoad';
 import Nav from './components/Nav';
@@ -32,6 +32,18 @@ const userStore = new User();
 const eventStore = new Events();
 const teamStore = new Teams();
 const inviteStore = new InvitesStore();
+
+// clear data when user logs out
+reaction(
+  () => userStore.loggedIn,
+  (loggedIn) => {
+    if (!loggedIn) {
+      eventStore.clear();
+      teamStore.clear();
+      inviteStore.clear();
+    }
+  },
+);
 
 // HOC to restrict access to a component when user isn't logged in
 const restricted = (C) => {

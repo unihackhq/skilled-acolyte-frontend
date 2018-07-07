@@ -17,20 +17,16 @@ class Nav extends React.Component {
   componentDidMount() {
     const { user, invites } = this.props;
 
-    if (!user.loggedIn) {
-      // setup a one time reaction for when user logs in
-      reaction(
-        () => user.loggedIn,
-        (loggedIn, self) => {
+    // fetch list when user logged in
+    reaction(
+      () => user.loggedIn,
+      (loggedIn) => {
+        if (loggedIn) {
           invites.fetchList();
-
-          // removes the reaction so this only runs once
-          self.dispose();
-        },
-      );
-    } else {
-      invites.fetchList();
-    }
+        }
+      },
+      { fireImmediately: true },
+    );
   }
 
   logout = () => {

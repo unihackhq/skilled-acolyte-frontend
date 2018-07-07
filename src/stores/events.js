@@ -63,6 +63,13 @@ class Events {
     this.error = error.body.message;
     this.fetching = false;
   }
+
+  clear() {
+    this.list = null;
+    this.error = null;
+    this.fetching = false;
+    this.selectedId = null;
+  }
 }
 
 export default decorate(Events, {
@@ -76,4 +83,5 @@ export default decorate(Events, {
   changeSelected: action.bound,
   fetchList: action.bound,
   apiFail: action.bound,
+  clear: action.bound,
 });
