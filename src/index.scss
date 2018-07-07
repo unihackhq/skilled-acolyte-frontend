@@ -1,1 +1,13 @@
+@import "./variables.scss";
 @import "~bulma";
+
+body {
+  background: #ececec;
+}
+
+@include touch {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

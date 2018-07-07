@@ -60,7 +60,7 @@ const App = () => (
       teams={teamStore}
       invites={inviteStore}
     >
-      <div>
+      <React.Fragment>
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -80,7 +80,7 @@ const App = () => (
           <Route exact path="/invites" component={restricted(Invites)} />
           <Route component={FourOhFour} />
         </Switch>
-      </div>
+      </React.Fragment>
     </Provider>
   </Router>
 );
