@@ -6,6 +6,7 @@ class Events {
   list = null;
   error = null;
   fetching = false;
+  selectedId = null;
 
   get fetched() {
     return this.list !== null;
@@ -13,6 +14,18 @@ class Events {
 
   get loading() {
     return this.fetching || !this.fetched;
+  }
+
+  get selected() {
+    if (!this.selectedId) {
+      return null;
+    }
+
+    return this.list.find(event => event.id === this.selectedId) || null;
+  }
+
+  changeSelected(id) {
+    this.selectedId = id;
   }
 
   fetchList() {
@@ -36,6 +49,10 @@ class Events {
           runInAction('fetchSuccess', () => {
             this.list = events;
             this.fetching = false;
+
+            if (events.length > 0) {
+              this.selectedId = events[0].id;
+            }
           });
         },
         error => this.apiFail(error),
@@ -52,8 +69,11 @@ export default decorate(Events, {
   list: observable,
   error: observable,
   fetching: observable,
+  selectedId: observable,
   fetched: computed,
   loading: computed,
+  selected: computed,
+  changeSelected: action.bound,
   fetchList: action.bound,
   apiFail: action.bound,
 });
