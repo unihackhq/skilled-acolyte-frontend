@@ -1,0 +1,21 @@
+.invites__invite__root {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  button {
+    margin-left: 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.invites__invite__left {
+  flex: 1 0 auto;
+}
+
+.invites__invite__right {
+  flex: 0 0 auto;
+}

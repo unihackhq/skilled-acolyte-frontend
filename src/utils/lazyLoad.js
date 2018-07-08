@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader } from 'semantic-ui-react';
+import Loader from '../components/Loader';
 
 const withLazyLoad = load =>
   class LazyLoad extends React.Component {
@@ -17,7 +17,7 @@ const withLazyLoad = load =>
         return <LazyComponent {...this.props} />;
       }
 
-      return <Loader active inline="centered" />;
+      return <Loader />;
     }
   };
 

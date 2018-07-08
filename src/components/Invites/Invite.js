@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { List, Button, Message } from 'semantic-ui-react';
+import { Button, Notification } from 'bloomer';
 import { apiPost } from '../../utils/api';
 import FatalButton from '../FatalButton';
+import './Invite.scss';
 
 class Invite extends React.Component {
   static propTypes = {
@@ -62,38 +63,38 @@ class Invite extends React.Component {
 
     if (error) {
       return (
-        <Message
-          compact
-          negative
-          header="Something went wrong!"
-          content={error}
-        />
+        <Notification isColor="danger">
+          {error}
+        </Notification>
       );
     }
 
     const team = invites.findByTeam(teamId);
+    const memberCount = team.members.length;
 
     return (
-      <List.Item>
-        <List.Content floated="right">
+      <div className="invites__invite__root">
+        <div className="invites__invite__left">
+          {team.name} ({memberCount} member{memberCount > 1 ? 's' : null})
+        </div>
+        <div className="invites__invite__right">
           <Button
             onClick={this.handleAccept}
-            loading={accepting}
+            isLoading={accepting}
             disabled={accepting || hasTeam}
-            content="Accept"
-          />
+            title={hasTeam ? 'Leave your current team first!' : null}
+          >
+            Accept
+          </Button>
           <FatalButton
             onClick={this.handleReject}
             isLoading={rejecting}
-            disabled={rejecting || hasTeam}
+            disabled={rejecting}
           >
             Reject
           </FatalButton>
-        </List.Content>
-        <List.Content>
-          {`${team.name} (${team.members.length})`}
-        </List.Content>
-      </List.Item>
+        </div>
+      </div>
     );
   }
 }
