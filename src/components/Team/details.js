@@ -58,12 +58,13 @@ class TeamDetails extends React.Component {
         <div>
           {`${team.name} (${team.members.length} members)`}
           <FatalButton
-            size="mini"
+            isSize="small"
             onClick={this.handleLeave}
-            content="Leave"
-            loading={leaving}
+            isLoading={leaving}
             disabled={leaving}
-          />
+          >
+            Leave
+          </FatalButton>
         </div>
       );
     }
@@ -105,10 +106,11 @@ class TeamDetails extends React.Component {
         <SendInvite teamId={teamId} />
         <FatalButton
           onClick={this.handleLeave}
-          content="Leave"
-          loading={leaving}
+          isLoading={leaving}
           disabled={leaving}
-        />
+        >
+          Leave
+        </FatalButton>
       </div>
     );
   }

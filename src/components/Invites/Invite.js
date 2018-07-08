@@ -84,10 +84,11 @@ class Invite extends React.Component {
           />
           <FatalButton
             onClick={this.handleReject}
-            loading={rejecting}
+            isLoading={rejecting}
             disabled={rejecting || hasTeam}
-            content="Reject"
-          />
+          >
+            Reject
+          </FatalButton>
         </List.Content>
         <List.Content>
           {`${team.name} (${team.members.length})`}
