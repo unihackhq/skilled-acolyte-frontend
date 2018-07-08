@@ -5,10 +5,11 @@ import { Route, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import setTitle from '../../utils/title';
 
-const NavbarItem = ({ path, className, children, ...routeProps }) => {
+const NavbarItem = ({ path, className, children, title, ...routeProps }) => {
   const child = ({ match }) => {
     if (match) {
-      setTitle(children);
+      const titleText = title || children;
+      setTitle(titleText);
     }
 
     return (
@@ -32,7 +33,14 @@ const NavbarItem = ({ path, className, children, ...routeProps }) => {
 NavbarItem.propTypes = {
   path: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]).isRequired,
+};
+NavbarItem.defaultProps = {
+  title: null,
 };
 
 export default withRouter(NavbarItem);

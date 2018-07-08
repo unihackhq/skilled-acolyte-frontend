@@ -68,8 +68,8 @@ class Nav extends React.Component {
               <NavbarItem className="navbar__item" key="team" path="/team">
                 Team
               </NavbarItem>,
-              <NavbarItem className="navbar__item" key="invites" path="/invites">
-                {`Invites (${count})`}
+              <NavbarItem className="navbar__item" key="invites" path="/invites" title="Invites">
+                Invites <div className="navbar__item__bubble">{count}</div>
               </NavbarItem>,
             ] : null}
 
