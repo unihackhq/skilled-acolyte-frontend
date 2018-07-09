@@ -22,13 +22,19 @@ class NavLogo extends React.Component {
     // fetch list when user logged in
     reaction(
       () => user.loggedIn,
-      (loggedIn) => {
+      (loggedIn, self) => {
+        this.reaction = self;
+
         if (loggedIn) {
           events.fetchList();
         }
       },
       { fireImmediately: true },
     );
+  }
+
+  componentWillUnmount() {
+    this.reaction.dispose();
   }
 
   toggleDropdown = () => {

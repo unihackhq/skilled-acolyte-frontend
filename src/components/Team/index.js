@@ -10,7 +10,7 @@ const TeamDetails = withLazyLoad(() => import('./TeamDetails'));
 const CreateTeam = withLazyLoad(() => import('./CreateTeam'));
 const EditTeam = withLazyLoad(() => import('./EditTeam'));
 
-class DisplayTeam extends React.Component {
+class Team extends React.Component {
   static propTypes = {
     teams: MobxPropTypes.observableObject.isRequired,
     events: MobxPropTypes.observableObject.isRequired,
@@ -117,4 +117,4 @@ class DisplayTeam extends React.Component {
   }
 }
 
-export default inject('teams', 'events', 'invites')(observer(DisplayTeam));
+export default inject('teams', 'events', 'invites')(observer(Team));

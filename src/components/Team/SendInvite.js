@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { reaction } from 'mobx';
 import { Notification, Label, Input, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownContent, DropdownItem } from 'bloomer';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { apiGet, apiPost } from '../../utils/api';
-import Loader from '../Loader';
+import { apiPost } from '../../utils/api';
 import './SendInvite.scss';
 
 class SendInvite extends React.Component {
   static propTypes = {
     teamId: PropTypes.string.isRequired,
     teams: MobxPropTypes.observableObject.isRequired,
+    events: MobxPropTypes.observableObject.isRequired,
   }
 
   static defaultProps = {
@@ -19,8 +20,6 @@ class SendInvite extends React.Component {
   state = {
     search: '',
     studentId: null,
-    students: null,
-    loadingStudents: true,
     sending: false,
     open: false,
     dropdownOpen: false,
@@ -28,30 +27,22 @@ class SendInvite extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchList();
+    const { events } = this.props;
+    reaction(
+      () => events.selectedId,
+      (id, self) => {
+        this.reaction = self;
+
+        if (id) {
+          events.fetchAttendees(id);
+        }
+      },
+      { fireImmediately: true },
+    );
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.teamId !== this.props.teamId) {
-      this.fetchList();
-    }
-  }
-
-  fetchList = () => {
-    const { teams, teamId } = this.props;
-    const { eventId } = teams.findById(teamId);
-
-    this.setState({ loadingStudents: true, studentId: '' });
-    apiGet(`/events/${eventId}/attendees`)
-      .then(
-        async (resp) => {
-          const students = await resp.json();
-          this.setState({ students, loadingStudents: false });
-        },
-        (error) => {
-          this.setState({ error: error.body.message, loadingStudents: false });
-        },
-      );
+  componentWillUnmount() {
+    this.reaction.dispose();
   }
 
   handleOpen = () => {
@@ -113,8 +104,8 @@ class SendInvite extends React.Component {
   }
 
   render() {
-    const { open, loadingStudents, sending, error, studentId, search,
-      dropdownOpen, students } = this.state;
+    const { open, sending, error, studentId, search, dropdownOpen } = this.state;
+    const { events, teams, teamId } = this.props;
 
     if (error) {
       return (
@@ -123,27 +114,23 @@ class SendInvite extends React.Component {
         </Notification>
       );
     }
-
-    if (!open) {
+    if (!open || !events.attendees) {
       return (
-        <Button onClick={this.handleOpen}>
+        <Button
+          onClick={this.handleOpen}
+          isLoading={open}
+        >
           Invite
         </Button>
       );
     }
-
-    if (loadingStudents) {
-      return <Loader inline noDelay />;
-    }
-
-    const { teams, teamId } = this.props;
 
     const team = teams.findById(teamId);
     const alreadyMembers = team.members.map(m => m.id);
     team.invited.map(m => alreadyMembers.push(m.id));
 
     const lowercaseSearch = search.toLowerCase();
-    const filteredStudents = students
+    const filteredStudents = events.attendees
       .map(s => ({ id: s.id, name: `${s.user.preferredName} ${s.user.lastName}` }))
       .filter(s => !alreadyMembers.includes(s.id))
       .filter(s => s.name.toLowerCase().includes(lowercaseSearch));
@@ -153,7 +140,7 @@ class SendInvite extends React.Component {
         <Dropdown
           className="send-invite__dropdown"
           isActive={dropdownOpen}
-          disabled={loadingStudents || sending || !studentId}
+          disabled={sending || !studentId}
         >
           <DropdownTrigger>
             <Label htmlFor="send-invite-search">Search for a student</Label>
@@ -161,7 +148,6 @@ class SendInvite extends React.Component {
               id="send-invite-search"
               type="text"
               value={search || ''}
-              disabled={loadingStudents}
               onChange={this.handleSearchChange}
               onFocus={this.handleOpenDropdown}
               onBlur={this.handleCloseDropdown}
@@ -190,7 +176,7 @@ class SendInvite extends React.Component {
         </Dropdown>
         <Button
           type="submit"
-          disabled={loadingStudents || sending || !studentId}
+          disabled={sending || !studentId}
           isLoading={sending}
         >
           Send Invite
@@ -203,4 +189,4 @@ class SendInvite extends React.Component {
   }
 }
 
-export default inject('teams')(observer(SendInvite));
+export default inject('teams', 'events')(observer(SendInvite));

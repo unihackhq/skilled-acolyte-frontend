@@ -20,8 +20,8 @@
   &.loader__container__absolute {
     &:after {
       position: absolute;
-      top: calc(50% - 2.5em);
-      left: calc(50% - 2.5em);
+      top: 20vh;
+      left: calc(50vw - 2em);
 
       width: 4em;
       height: 4em;
