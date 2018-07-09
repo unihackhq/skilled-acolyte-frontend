@@ -1,0 +1,24 @@
+.team-details__root .button {
+  margin-right: 5px;
+}
+
+.team-details__section {
+  margin-bottom: 1.5rem;
+
+  h2.title, h3.title {
+    margin-bottom: 0.3rem;
+  }
+}
+
+.team-details__multiline {
+  white-space: pre-line;
+}
+
+.team-details-leave__root {
+  display: flex;
+  max-width: 600px;
+}
+
+.team-details-leave__label {
+  flex: 1 0 auto;
+}

@@ -78,9 +78,10 @@ class Login extends React.Component {
 
         <form onSubmit={this.handleSubmit}>
           <Field>
-            <Label>Email</Label>
+            <Label htmlFor="login-email">Email</Label>
             <Control>
               <Input
+                id="login-email"
                 type="text"
                 value={email}
                 onChange={this.handleChange}

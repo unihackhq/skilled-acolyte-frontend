@@ -88,7 +88,7 @@ const App = () => (
           <Route exact path="/admin/tickets/:id" component={AdminTicketDetails} />
           <Route exact path="/admin/tickets" component={AdminTickets} />
           <Route exact path="/admin" component={Admin} />
-          <Route exact path="/team" component={restricted(Team)} />
+          <Route path="/team" component={restricted(Team)} />
           <Route exact path="/invites" component={restricted(Invites)} />
           <Route component={FourOhFour} />
         </Switch>

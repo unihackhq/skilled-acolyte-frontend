@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { reaction } from 'mobx';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container } from 'bloomer';
 import NavbarItem from './NavbarItem';
@@ -11,22 +10,6 @@ import './index.scss';
 class Nav extends React.Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
-    invites: MobxPropTypes.observableObject.isRequired,
-  }
-
-  componentDidMount() {
-    const { user, invites } = this.props;
-
-    // fetch list when user logged in
-    reaction(
-      () => user.loggedIn,
-      (loggedIn) => {
-        if (loggedIn) {
-          invites.fetchList();
-        }
-      },
-      { fireImmediately: true },
-    );
   }
 
   logout = () => {
@@ -35,9 +18,8 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { user, invites } = this.props;
+    const { user } = this.props;
     const { loggedIn } = user;
-    const { count } = invites;
     const isAdmin = localStorage.getItem('adminJwt') !== null;
 
     return (
@@ -68,9 +50,6 @@ class Nav extends React.Component {
               <NavbarItem className="navbar__item" key="team" path="/team">
                 Team
               </NavbarItem>,
-              <NavbarItem className="navbar__item" key="invites" path="/invites" title="Invites">
-                Invites <div className="navbar__item__bubble">{count}</div>
-              </NavbarItem>,
             ] : null}
 
             {isAdmin ? (
@@ -86,4 +65,4 @@ class Nav extends React.Component {
 }
 
 
-export default withRouter(inject('user', 'invites')(observer(Nav)));
+export default withRouter(inject('user')(observer(Nav)));
