@@ -1,34 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
-import { Route, Link } from 'react-router-dom';
-import classNames from 'classnames';
+import { NavLink } from 'react-router-dom';
 import setTitle from '../../utils/title';
 
 const NavbarItem = ({ path, className, children, title, ...routeProps }) => {
-  const child = ({ match }) => {
-    if (match) {
-      const titleText = title || children;
-      setTitle(titleText);
+  // use isActive as an opportunity to change the title to the active item
+  const isActive = (match) => {
+    if (match && title) {
+      setTitle(title);
     }
 
-    return (
-      <Link
-        to={path}
-        className={classNames(
-          className,
-          { active: Boolean(match) },
-        )}
-      >
-        {children}
-      </Link>
-    );
-  };
-  child.propTypes = {
-    match: PropTypes.string.isRequired,
+    return match;
   };
 
-  return <Route {...routeProps} path={path}>{child}</Route>;
+  return (
+    <NavLink
+      to={path}
+      className={className}
+      activeClassName="active"
+      isActive={isActive}
+      {...routeProps}
+    >
+      {children}
+    </NavLink>
+  );
 };
 NavbarItem.propTypes = {
   path: PropTypes.string.isRequired,
@@ -43,4 +38,4 @@ NavbarItem.defaultProps = {
   title: null,
 };
 
-export default withRouter(NavbarItem);
+export default NavbarItem;

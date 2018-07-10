@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Message, Loader, Header } from 'semantic-ui-react';
-import { apiGet } from '../utils/api';
+import { Container, Message, MessageHeader, MessageBody, Title } from 'bloomer';
+import { apiGet } from '../../utils/api';
+import Loader from '../Loader';
 
 class AdminTeamDetails extends React.Component {
   static propTypes = {
@@ -40,23 +41,25 @@ class AdminTeamDetails extends React.Component {
     if (error) {
       return (
         <Container>
-          <Message
-            compact
-            negative
-            header="Something went wrong!"
-            content={error}
-          />
+          <Message isColor="danger" isFullWidth={false}>
+            <MessageHeader>
+              Something went wrong!
+            </MessageHeader>
+            <MessageBody>
+              {error}
+            </MessageBody>
+          </Message>
         </Container>
       );
     }
 
     if (loading) {
-      return <Loader active inline="centered" />;
+      return <Loader />;
     }
 
     return (
       <Container>
-        <Header as="h1">{team.name}</Header>
+        <Title tag="h1">{team.name}</Title>
         <pre>{JSON.stringify(team, null, 4)}</pre>
       </Container>
     );

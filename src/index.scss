@@ -3,6 +3,7 @@
 
 body {
   background: #ececec;
+  min-height: 100vh;
 }
 
 @include touch {

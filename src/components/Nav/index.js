@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container } from 'bloomer';
@@ -42,22 +42,42 @@ class Nav extends React.Component {
             </div>
           </div>
           <div className="navbar__nav">
-            <NavbarItem className="navbar__item" path="/" exact>
+            <NavbarItem className="navbar__item" path="/" title="Home" exact>
               Home
             </NavbarItem>
 
-            {loggedIn ? [
-              <NavbarItem className="navbar__item" key="team" path="/team">
+            {loggedIn ? (
+              <NavbarItem className="navbar__item" path="/team" title="Team">
                 Team
-              </NavbarItem>,
-            ] : null}
+              </NavbarItem>
+            ) : null}
 
             {isAdmin ? (
-              <NavbarItem className="navbar__item" key="admin" path="/admin">
+              <NavbarItem className="navbar__item" path="/admin" title="Admin">
                 Admin
               </NavbarItem>
             ) : null}
           </div>
+          {/* Additional navbar items when admin page is open */}
+          <Route
+            path="/admin"
+            render={() => (
+              <div className="navbar__nav navbar__nav__admin">
+                <NavbarItem className="navbar__item" path="/admin/students" exact>
+                  Students
+                </NavbarItem>
+                <NavbarItem className="navbar__item" path="/admin/teams" exact>
+                  Teams
+                </NavbarItem>
+                <NavbarItem className="navbar__item" path="/admin/events" exact>
+                  Events
+                </NavbarItem>
+                <NavbarItem className="navbar__item" path="/admin/tickets" exact>
+                  Tickets
+                </NavbarItem>
+              </div>
+            )}
+          />
         </Container>
       </div>
     );

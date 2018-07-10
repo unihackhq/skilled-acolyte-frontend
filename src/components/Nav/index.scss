@@ -3,7 +3,7 @@
 
 .navbar__root {
   background: #fff;
-  box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 1px 10px 0px $grey-lighter;
   margin-bottom: 20px;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .navbar__brand {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $grey-lighter;
 }
 
 .navbar__logo {
@@ -37,6 +37,11 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+
+
+  &.navbar__nav__admin {
+    border-top: 1px solid $grey-lighter;
+  }
 }
 
 .navbar__item {
@@ -46,7 +51,7 @@
   margin-right: 0.5em;
   line-height: 3em;
   text-align: center;
-  border-bottom: 5px solid #fff;
+  border-bottom: 5px solid $white;
   color: $dark;
   position: relative;
 
