@@ -1,19 +1,22 @@
 export default (promise) => {
-  let hasCanceled = false;
+  let cancel = () => null;
 
   const wrappedPromise = new Promise((resolve, reject) => {
+    // reject the promise and drop all references
+    cancel = () => {
+      reject({ isCanceled: true });
+      resolve = null; // eslint-disable-line no-param-reassign
+      reject = null; // eslint-disable-line no-param-reassign
+    };
+
     promise.then(
       (val) => {
-        if (hasCanceled) {
-          reject({ isCanceled: true });
-        } else {
+        if (resolve) {
           resolve(val);
         }
       },
       (error) => {
-        if (hasCanceled) {
-          reject({ isCanceled: true });
-        } else {
+        if (reject) {
           reject(error);
         }
       },
@@ -22,8 +25,6 @@ export default (promise) => {
 
   return {
     promise: wrappedPromise,
-    cancel() {
-      hasCanceled = true;
-    },
+    cancel,
   };
 };
