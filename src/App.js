@@ -4,6 +4,7 @@ import { configure, reaction } from 'mobx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import withLazyLoad from './utils/lazyLoad';
 import Nav from './components/Nav';
+import FirstLaunchRedirect from './components/FirstLaunchRedirect';
 import User from './stores/user';
 import Events from './stores/events';
 import Teams from './stores/teams';
@@ -26,6 +27,8 @@ const AdminStudentDetails = withLazyLoad(() => import('./components/Admin/AdminS
 const AdminTeamDetails = withLazyLoad(() => import('./components/Admin/AdminTeamDetails'));
 const AdminEventDetails = withLazyLoad(() => import('./components/Admin/AdminEventDetails'));
 const AdminTicketDetails = withLazyLoad(() => import('./components/Admin/AdminTicketDetails'));
+const Profile = withLazyLoad(() => import('./components/Profile'));
+const FirstLaunch = withLazyLoad(() => import('./components/FirstLaunch'));
 
 configure({ enforceActions: true });
 const userStore = new User();
@@ -74,8 +77,10 @@ const App = () => (
     >
       <React.Fragment>
         <Nav />
+        {/* First launch needs special attention. A redirect always gets
+          rendered because we might need to redirect to first launch */}
+        <Route path="/first-launch">{props => <FirstLaunchRedirect {...props} />}</Route>
         <Switch>
-          <Route exact path="/" component={Home} />
           <Route exact path="/login/:token" component={LoginEntry} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/admin/entry/:token" component={AdminEntry} />
@@ -90,6 +95,9 @@ const App = () => (
           <Route exact path="/admin" component={Admin} />
           <Route path="/team" component={restricted(Team)} />
           <Route exact path="/invites" component={restricted(Invites)} />
+          <Route path="/profile" component={restricted(Profile)} />
+          <Route exact path="/first-launch" component={restricted(FirstLaunch)} />
+          <Route exact path="/" component={Home} />
           <Route component={FourOhFour} />
         </Switch>
       </React.Fragment>
