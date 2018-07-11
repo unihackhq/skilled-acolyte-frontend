@@ -4,7 +4,6 @@ import { configure, reaction } from 'mobx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import withLazyLoad from './utils/lazyLoad';
 import Nav from './components/Nav';
-import FirstLaunchRedirect from './components/FirstLaunchRedirect';
 import User from './stores/user';
 import Events from './stores/events';
 import Teams from './stores/teams';
@@ -79,7 +78,6 @@ const App = () => (
         <Nav />
         {/* First launch needs special attention. A redirect always gets
           rendered because we might need to redirect to first launch */}
-        <Route path="/first-launch">{props => <FirstLaunchRedirect {...props} />}</Route>
         <Switch>
           <Route exact path="/login/:token" component={LoginEntry} />
           <Route exact path="/login" component={Login} />

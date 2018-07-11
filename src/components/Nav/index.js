@@ -47,9 +47,14 @@ class Nav extends React.Component {
             </NavbarItem>
 
             {loggedIn ? (
-              <NavbarItem className="navbar__item" path="/team" title="Team">
-                Team
-              </NavbarItem>
+              <React.Fragment>
+                <NavbarItem className="navbar__item" path="/profile" title="Profile">
+                  Profile
+                </NavbarItem>
+                <NavbarItem className="navbar__item" path="/team" title="Team">
+                  Team
+                </NavbarItem>
+              </React.Fragment>
             ) : null}
 
             {isAdmin ? (
