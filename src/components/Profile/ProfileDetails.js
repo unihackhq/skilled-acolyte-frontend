@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container, Title, Button } from 'bloomer';
+import Loader from '../Loader';
 import './ProfileDetails.scss';
 
 const ProfileDetails = ({ user: userStore }) => {
@@ -17,6 +18,10 @@ const ProfileDetails = ({ user: userStore }) => {
 
   return (
     <Container>
+      {userStore.fetching ? (
+        /* show some indication something is going on while also showing the old data */
+        <Loader />
+      ) : null}
       <Title tag="h1" isSize={3}>
         {preferredName} {lastName}
       </Title>

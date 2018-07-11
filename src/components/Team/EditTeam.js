@@ -29,7 +29,9 @@ class EditTeam extends React.Component {
     };
   }
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
+
     const { teamId, teams } = this.props;
     const { name, shortDescription, devpostLink,
       stack, longDescription } = this.state;
