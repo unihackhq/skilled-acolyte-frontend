@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container, Message, MessageHeader, MessageBody, Box, Title } from 'bloomer';
 import Loader from '../Loader';
@@ -108,10 +108,8 @@ class Team extends React.Component {
     const teamId = eventTeams[0].id;
     return (
       <Container>
-        <Switch>
-          <Route path="/team/edit" component={() => <EditTeam teamId={teamId} />} />
-          <Route path="/team" component={() => <TeamDetails teamId={teamId} />} />
-        </Switch>
+        <Route exact path="/team/edit" component={() => <EditTeam teamId={teamId} />} />
+        <Route exact path="/team" component={() => <TeamDetails teamId={teamId} />} />
       </Container>
     );
   }
