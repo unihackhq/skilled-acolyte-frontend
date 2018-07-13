@@ -55,6 +55,12 @@ class Invites {
     this.error = error.body.message;
     this.fetching = false;
   }
+
+  clear() {
+    this.list = null;
+    this.error = null;
+    this.fetching = false;
+  }
 }
 
 export default decorate(Invites, {
@@ -66,4 +72,5 @@ export default decorate(Invites, {
   count: computed,
   fetchList: action.bound,
   apiFail: action.bound,
+  clear: action.bound,
 });

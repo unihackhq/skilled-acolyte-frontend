@@ -1,0 +1,65 @@
+@import "../../variables.scss";
+@import "~bulma/sass/utilities/mixins";
+
+.navbar__root {
+  background: #fff;
+  box-shadow: 0px 1px 10px 0px $grey-lighter;
+  margin-bottom: 20px;
+}
+
+.navbar__container {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.navbar__brand, .navbar__nav {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.navbar__brand {
+  border-bottom: 1px solid $grey-lighter;
+}
+
+.navbar__logo {
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.navbar__user {
+  flex: 0 0 auto;
+}
+
+.navbar__nav {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+
+  &.navbar__nav__admin {
+    border-top: 1px solid $grey-lighter;
+  }
+}
+
+.navbar__item {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  line-height: 3em;
+  text-align: center;
+  border-bottom: 5px solid $white;
+  color: $dark;
+  position: relative;
+
+  &.active {
+    border-bottom: 5px solid $primary;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+}

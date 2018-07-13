@@ -73,6 +73,11 @@ class User {
 
   logout() {
     this.setJwt(null);
+    this.clear();
+  }
+
+  clear() {
+    this.jwt = null;
     this.error = null;
     this.fetching = false;
     this.details = null;
@@ -90,4 +95,5 @@ export default decorate(User, {
   fetchDetails: action.bound,
   apiFail: action.bound,
   logout: action.bound,
+  clear: action.bound,
 });

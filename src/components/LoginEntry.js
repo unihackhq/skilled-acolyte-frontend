@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Redirect } from 'react-router-dom';
-import { Container, Loader, Message } from 'semantic-ui-react';
+import { Container, Message, MessageHeader, MessageBody } from 'bloomer';
+import Loader from './Loader';
 
 class LoginEntry extends React.Component {
   static propTypes = {
@@ -29,16 +30,19 @@ class LoginEntry extends React.Component {
     if (error) {
       return (
         <Container>
-          <Message
-            compact
-            negative
-            header="Something went wrong!"
-            content={error}
-          />
+          <Message isColor="danger">
+            <MessageHeader>
+              Something went wrong!
+            </MessageHeader>
+            <MessageBody>
+              {error}
+            </MessageBody>
+          </Message>
         </Container>
       );
     }
-    return <Loader active inline="centered" />;
+
+    return <Loader />;
   }
 }
 export default inject('user')(observer(LoginEntry));

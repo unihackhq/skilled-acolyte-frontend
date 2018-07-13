@@ -1,8 +1,9 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Loader, Message, List } from 'semantic-ui-react';
+import { Container, Message, MessageHeader, MessageBody, Box, Title } from 'bloomer';
 import groupBy from 'lodash.groupby';
 import keyBy from 'lodash.keyby';
+import Loader from '../Loader';
 import Invite from './Invite';
 
 class Invites extends React.Component {
@@ -19,44 +20,31 @@ class Invites extends React.Component {
     teams.fetchList();
   }
 
+  renderError = error => (
+    <Message isColor="danger" isFullWidth={false}>
+      <MessageHeader>
+        Something went wrong!
+      </MessageHeader>
+      <MessageBody>
+        {error}
+      </MessageBody>
+    </Message>
+  )
+
   render() {
     const { events, invites, teams } = this.props;
 
     if (events.error) {
-      return (
-        <Message
-          compact
-          negative
-          header="Something went wrong!"
-          content={events.error}
-        />
-      );
+      return this.renderError(events.error);
     }
-
     if (invites.error) {
-      return (
-        <Message
-          compact
-          negative
-          header="Something went wrong!"
-          content={invites.error}
-        />
-      );
+      return this.renderError(invites.error);
     }
-
     if (teams.error) {
-      return (
-        <Message
-          compact
-          negative
-          header="Something went wrong!"
-          content={teams.error}
-        />
-      );
+      return this.renderError(teams.error);
     }
-
     if (events.loading || invites.loading || teams.loading) {
-      return <Loader active inline="centered" />;
+      return <Loader />;
     }
 
     const eventInvites = groupBy(invites.list, 'eventId');
@@ -65,27 +53,23 @@ class Invites extends React.Component {
 
     return (
       <Container>
-        <List divided verticalAlign="middle">
-          {Object.entries(eventInvites).map(([eventId, eventTeams]) => {
-            const hasTeam = (groupedTeams[eventId] || []).length > 0;
-            return (
-              <React.Fragment key={eventId}>
-                <List.Header>
-                  {keyedEvents[eventId].name}
-                  {' '}
-                  { hasTeam ? '(You already have a team for this event!)' : null }
-                </List.Header>
-                {eventTeams.map(team => (
-                  <Invite
-                    key={team.id}
-                    teamId={team.id}
-                    hasTeam={hasTeam}
-                  />
-                ))}
-              </React.Fragment>
-            );
-          })}
-        </List>
+        {Object.entries(eventInvites).map(([eventId, eventTeams]) => {
+          const hasTeam = (groupedTeams[eventId] || []).length > 0;
+          return (
+            <Box key={eventId}>
+              <Title isSize={3} tag="h2">
+                {keyedEvents[eventId].name}
+              </Title>
+              {eventTeams.map(team => (
+                <Invite
+                  key={team.id}
+                  teamId={team.id}
+                  hasTeam={hasTeam}
+                />
+              ))}
+            </Box>
+          );
+        })}
       </Container>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'semantic-ui-react';
+import { Button } from 'bloomer';
 
 class FatalButton extends React.Component {
   static propTypes = {
@@ -24,9 +24,9 @@ class FatalButton extends React.Component {
     const { confirm } = this.state;
 
     if (confirm) {
-      const { children, content, onClick, ...props } = this.props;
+      const { children, onClick, ...props } = this.props;
 
-      return <Button {...props} negative onClick={this.handleClick}>Confirm</Button>;
+      return <Button {...props} isColor="danger" onClick={this.handleClick}>Confirm</Button>;
     }
 
     const { onClick, ...props } = this.props;

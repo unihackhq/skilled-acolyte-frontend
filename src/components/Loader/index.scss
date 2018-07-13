@@ -1,0 +1,31 @@
+@import "~bulma/sass/utilities/_all";
+
+.loader__container {
+  pointer-events: none;
+
+  &:after {
+    @include loader;
+  }
+
+  &.loader__container__inline {
+    &:after {
+      margin: auto;
+
+      width: 3em;
+      height: 3em;
+      border-width: 0.20em;
+    }
+  }
+
+  &.loader__container__absolute {
+    &:after {
+      position: absolute;
+      top: 20vh;
+      left: calc(50vw - 2em);
+
+      width: 4em;
+      height: 4em;
+      border-width: 0.25em;
+    }
+  }
+}

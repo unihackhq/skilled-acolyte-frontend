@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider, observer } from 'mobx-react';
-import { configure } from 'mobx';
+import { configure, reaction } from 'mobx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import withLazyLoad from './utils/lazyLoad';
 import Nav from './components/Nav';
@@ -16,22 +16,34 @@ const Team = withLazyLoad(() => import('./components/Team'));
 const Invites = withLazyLoad(() => import('./components/Invites'));
 const FourOhThree = withLazyLoad(() => import('./components/FourOhThree'));
 const FourOhFour = withLazyLoad(() => import('./components/FourOhFour'));
-const AdminEntry = withLazyLoad(() => import('./components/AdminEntry'));
+const AdminEntry = withLazyLoad(() => import('./components/Admin/AdminEntry'));
 const Admin = withLazyLoad(() => import('./components/Admin'));
-const AdminStudents = withLazyLoad(() => import('./components/AdminStudents'));
-const AdminTeams = withLazyLoad(() => import('./components/AdminTeams'));
-const AdminEvents = withLazyLoad(() => import('./components/AdminEvents'));
-const AdminTickets = withLazyLoad(() => import('./components/AdminTickets'));
-const AdminStudentDetails = withLazyLoad(() => import('./components/AdminStudentDetails'));
-const AdminTeamDetails = withLazyLoad(() => import('./components/AdminTeamDetails'));
-const AdminEventDetails = withLazyLoad(() => import('./components/AdminEventDetails'));
-const AdminTicketDetails = withLazyLoad(() => import('./components/AdminTicketDetails'));
+const AdminStudents = withLazyLoad(() => import('./components/Admin/AdminStudents'));
+const AdminTeams = withLazyLoad(() => import('./components/Admin/AdminTeams'));
+const AdminEvents = withLazyLoad(() => import('./components/Admin/AdminEvents'));
+const AdminTickets = withLazyLoad(() => import('./components/Admin/AdminTickets'));
+const AdminStudentDetails = withLazyLoad(() => import('./components/Admin/AdminStudentDetails'));
+const AdminTeamDetails = withLazyLoad(() => import('./components/Admin/AdminTeamDetails'));
+const AdminEventDetails = withLazyLoad(() => import('./components/Admin/AdminEventDetails'));
+const AdminTicketDetails = withLazyLoad(() => import('./components/Admin/AdminTicketDetails'));
 
 configure({ enforceActions: true });
 const userStore = new User();
 const eventStore = new Events();
 const teamStore = new Teams();
 const inviteStore = new InvitesStore();
+
+// clear data when user logs out
+reaction(
+  () => userStore.loggedIn,
+  (loggedIn) => {
+    if (!loggedIn) {
+      eventStore.clear();
+      teamStore.clear();
+      inviteStore.clear();
+    }
+  },
+);
 
 // HOC to restrict access to a component when user isn't logged in
 const restricted = (C) => {
@@ -60,7 +72,7 @@ const App = () => (
       teams={teamStore}
       invites={inviteStore}
     >
-      <div>
+      <React.Fragment>
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -76,11 +88,11 @@ const App = () => (
           <Route exact path="/admin/tickets/:id" component={AdminTicketDetails} />
           <Route exact path="/admin/tickets" component={AdminTickets} />
           <Route exact path="/admin" component={Admin} />
-          <Route exact path="/team" component={restricted(Team)} />
+          <Route path="/team" component={restricted(Team)} />
           <Route exact path="/invites" component={restricted(Invites)} />
           <Route component={FourOhFour} />
         </Switch>
-      </div>
+      </React.Fragment>
     </Provider>
   </Router>
 );

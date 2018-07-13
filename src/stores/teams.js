@@ -59,6 +59,12 @@ class Teams {
     this.error = error.body.message;
     this.fetching = false;
   }
+
+  clear() {
+    this.list = null;
+    this.fetching = false;
+    this.error = null;
+  }
 }
 
 export default decorate(Teams, {
@@ -70,4 +76,5 @@ export default decorate(Teams, {
   fetchList: action.bound,
   append: action.bound,
   apiFail: action.bound,
+  clear: action.bound,
 });
