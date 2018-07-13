@@ -38,7 +38,7 @@ class FirstLaunch extends React.Component {
       <Container>
         <Title tag="h2" isSize={4}>Confirm Your Details</Title>
         <div className="first-launch__blurb">
-          <p>Welcome to the unihack web app!</p>
+          <p>Welcome to the UNIHACK web app!</p>
           <p>
             We&apos;ve imported your details from eventbrite.
             {' '}
