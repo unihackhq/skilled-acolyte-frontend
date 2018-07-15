@@ -1,0 +1,47 @@
+@import '../../variables.scss';
+@import '~bulma/sass/utilities/mixins';
+
+.sa-footer {
+  padding: 16px 0;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+
+  @include desktop {
+    padding: 32px 0;
+  }
+
+  p {
+    font-size: 0.75rem;
+    margin: 0 0 6px;
+    line-height: 1rem;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .copyright {
+    margin: 32px 0 0;
+  }
+
+  .love {
+    color: #ff0000;
+  }
+
+  a {
+    color: #555;
+  }
+
+  p.contact {
+    text-transform: none;
+  }
+
+  span.link + span.link:before {
+    content: ' • ';
+  }
+
+  a.coffeetime {
+    // Credit to @jxom: https://github.com/jxom/curji/
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" style="font-size:14px"><text y="16">☕️</text></svg>'),
+      auto;
+  }
+}

@@ -3,7 +3,9 @@ import { Provider, observer } from 'mobx-react';
 import { configure, reaction } from 'mobx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import withLazyLoad from './utils/lazyLoad';
-import Nav from './components/Nav';
+import Header from './components/Header';
+import Footer from './components/Footer';
+
 import FirstLaunchRedirect from './components/FirstLaunchRedirect';
 import User from './stores/user';
 import Events from './stores/events';
@@ -51,17 +53,15 @@ reaction(
 // HOC to restrict access to a component when user isn't logged in
 const restricted = (C) => {
   // this component has access to user so it will decide to allow or deny access
-  const Restricted = observer(
-    (props) => {
-      const { user, ...rest } = props;
+  const Restricted = observer((props) => {
+    const { user, ...rest } = props;
 
-      if (!user.loggedIn) {
-        return <FourOhThree />;
-      }
+    if (!user.loggedIn) {
+      return <FourOhThree />;
+    }
 
-      return <C {...rest} />;
-    },
-  );
+    return <C {...rest} />;
+  });
 
   // we need to pass user store to our component
   return props => <Restricted user={userStore} {...props} />;
@@ -69,14 +69,9 @@ const restricted = (C) => {
 
 const App = () => (
   <Router>
-    <Provider
-      user={userStore}
-      events={eventStore}
-      teams={teamStore}
-      invites={inviteStore}
-    >
+    <Provider user={userStore} events={eventStore} teams={teamStore} invites={inviteStore}>
       <React.Fragment>
-        <Nav />
+        <Header />
         {/* First launch needs special attention. A redirect always gets
           rendered because we might need to redirect to first launch */}
         <Route path="/first-launch">{props => <FirstLaunchRedirect {...props} />}</Route>
@@ -100,6 +95,7 @@ const App = () => (
           <Route exact path="/" component={Home} />
           <Route component={FourOhFour} />
         </Switch>
+        <Footer />
       </React.Fragment>
     </Provider>
   </Router>

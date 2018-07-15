@@ -5,9 +5,10 @@ import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container } from 'bloomer';
 import NavbarItem from './NavbarItem';
 import NavLogo from './NavLogo';
+
 import './index.scss';
 
-class Nav extends React.Component {
+class Header extends React.Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
   }
@@ -90,4 +91,4 @@ class Nav extends React.Component {
 }
 
 
-export default withRouter(inject('user')(observer(Nav)));
+export default withRouter(inject('user')(observer(Header)));
