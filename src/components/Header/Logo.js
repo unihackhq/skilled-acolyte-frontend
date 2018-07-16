@@ -5,7 +5,7 @@ import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownContent, DropdownItem, Button } from 'bloomer';
 import ArrowDropdownIcon from '@material-ui/icons/ArrowDropDown';
 
-import './NavLogo.scss';
+import './Logo.scss';
 
 const LogoSvg = (
   <svg className="navbar-logo__img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12140 16000" preserveAspectRatio="xMidYMid meet">
@@ -19,7 +19,7 @@ const LogoSvg = (
 );
 
 
-class NavLogo extends React.Component {
+class Logo extends React.Component {
   static propTypes = {
     user: MobxPropTypes.observableObject.isRequired,
     events: MobxPropTypes.observableObject.isRequired,
@@ -67,26 +67,26 @@ class NavLogo extends React.Component {
 
     if (!events.selectedId) {
       return (
-        <React.Fragment>
+        <div className="navbar__logo">
           <Link to="/">
             {LogoSvg}
           </Link>
-          <span className="is-size-4 navbar-logo__title">
+          <span className="navbar-logo__title">
             UNIHACK
           </span>
-        </React.Fragment>
+        </div>
       );
     }
 
     const { name } = events.selected;
     return (
-      <React.Fragment>
+      <div className="navbar__logo">
         <Link to="/">
           {LogoSvg}
         </Link>
         <Dropdown isActive={open} className="navbar-logo__dropdown">
           <DropdownTrigger onClick={this.toggleDropdown}>
-            <Button aria-haspopup="true" aria-controls="dropdown-menu" className="is-size-4">
+            <Button aria-haspopup="true" aria-controls="dropdown-menu">
               {name}
               <ArrowDropdownIcon />
             </Button>
@@ -105,9 +105,9 @@ class NavLogo extends React.Component {
             </DropdownContent>
           </DropdownMenu>
         </Dropdown>
-      </React.Fragment>
+      </div>
     );
   }
 }
 
-export default inject('user', 'events')(observer(NavLogo));
+export default inject('user', 'events')(observer(Logo));

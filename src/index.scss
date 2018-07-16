@@ -2,8 +2,21 @@
 @import "~bulma";
 
 body {
-  background: #ececec;
+  background: $bg-colour;
   min-height: 100vh;
+  font-size: $body-size;
+  font-family: $body-font;
+}
+
+.page {
+  background: white;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.notification {
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
 }
 
 @include touch {

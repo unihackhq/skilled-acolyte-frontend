@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Container } from 'bloomer';
 import NavbarItem from './NavbarItem';
-import NavLogo from './NavLogo';
+import NavLogo from './Logo';
 
 import './index.scss';
 
@@ -27,9 +27,7 @@ class Header extends React.Component {
       <div className="navbar__root">
         <Container className="navbar__container">
           <div className="navbar__brand">
-            <div className="navbar__logo">
-              <NavLogo />
-            </div>
+            <NavLogo />
             <div className="navbar__user">
               {loggedIn ? (
                 <Link className="button is-light" to="/" onClick={this.logout}>
@@ -58,11 +56,11 @@ class Header extends React.Component {
               </React.Fragment>
             ) : null}
 
-            {isAdmin ? (
+            {!!isAdmin && (
               <NavbarItem className="navbar__item" path="/admin" title="Admin">
                 Admin
               </NavbarItem>
-            ) : null}
+            )}
           </div>
           {/* Additional navbar items when admin page is open */}
           <Route

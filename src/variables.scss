@@ -1,6 +1,11 @@
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
 
+$header-font: 'Rubik', sans-serif;
+$body-font: 'Open Sans', Helvetica, Arial, sans-serif;
+$body-size: 16px;
+
+$bg-colour: #f0f0f0;
 $primary: #ffc300;
 $primary-invert: $grey-darker;
 

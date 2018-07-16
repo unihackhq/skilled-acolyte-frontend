@@ -3,7 +3,7 @@
 
 .navbar-logo {
   &__img {
-    height: 40px;
+    height: 36px;
     float: left;
 
     #logo1, #logo2, #logo3 {
@@ -11,16 +11,25 @@
     }
   }
 
-  &__title, &__dropdown {
+  &__title, &__dropdown .button {
     margin-left: 1rem;
     float: left;
+    font-family: $header-font;
+    letter-spacing: -1px;
+    font-size: 1.5rem;
+    height: 36px;
+    line-height: 36px;
+  }
+
+  &__title {
+    font-weight: 500;
   }
 
   &__dropdown {
     .dropdown-trigger {
       .button, .button:focus {
         padding: 0;
-        height: 40px;
+        font-weight: 400;
         border: none;
         box-shadow: none;
 
