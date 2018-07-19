@@ -19,57 +19,55 @@ const ProfileDetails = ({ user: userStore }) => {
   return (
     <Container>
       {!!userStore.fetching && <Loader />}
-      <div className="page">
-        <Title tag="h1" isSize={3}>
-          {preferredName} {lastName}
-        </Title>
-        <div className="profile-details__section">
-          <Title tag="h2" isSize={4}>
-            Gender
-          </Title>
-          {gender}
-        </div>
-        <div className="profile-details__section">
-          <Title tag="h2" isSize={4}>
-            Date of Birth
-          </Title>
-          {formattedDate}
-        </div>
-        <div className="profile-details__section">
-          <Title tag="h2" isSize={4}>
-            Email
-          </Title>
-          {email}
-        </div>
-        <div className="profile-details__section">
-          <Title tag="h2" isSize={4}>
-            Mobile Number
-          </Title>
-          {mobile}
-        </div>
+      <Title tag="h1" isSize={3}>
+        {preferredName} {lastName}
+      </Title>
+      <div className="profile-details__section">
         <Title tag="h2" isSize={4}>
-          Education
+          Gender
         </Title>
-        <div className="profile-details__section">
-          <Title tag="h3" isSize={6}>
-            University
-          </Title>
-          {university.name}
-        </div>
-        <div className="profile-details__section">
-          <Title tag="h3" isSize={6}>
-            Degree
-          </Title>
-          {degree} - {studyLevel}
-        </div>
-        <Button
-          render={props => (
-            <Link to="/profile/edit" {...props}>
-              Edit
-            </Link>
-          )}
-        />
+        {gender}
       </div>
+      <div className="profile-details__section">
+        <Title tag="h2" isSize={4}>
+          Date of Birth
+        </Title>
+        {formattedDate}
+      </div>
+      <div className="profile-details__section">
+        <Title tag="h2" isSize={4}>
+          Email
+        </Title>
+        {email}
+      </div>
+      <div className="profile-details__section">
+        <Title tag="h2" isSize={4}>
+          Mobile Number
+        </Title>
+        {mobile}
+      </div>
+      <Title tag="h2" isSize={4}>
+        Education
+      </Title>
+      <div className="profile-details__section">
+        <Title tag="h3" isSize={6}>
+          University
+        </Title>
+        {university.name}
+      </div>
+      <div className="profile-details__section">
+        <Title tag="h3" isSize={6}>
+          Degree
+        </Title>
+        {degree} - {studyLevel}
+      </div>
+      <Button
+        render={props => (
+          <Link to="/profile/edit" {...props}>
+            Edit
+          </Link>
+        )}
+      />
     </Container>
   );
 };
