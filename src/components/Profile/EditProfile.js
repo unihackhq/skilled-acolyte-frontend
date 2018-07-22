@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Title } from 'bloomer';
+import { Container } from 'bloomer';
 import InternalEditProfile from './InternalEditProfile';
 
 const EditProfile = ({ history }) => (
   <Container>
-    <Title tag="h2" isSize={4}>Edit Profile</Title>
-    <InternalEditProfile goBack={() => history.push('/profile')} />
+    <div className="page">
+      <h2 className="page__title">Edit Profile</h2>
+      <InternalEditProfile goBack={() => history.push('/profile')} />
+    </div>
   </Container>
 );
 EditProfile.propTypes = {

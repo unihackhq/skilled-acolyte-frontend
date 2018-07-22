@@ -1,5 +1,5 @@
-@import "./variables.scss";
-@import "~bulma";
+@import './variables.scss';
+@import '~bulma';
 
 body {
   background: $bg-colour;
@@ -11,8 +11,16 @@ body {
 .page {
   background: white;
   border-radius: 4px;
-  padding: 10px;
+  padding: 16px;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.page__title {
+  font-size: 2rem;
+  font-family: $header-font;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+  font-weight: 300;
 }
 
 .notification {

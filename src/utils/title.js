@@ -1,5 +1,5 @@
 export default (title) => {
   if (document) {
-    document.title = `Unihack - ${title}`;
+    document.title = `UNIHACK - Participant Console - ${title}`;
   }
 };

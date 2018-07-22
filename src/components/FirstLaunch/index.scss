@@ -1,3 +1,14 @@
-.first-launch__blurb {
+@import '../../variables.scss';
+@import '~bulma/sass/utilities/mixins';
+
+.first-launch__blurb p {
   margin-bottom: 1rem;
+}
+
+.first-launch__title {
+  font-size: 2rem;
+  font-family: $header-font;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+  font-weight: 300;
 }

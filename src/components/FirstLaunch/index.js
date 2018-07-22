@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Title } from 'bloomer';
+import { Container } from 'bloomer';
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { reaction } from 'mobx';
 import InternalEditProfile from '../Profile/InternalEditProfile';
@@ -36,16 +36,17 @@ class FirstLaunch extends React.Component {
   render() {
     return (
       <Container>
-        <Title tag="h2" isSize={4}>Confirm Your Details</Title>
-        <div className="first-launch__blurb">
-          <p>Welcome to the UNIHACK web app!</p>
-          <p>
-            We&apos;ve imported your details from eventbrite.
-            {' '}
-            Please make sure everything is correct.
-          </p>
+        <div className="page first-launch">
+          <h2 className="first-launch__title">Confirm Your Details</h2>
+          <div className="first-launch__blurb">
+            <p>Welcome to the UNIHACK web app!</p>
+            <p>
+              We&apos;ve imported your details from Eventbrite. Please make sure everything is
+              correct.
+            </p>
+          </div>
+          <InternalEditProfile />
         </div>
-        <InternalEditProfile />
       </Container>
     );
   }

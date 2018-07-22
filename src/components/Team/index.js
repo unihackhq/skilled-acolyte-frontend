@@ -89,10 +89,10 @@ class Team extends React.Component {
       return (
         <Container>
           {this.renderInvites()}
-          <Title tag="h2" isSize={4}>
-            Create a Team
-          </Title>
-          <CreateTeam />
+          <div className="page">
+            <h2 className="page__title">Create a Team</h2>
+            <CreateTeam />
+          </div>
         </Container>
       );
     }

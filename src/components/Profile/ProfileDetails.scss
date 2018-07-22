@@ -1,8 +1,14 @@
 .profile-details__section {
   margin-bottom: 1.5rem;
 
-  h2.title, h3.title {
+  h3.title,
+  h4.title {
+    font-size: 1rem;
     margin-bottom: 0.3rem;
   }
 }
 
+.profile-details__sectiontitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
