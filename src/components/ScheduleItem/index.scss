@@ -1,6 +1,6 @@
 .schedule__title {
   display: flex;
-  flow-flow: row;
+  flex-flow: row wrap;
 
   > * {
     flex: 0 0 auto;
