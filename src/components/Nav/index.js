@@ -57,6 +57,9 @@ class Nav extends React.Component {
                 <NavbarItem className="navbar__item" path="/team" title="Team">
                   Team
                 </NavbarItem>
+                <NavbarItem className="navbar__item" path="/event" title="Event">
+                  Event
+                </NavbarItem>
               </React.Fragment>
             ) : null}
 

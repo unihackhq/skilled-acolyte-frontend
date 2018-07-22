@@ -30,6 +30,7 @@ const AdminTicketDetails = withLazyLoad(() => import('./components/Admin/AdminTi
 const Profile = withLazyLoad(() => import('./components/Profile'));
 const FirstLaunch = withLazyLoad(() => import('./components/FirstLaunch'));
 const Schedule = withLazyLoad(() => import('./components/Schedule'));
+const Event = withLazyLoad(() => import('./components/Event'));
 
 configure({ enforceActions: true });
 const userStore = new User();
@@ -99,6 +100,7 @@ const App = () => (
           <Route path="/profile" component={restricted(Profile)} />
           <Route exact path="/first-launch" component={restricted(FirstLaunch)} />
           <Route exact path="/schedule" component={restricted(Schedule)} />
+          <Route exact path="/event" component={restricted(Event)} />
           <Route exact path="/" component={Home} />
           <Route component={FourOhFour} />
         </Switch>
