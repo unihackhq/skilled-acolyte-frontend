@@ -1,10 +1,11 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { reaction } from 'mobx';
-import { Notification, Title } from 'bloomer';
+import { Title } from 'bloomer';
 import groupBy from 'lodash.groupby';
 import * as constant from '../constants';
 import Loader from './Loader';
+import ScheduleItem from './ScheduleItem';
 
 class ScheduleTiles extends React.Component {
   static propTypes = {
@@ -32,20 +33,18 @@ class ScheduleTiles extends React.Component {
 
   firstAfterNow = (list) => {
     const now = new Date();
-    let min = null;
 
-    list.forEach((item) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of list) {
       const start = new Date(item.startDate);
 
-      // check start after now and
-      // if min hasn't been set yet or
-      // if this item starts before current min
-      if (now < start && (!min || start < new Date(min.startDate))) {
-        min = item;
+      // check start after now
+      if (now < start) {
+        return item;
       }
-    });
+    }
 
-    return min;
+    return null;
   }
 
   render() {
@@ -63,20 +62,16 @@ class ScheduleTiles extends React.Component {
     return (
       <React.Fragment>
         {nextSchedule ? (
-          <Notification>
-            <Title isSize={5} tag="h2">Next Up</Title>
-            <p><b>{nextSchedule.name}</b></p>
-            <p>{nextSchedule.description}</p>
-            <p>{nextSchedule.location}</p>
-          </Notification>
+          <React.Fragment>
+            <Title isSize={4} tag="h2">Next Up</Title>
+            <ScheduleItem item={nextSchedule} />
+          </React.Fragment>
         ) : null}
         {nextTechTalk ? (
-          <Notification>
-            <Title isSize={5} tag="h2">Next Tech Talk</Title>
-            <p><b>{nextTechTalk.name}</b></p>
-            <p>{nextTechTalk.description}</p>
-            <p>{nextTechTalk.location}</p>
-          </Notification>
+          <React.Fragment>
+            <Title isSize={4} tag="h2">Next Tech Talk</Title>
+            <ScheduleItem item={nextTechTalk} />
+          </React.Fragment>
         ) : null}
       </React.Fragment>
     );

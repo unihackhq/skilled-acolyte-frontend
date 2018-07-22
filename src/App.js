@@ -29,6 +29,7 @@ const AdminEventDetails = withLazyLoad(() => import('./components/Admin/AdminEve
 const AdminTicketDetails = withLazyLoad(() => import('./components/Admin/AdminTicketDetails'));
 const Profile = withLazyLoad(() => import('./components/Profile'));
 const FirstLaunch = withLazyLoad(() => import('./components/FirstLaunch'));
+const Schedule = withLazyLoad(() => import('./components/Schedule'));
 
 configure({ enforceActions: true });
 const userStore = new User();
@@ -97,6 +98,7 @@ const App = () => (
           <Route exact path="/invites" component={restricted(Invites)} />
           <Route path="/profile" component={restricted(Profile)} />
           <Route exact path="/first-launch" component={restricted(FirstLaunch)} />
+          <Route exact path="/schedule" component={restricted(Schedule)} />
           <Route exact path="/" component={Home} />
           <Route component={FourOhFour} />
         </Switch>

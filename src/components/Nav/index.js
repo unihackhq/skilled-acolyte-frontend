@@ -48,6 +48,9 @@ class Nav extends React.Component {
 
             {loggedIn ? (
               <React.Fragment>
+                <NavbarItem className="navbar__item" path="/schedule" title="Schedule">
+                  Schedule
+                </NavbarItem>
                 <NavbarItem className="navbar__item" path="/profile" title="Profile">
                   Profile
                 </NavbarItem>

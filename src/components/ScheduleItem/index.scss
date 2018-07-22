@@ -1,0 +1,17 @@
+.schedule__title {
+  display: flex;
+  flow-flow: row;
+
+  > * {
+    flex: 0 0 auto;
+  }
+}
+
+.schedule__title__heading {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.schedule__title__tag {
+  flex: 1 0 auto;
+}

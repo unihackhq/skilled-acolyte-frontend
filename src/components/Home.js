@@ -1,10 +1,11 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container } from 'bloomer';
+import { Container, Title } from 'bloomer';
 import ScheduleTiles from './ScheduleTiles';
 
 const Home = ({ user }) => (
   <Container>
+    <Title isSize={3} tag="h1">Home</Title>
     <p>
       Welcome {user.loggedIn ? user.details.user.preferredName : 'stranger'}
       {' '}
