@@ -4,6 +4,11 @@
 body {
   background: #ececec;
   min-height: 100vh;
+  // add a bit of chin to the bottom of website
+  // removes the awkward elements touching the bottom
+  padding-bottom: 20px;
+  // remove the wiggle (horizontal scroll) content overflow causes
+  overflow-x: hidden;
 }
 
 @include touch {

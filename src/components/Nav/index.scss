@@ -37,7 +37,7 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-
+  overflow-x: auto;
 
   &.navbar__nav__admin {
     border-top: 1px solid $grey-lighter;
