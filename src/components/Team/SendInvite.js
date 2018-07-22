@@ -34,7 +34,7 @@ class SendInvite extends React.Component {
         this.reaction = self;
 
         if (id) {
-          events.fetchAttendees(id);
+          events.fetchAttendees();
         }
       },
       { fireImmediately: true },

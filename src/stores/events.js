@@ -8,6 +8,7 @@ class Events {
   fetching = false;
   selectedId = null;
   attendees = null;
+  schedule = null;
 
   get fetched() {
     return this.list !== null;
@@ -62,7 +63,7 @@ class Events {
       );
   }
 
-  fetchAttendees(eventId) {
+  fetchAttendees() {
     // if we're logged in, jwt is in localstorage
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
@@ -70,13 +71,34 @@ class Events {
       return;
     }
 
-    apiGet(`/events/${eventId}/attendees`)
+    apiGet(`/events/${this.selectedId}/attendees`)
       .then(
         async (resp) => {
           const students = await resp.json();
 
           runInAction('fetchSuccess', () => {
             this.attendees = students;
+          });
+        },
+        error => this.apiFail(error),
+      );
+  }
+
+  fetchSchedule() {
+    // if we're logged in, jwt is in localstorage
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      this.error = 'You need to log in!';
+      return;
+    }
+
+    apiGet(`/events/${this.selectedId}/schedule`)
+      .then(
+        async (resp) => {
+          const schedule = await resp.json();
+
+          runInAction('fetchSuccess', () => {
+            this.schedule = schedule;
           });
         },
         error => this.apiFail(error),
@@ -102,12 +124,14 @@ export default decorate(Events, {
   fetching: observable,
   selectedId: observable,
   attendees: observable,
+  schedule: observable,
   fetched: computed,
   loading: computed,
   selected: computed,
   changeSelected: action.bound,
   fetchList: action.bound,
   fetchAttendees: action.bound,
+  fetchSchedule: action.bound,
   apiFail: action.bound,
   clear: action.bound,
 });
