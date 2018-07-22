@@ -86,7 +86,7 @@ class EditTeam extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <Title tag="h2" isSize={4}>Edit Team Details</Title>
+        <Title isSize={3} tag="h1">Edit Team Details</Title>
         <Field>
           <Label htmlFor="edit-team-name">Team Name</Label>
           <Control>

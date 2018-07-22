@@ -89,9 +89,7 @@ class TeamDetails extends React.Component {
     return (
       <div className="team-details__root">
         <div className="team-details__section">
-          <Title isSize={3} tag="h2">
-            {team.name}
-          </Title>
+          <Title isSize={3} tag="h1">{team.name}</Title>
           <p>{team.shortDescription}</p>
         </div>
 

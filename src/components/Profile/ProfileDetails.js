@@ -26,30 +26,30 @@ const ProfileDetails = ({ user: userStore }) => {
         {preferredName} {lastName}
       </Title>
       <div className="profile-details__section">
-        <Title tag="h2" isSize={4}>
+        <Title tag="h2" isSize={5}>
           Gender
         </Title>
         {gender}
       </div>
       <div className="profile-details__section">
-        <Title tag="h2" isSize={4}>
+        <Title tag="h2" isSize={5}>
           Date of Birth
         </Title>
         {formattedDate}
       </div>
       <div className="profile-details__section">
-        <Title tag="h2" isSize={4}>
+        <Title tag="h2" isSize={5}>
           Email
         </Title>
         {email}
       </div>
       <div className="profile-details__section">
-        <Title tag="h2" isSize={4}>
+        <Title tag="h2" isSize={5}>
           Mobile Number
         </Title>
         {mobile}
       </div>
-      <Title tag="h2" isSize={4}>
+      <Title tag="h2" isSize={5}>
         Education
       </Title>
       <div className="profile-details__section">
