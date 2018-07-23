@@ -89,14 +89,12 @@ class TeamDetails extends React.Component {
     return (
       <div className="team-details__root">
         <div className="team-details__section">
-          <Title isSize={3} tag="h2">
-            {team.name}
-          </Title>
+          <Title isSize={3} tag="h1">{team.name}</Title>
           <p>{team.shortDescription}</p>
         </div>
 
         <div className="team-details__section">
-          <Title isSize={5} tag="h3">
+          <Title isSize={5} tag="h2">
             Devpost Link
           </Title>
           <p>
@@ -107,24 +105,24 @@ class TeamDetails extends React.Component {
         </div>
 
         <div className="team-details__section">
-          <Title isSize={5} tag="h3">Stack</Title>
+          <Title isSize={5} tag="h2">Stack</Title>
           {team.stack ? <p>{team.stack}</p> : <p>Nothing here yet ;)</p>}
         </div>
 
         <div className="team-details__section">
-          <Title isSize={5} tag="h3">Description</Title>
+          <Title isSize={5} tag="h2">Description</Title>
           {team.longDescription
             ? <p className="team-details__multiline">{team.longDescription}</p>
             : <p>Nothing here yet ;)</p>}
         </div>
 
         <div className="team-details__section">
-          <Title isSize={5} tag="h3">Members</Title>
+          <Title isSize={5} tag="h2">Members</Title>
           {members.length > 0 ? members : <p>No members!</p>}
         </div>
 
         <div className="team-details__section">
-          <Title isSize={5} tag="h3">Invites</Title>
+          <Title isSize={5} tag="h2">Invites</Title>
           {invited.length > 0 ? invited : <p>No one invited!</p>}
         </div>
 

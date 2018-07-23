@@ -35,7 +35,7 @@ class Team extends React.Component {
     if (eventInvites.length > 0) {
       return (
         <React.Fragment>
-          <Title tag="h2" isSize={4}>Invites</Title>
+          <Title isSize={3} tag="h1">Invites</Title>
           {eventInvites.map(team => (
             <Box key={team.id}>
               <Invite
@@ -82,7 +82,7 @@ class Team extends React.Component {
       return (
         <Container>
           {this.renderInvites()}
-          <Title tag="h2" isSize={4}>Create a Team</Title>
+          <Title isSize={3} tag="h1">Create a Team</Title>
           <CreateTeam />
         </Container>
       );

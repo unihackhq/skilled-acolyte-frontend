@@ -1,6 +1,8 @@
 .schedule__title {
   display: flex;
   flex-flow: row wrap;
+  align-items: center;
+  margin-bottom: 1em;
 
   > * {
     flex: 0 0 auto;
@@ -9,7 +11,11 @@
 
 .schedule__title__heading {
   margin-right: 10px;
-  margin-bottom: 5px;
+
+  // to match bulma's specificity
+  &, &:not(:last-child) {
+    margin-bottom: 0;
+  }
 }
 
 .schedule__title__tag {
