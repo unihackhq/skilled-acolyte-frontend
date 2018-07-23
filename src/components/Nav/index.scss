@@ -37,7 +37,12 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-
+  overflow-x: auto;
+  // add 20px on each side without changing the alignment
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
 
   &.navbar__nav__admin {
     border-top: 1px solid $grey-lighter;

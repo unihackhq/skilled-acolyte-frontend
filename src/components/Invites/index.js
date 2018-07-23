@@ -53,6 +53,7 @@ class Invites extends React.Component {
 
     return (
       <Container>
+        <Title isSize={3} tag="h1">Invites</Title>
         {Object.entries(eventInvites).map(([eventId, eventTeams]) => {
           const hasTeam = (groupedTeams[eventId] || []).length > 0;
           return (
