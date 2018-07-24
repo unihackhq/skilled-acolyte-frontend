@@ -14,7 +14,7 @@ const Home = ({ user }) => (
       {' '}
       <span role="img" aria-label="wave">👋</span>
     </p>
-    <ScheduleTiles />
+    {user.loggedIn ? <ScheduleTiles /> : null}
   </Container>
 );
 Home.propTypes = {
