@@ -6,5 +6,9 @@ $primary-invert: $grey-darker;
 $green-invert: $grey-darker;
 
 $tablet: 600px;
+$desktop: 900px;
+
+$widescreen-enabled: false;
+$fullhd-enabled: false;
 
 @import "~bulma/sass/utilities/derived-variables";

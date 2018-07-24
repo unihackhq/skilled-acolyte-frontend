@@ -21,3 +21,8 @@ body {
 .margin-bottom {
   margin-bottom: 1.5rem;
 }
+
+// don't want super long inputs
+.control {
+  max-width: 400px;
+}
