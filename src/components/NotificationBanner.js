@@ -49,6 +49,7 @@ class NotificationBanner extends React.Component {
         this.setState({ key: urlBase64ToUint8Array(key) });
       },
       (err) => {
+        if (err.isCanceled) return;
         this.setState({ error: err.body.message });
       },
     );

@@ -14,9 +14,8 @@ const withLazyLoad = load =>
         const { default: LazyComponent } = await promise;
         this.setState({ LazyComponent });
       } catch (error) {
-        if (!error.isCanceled) {
-          throw error;
-        }
+        if (error.isCanceled) return;
+        throw error;
       }
     }
 
