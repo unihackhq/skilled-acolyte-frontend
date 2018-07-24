@@ -32,6 +32,10 @@ class ScheduleTiles extends React.Component {
   }
 
   firstAfterNow = (list) => {
+    if (!list) {
+      return null;
+    }
+
     const now = new Date();
 
     // eslint-disable-next-line no-restricted-syntax
