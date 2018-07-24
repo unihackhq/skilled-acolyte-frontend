@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Title, Message, MessageHeader, MessageBody, Box, Button } from 'bloomer';
+import { Title, Message, MessageHeader, MessageBody, Box, Button, Notification } from 'bloomer';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { apiPost } from '../../utils/api';
 import SendInvite from './SendInvite';
@@ -44,16 +44,11 @@ class TeamDetails extends React.Component {
     const { leaving, error } = this.state;
     const team = teams.findById(teamId);
 
-    if (error) {
-      return (
-        <Message isColor="danger">
-          <MessageHeader>Something went wrong!</MessageHeader>
-          <MessageBody>{error}</MessageBody>
-        </Message>
-      );
-    }
-
     if (leaveOnly) {
+      if (error) {
+        return <Notification isColor="danger">{error}</Notification>;
+      }
+
       return (
         <Box className="team-details-leave__root">
           <span className="team-details-leave__label">
@@ -84,6 +79,12 @@ class TeamDetails extends React.Component {
 
     return (
       <div className="team-details__root">
+        {error ? (
+          <Message isColor="danger">
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
+          </Message>
+        ) : null}
         <div className="team-details__section">
           <Title isSize={3} tag="h1">{team.name}</Title>
           <p>{team.shortDescription}</p>

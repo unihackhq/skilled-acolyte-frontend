@@ -54,18 +54,8 @@ class Team extends React.Component {
 
   render() {
     const { teams, events } = this.props;
-    const { loading, error, filterByEvent } = teams;
+    const { loading, filterByEvent } = teams;
 
-    if (error) {
-      return (
-        <Page>
-          <Message isColor="danger">
-            <MessageHeader>Something went wrong!</MessageHeader>
-            <MessageBody>{error}</MessageBody>
-          </Message>
-        </Page>
-      );
-    }
     if (loading) {
       return <Loader />;
     }

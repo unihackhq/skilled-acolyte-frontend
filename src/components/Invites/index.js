@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Message, MessageHeader, MessageBody, Box, Title } from 'bloomer';
+import { Box, Title } from 'bloomer';
 import groupBy from 'lodash.groupby';
 import keyBy from 'lodash.keyby';
 import Loader from '../Loader';
@@ -21,25 +21,9 @@ class Invites extends React.Component {
     teams.fetchList();
   }
 
-  renderError = error => (
-    <Message isColor="danger">
-      <MessageHeader>Something went wrong!</MessageHeader>
-      <MessageBody>{error}</MessageBody>
-    </Message>
-  )
-
   render() {
     const { events, invites, teams } = this.props;
 
-    if (events.error) {
-      return this.renderError(events.error);
-    }
-    if (invites.error) {
-      return this.renderError(invites.error);
-    }
-    if (teams.error) {
-      return this.renderError(teams.error);
-    }
     if (events.loading || invites.loading || teams.loading) {
       return <Loader />;
     }
