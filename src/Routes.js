@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import withLazyLoad from './utils/lazyLoad';
 import FirstLaunchRedirect from './components/FirstLaunchRedirect';
 
@@ -44,34 +44,47 @@ const restricted = (C) => {
   return inject('user')(observer(Restricted));
 };
 
-const Routes = () => (
-  <React.Fragment>
-    {/* First launch needs special attention. A redirect always gets
-      rendered because we might need to redirect to first launch */}
-    <Route path="/first-launch">{props => <FirstLaunchRedirect {...props} />}</Route>
-    <Switch>
-      <Route exact path="/login/:token" component={LoginEntry} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/admin/entry/:token" component={AdminEntry} />
-      <Route exact path="/admin/students/:id" component={AdminStudentDetails} />
-      <Route exact path="/admin/students" component={AdminStudents} />
-      <Route exact path="/admin/teams/:id" component={AdminTeamDetails} />
-      <Route exact path="/admin/teams" component={AdminTeams} />
-      <Route exact path="/admin/events/:id" component={AdminEventDetails} />
-      <Route exact path="/admin/events" component={AdminEvents} />
-      <Route exact path="/admin/tickets/:id" component={AdminTicketDetails} />
-      <Route exact path="/admin/tickets" component={AdminTickets} />
-      <Route exact path="/admin" component={Admin} />
-      <Route path="/team" component={restricted(Team)} />
-      <Route exact path="/invites" component={restricted(Invites)} />
-      <Route path="/profile" component={restricted(Profile)} />
-      <Route exact path="/first-launch" component={restricted(FirstLaunch)} />
-      <Route exact path="/schedule" component={restricted(Schedule)} />
-      <Route exact path="/event" component={restricted(Event)} />
-      <Route exact path="/" component={Home} />
-      <Route component={FourOhFour} />
-    </Switch>
-  </React.Fragment>
-);
+const Routes = ({ user, events, teams, invites }) => {
+  // hide routes if there is an error
+  if (user.error || events.error || teams.error || invites.error) {
+    return null;
+  }
 
-export default Routes;
+  return (
+    <React.Fragment>
+      {/* First launch needs special attention. A redirect always gets
+        rendered because we might need to redirect to first launch */}
+      <Route path="/first-launch">{props => <FirstLaunchRedirect {...props} />}</Route>
+      <Switch>
+        <Route exact path="/login/:token" component={LoginEntry} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/admin/entry/:token" component={AdminEntry} />
+        <Route exact path="/admin/students/:id" component={AdminStudentDetails} />
+        <Route exact path="/admin/students" component={AdminStudents} />
+        <Route exact path="/admin/teams/:id" component={AdminTeamDetails} />
+        <Route exact path="/admin/teams" component={AdminTeams} />
+        <Route exact path="/admin/events/:id" component={AdminEventDetails} />
+        <Route exact path="/admin/events" component={AdminEvents} />
+        <Route exact path="/admin/tickets/:id" component={AdminTicketDetails} />
+        <Route exact path="/admin/tickets" component={AdminTickets} />
+        <Route exact path="/admin" component={Admin} />
+        <Route path="/team" component={restricted(Team)} />
+        <Route exact path="/invites" component={restricted(Invites)} />
+        <Route path="/profile" component={restricted(Profile)} />
+        <Route exact path="/first-launch" component={restricted(FirstLaunch)} />
+        <Route exact path="/schedule" component={restricted(Schedule)} />
+        <Route exact path="/event" component={restricted(Event)} />
+        <Route exact path="/" component={Home} />
+        <Route component={FourOhFour} />
+      </Switch>
+    </React.Fragment>
+  );
+};
+Routes.propTypes = {
+  user: MobxPropTypes.observableObject.isRequired,
+  events: MobxPropTypes.observableObject.isRequired,
+  teams: MobxPropTypes.observableObject.isRequired,
+  invites: MobxPropTypes.observableObject.isRequired,
+};
+
+export default withRouter(inject('user', 'events', 'teams', 'invites')(observer(Routes)));
