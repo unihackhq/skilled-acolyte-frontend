@@ -38,10 +38,6 @@ $navbar-background-color: $white !default;
 
 .navbar__nav {
   display: flex;
-
-  &.navbar__nav__admin {
-    border-top: 1px solid $grey-lighter;
-  }
 }
 
 .navbar__item {
@@ -54,7 +50,7 @@ $navbar-background-color: $white !default;
     align-items: center;
     border-top: 1px solid $grey-lighter;
 
-    &.navbar__nav__admin {
+    &__admin {
       border-top: 1px solid $grey-lighter;
     }
   }
@@ -66,7 +62,7 @@ $navbar-background-color: $white !default;
     margin-right: 0.5em;
     line-height: 3em;
     text-align: center;
-    border-bottom: 5px solid $white;
+    border-bottom: 5px solid $navbar-background-color;
 
     &.active {
       border-bottom: 5px solid $primary;
@@ -83,10 +79,18 @@ $navbar-background-color: $white !default;
     flex-flow: column nowrap;
     align-items: stretch;
     display: none;
-    padding-bottom: .5em;
+
+    &__admin {
+      border: none;
+      padding-left: 1em;
+    }
 
     &.is-active {
       display: flex;
+    }
+
+    &:last-child {
+      padding-bottom: .5em;
     }
   }
 
@@ -94,5 +98,11 @@ $navbar-background-color: $white !default;
     display: block;
     line-height: 1.5;
     padding: .5rem;
+    border-left: 5px solid $navbar-background-color;
+    border-top: 1px solid #eee;
+
+    &.active {
+      border-left: 5px solid $primary;
+    }
   }
 }
