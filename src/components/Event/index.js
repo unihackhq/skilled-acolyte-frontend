@@ -1,7 +1,8 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Title, Button } from 'bloomer';
+import { Title, Button } from 'bloomer';
 import Loader from '../Loader';
+import Page from '../Page';
 import './index.scss';
 
 const Event = ({ events }) => {
@@ -12,7 +13,7 @@ const Event = ({ events }) => {
   }
 
   return (
-    <Container>
+    <Page>
       <div className="event-info__section">
         <Title isSize={3} tag="h1">{selected.name}</Title>
         <p>{selected.location}</p>
@@ -56,7 +57,7 @@ const Event = ({ events }) => {
           render={props => <a target="_blank" href={selected.handbookUrl} {...props}>Open Handbook</a>}
         />
       </div>
-    </Container>
+    </Page>
   );
 };
 Event.propTypes = {

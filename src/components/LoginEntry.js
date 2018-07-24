@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Redirect } from 'react-router-dom';
-import { Container, Message, MessageHeader, MessageBody } from 'bloomer';
+import { Message, MessageHeader, MessageBody } from 'bloomer';
 import Loader from './Loader';
+import Page from './Page';
 
 class LoginEntry extends React.Component {
   static propTypes = {
@@ -29,7 +30,7 @@ class LoginEntry extends React.Component {
     }
     if (error) {
       return (
-        <Container>
+        <Page>
           <Message isColor="danger">
             <MessageHeader>
               Something went wrong!
@@ -38,7 +39,7 @@ class LoginEntry extends React.Component {
               {error}
             </MessageBody>
           </Message>
-        </Container>
+        </Page>
       );
     }
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Message, MessageHeader, MessageBody, Box, Title } from 'bloomer';
+import { Message, MessageHeader, MessageBody, Box, Title } from 'bloomer';
 import Loader from '../Loader';
+import Page from '../Page';
 import Invite from '../Invites/Invite';
 import withLazyLoad from '../../utils/lazyLoad';
 
@@ -57,7 +58,7 @@ class Team extends React.Component {
 
     if (error) {
       return (
-        <Container>
+        <Page>
           <Message isColor="danger" isFullWidth={false}>
             <MessageHeader>
               Something went wrong!
@@ -66,7 +67,7 @@ class Team extends React.Component {
               {error}
             </MessageBody>
           </Message>
-        </Container>
+        </Page>
       );
     }
     if (loading) {
@@ -80,17 +81,17 @@ class Team extends React.Component {
     const eventTeams = findByEvent(events.selected.id);
     if (eventTeams.length === 0) {
       return (
-        <Container>
+        <Page>
           {this.renderInvites()}
-          <Title isSize={3} tag="h1">Create a Team</Title>
           <CreateTeam />
-        </Container>
+        </Page>
       );
     }
 
     if (eventTeams.length > 1) {
       return (
-        <Container>
+        <Page>
+          <Title isSize={3} tag="h1">Your Teams</Title>
           <Message isColor="danger" isFullWidth={false}>
             <MessageHeader>
               You can&apos;t be part of many teams!
@@ -101,16 +102,16 @@ class Team extends React.Component {
             </MessageBody>
           </Message>
           {eventTeams.map(team => <TeamDetails key={team.id} teamId={team.id} leaveOnly />)}
-        </Container>
+        </Page>
       );
     }
 
     const teamId = eventTeams[0].id;
     return (
-      <Container>
+      <Page>
         <Route exact path="/team/edit" component={() => <EditTeam teamId={teamId} />} />
         <Route exact path="/team" component={() => <TeamDetails teamId={teamId} />} />
-      </Container>
+      </Page>
     );
   }
 }

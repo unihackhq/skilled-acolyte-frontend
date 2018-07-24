@@ -1,8 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Message, MessageHeader, MessageBody,
+import { Message, MessageHeader, MessageBody,
   Field, Label, Control, Input, Button, Title } from 'bloomer';
+import Page from './Page';
 import { apiPostNoAuth } from '../utils/api';
 
 class Login extends React.Component {
@@ -52,7 +53,7 @@ class Login extends React.Component {
     }
 
     return (
-      <Container>
+      <Page>
         <Title isSize={3} tag="h1">Login</Title>
 
         {sent ? (
@@ -102,7 +103,7 @@ class Login extends React.Component {
             </Control>
           </Field>
         </form>
-      </Container>
+      </Page>
     );
   }
 }

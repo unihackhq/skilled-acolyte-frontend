@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container } from 'bloomer';
+import Page from './Page';
 
 const FourOhFour = () => (
-  <Container>
+  <Page>
     <p>Can&apos;t find the page you&apos;re looking for!</p>
-  </Container>
+  </Page>
 );
 
 export default FourOhFour;

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Title } from 'bloomer';
+import { Title } from 'bloomer';
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { reaction } from 'mobx';
 import InternalEditProfile from './Profile/InternalEditProfile';
+import Page from './Page';
 
 class FirstLaunch extends React.Component {
   static propTypes = {
@@ -34,7 +35,7 @@ class FirstLaunch extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Page>
         <Title isSize={3} tag="h1">Confirm Your Details</Title>
         <div className="margin-bottom">
           <p>Welcome to the UNIHACK web app!</p>
@@ -45,7 +46,7 @@ class FirstLaunch extends React.Component {
           </p>
         </div>
         <InternalEditProfile />
-      </Container>
+      </Page>
     );
   }
 }

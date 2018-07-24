@@ -1,9 +1,10 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Message, MessageHeader, MessageBody, Box, Title } from 'bloomer';
+import { Message, MessageHeader, MessageBody, Box, Title } from 'bloomer';
 import groupBy from 'lodash.groupby';
 import keyBy from 'lodash.keyby';
 import Loader from '../Loader';
+import Page from '../Page';
 import Invite from './Invite';
 
 class Invites extends React.Component {
@@ -52,7 +53,7 @@ class Invites extends React.Component {
     const groupedTeams = groupBy(teams.list, 'eventId');
 
     return (
-      <Container>
+      <Page>
         <Title isSize={3} tag="h1">Invites</Title>
         {Object.entries(eventInvites).map(([eventId, eventTeams]) => {
           const hasTeam = (groupedTeams[eventId] || []).length > 0;
@@ -71,7 +72,7 @@ class Invites extends React.Component {
             </Box>
           );
         })}
-      </Container>
+      </Page>
     );
   }
 }

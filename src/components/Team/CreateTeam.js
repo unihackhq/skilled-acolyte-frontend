@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Message, MessageHeader, MessageBody, Field, Label, Control, Input, Button } from 'bloomer';
+import { Message, MessageHeader, MessageBody, Field, Label, Control, Input, Button, Title } from 'bloomer';
 import { apiPost } from '../../utils/api';
 
 class CreateTeam extends React.Component {
@@ -53,6 +53,7 @@ class CreateTeam extends React.Component {
 
     return (
       <React.Fragment>
+        <Title isSize={3} tag="h1">Create a Team</Title>
         {error ? (
           <Message isColor="danger" isFullWidth={false}>
             <MessageHeader>
