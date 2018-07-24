@@ -22,13 +22,9 @@ class Invites extends React.Component {
   }
 
   renderError = error => (
-    <Message isColor="danger" isFullWidth={false}>
-      <MessageHeader>
-        Something went wrong!
-      </MessageHeader>
-      <MessageBody>
-        {error}
-      </MessageBody>
+    <Message isColor="danger">
+      <MessageHeader>Something went wrong!</MessageHeader>
+      <MessageBody>{error}</MessageBody>
     </Message>
   )
 

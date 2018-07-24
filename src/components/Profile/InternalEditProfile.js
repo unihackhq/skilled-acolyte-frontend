@@ -106,13 +106,9 @@ class InternalEditProfile extends React.Component {
     return (
       <React.Fragment>
         {error ? (
-          <Message isColor="danger" isFullWidth={false}>
-            <MessageHeader>
-              Something went wrong!
-            </MessageHeader>
-            <MessageBody>
-              {error}
-            </MessageBody>
+          <Message isColor="danger">
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
           </Message>
         ) : null}
         <form onSubmit={this.handleSubmit}>

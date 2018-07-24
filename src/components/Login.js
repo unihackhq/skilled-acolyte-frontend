@@ -57,23 +57,15 @@ class Login extends React.Component {
         <Title isSize={3} tag="h1">Login</Title>
 
         {sent ? (
-          <Message isColor="success" isFullWidth={false}>
-            <MessageHeader>
-              Check your inbox
-            </MessageHeader>
-            <MessageBody>
-              An email with login instructions has been sent to your email.
-            </MessageBody>
+          <Message isColor="success">
+            <MessageHeader>Check your inbox</MessageHeader>
+            <MessageBody>An email with login instructions has been sent to your email.</MessageBody>
           </Message>
         ) : null}
         {error ? (
-          <Message isColor="danger" isFullWidth={false}>
-            <MessageHeader>
-              Something went wrong!
-            </MessageHeader>
-            <MessageBody>
-              {error}
-            </MessageBody>
+          <Message isColor="danger">
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
           </Message>
         ) : null}
 

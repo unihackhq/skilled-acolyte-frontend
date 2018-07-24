@@ -55,13 +55,9 @@ class CreateTeam extends React.Component {
       <React.Fragment>
         <Title isSize={3} tag="h1">Create a Team</Title>
         {error ? (
-          <Message isColor="danger" isFullWidth={false}>
-            <MessageHeader>
-              Something went wrong!
-            </MessageHeader>
-            <MessageBody>
-              {error}
-            </MessageBody>
+          <Message isColor="danger">
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
           </Message>
         ) : null}
         <form onSubmit={this.handleSubmit}>

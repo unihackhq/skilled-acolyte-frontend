@@ -59,13 +59,9 @@ class Team extends React.Component {
     if (error) {
       return (
         <Page>
-          <Message isColor="danger" isFullWidth={false}>
-            <MessageHeader>
-              Something went wrong!
-            </MessageHeader>
-            <MessageBody>
-              {error}
-            </MessageBody>
+          <Message isColor="danger">
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
           </Message>
         </Page>
       );
@@ -92,10 +88,8 @@ class Team extends React.Component {
       return (
         <Page>
           <Title isSize={3} tag="h1">Your Teams</Title>
-          <Message isColor="danger" isFullWidth={false}>
-            <MessageHeader>
-              You can&apos;t be part of many teams!
-            </MessageHeader>
+          <Message isColor="danger">
+            <MessageHeader>You can&apos;t be part of many teams!</MessageHeader>
             <MessageBody>
               <p>Looks like through some technical problem you have multiple teams!</p>
               <p>Please leave the extra teams.</p>

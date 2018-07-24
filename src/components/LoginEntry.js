@@ -32,12 +32,8 @@ class LoginEntry extends React.Component {
       return (
         <Page>
           <Message isColor="danger">
-            <MessageHeader>
-              Something went wrong!
-            </MessageHeader>
-            <MessageBody>
-              {error}
-            </MessageBody>
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
           </Message>
         </Page>
       );

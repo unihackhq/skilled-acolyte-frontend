@@ -46,13 +46,9 @@ class TeamDetails extends React.Component {
 
     if (error) {
       return (
-        <Message isColor="danger" isFullWidth={false}>
-          <MessageHeader>
-            Something went wrong!
-          </MessageHeader>
-          <MessageBody>
-            {error}
-          </MessageBody>
+        <Message isColor="danger">
+          <MessageHeader>Something went wrong!</MessageHeader>
+          <MessageBody>{error}</MessageBody>
         </Message>
       );
     }
