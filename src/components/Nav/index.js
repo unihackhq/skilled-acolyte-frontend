@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container } from 'bloomer';
+import { Container, NavbarBurger } from 'bloomer';
+import classNames from 'classnames';
 import NavbarItem from './NavbarItem';
 import NavLogo from './NavLogo';
 import './index.scss';
@@ -12,15 +13,28 @@ class Nav extends React.Component {
     user: MobxPropTypes.observableObject.isRequired,
   }
 
+  state = {
+    open: false,
+  }
+
   logout = () => {
     const { user } = this.props;
     user.logout();
   }
 
+  toggleOpen = () => {
+    this.setState({ open: !this.state.open });
+  }
+
   render() {
+    const { open } = this.state;
     const { user } = this.props;
     const { loggedIn } = user;
     const isAdmin = localStorage.getItem('adminJwt') !== null;
+    const itemProps = {
+      className: 'navbar__item',
+      onClick: this.toggleOpen,
+    };
 
     return (
       <div className="navbar__root">
@@ -31,9 +45,12 @@ class Nav extends React.Component {
             </div>
             <div className="navbar__user">
               {loggedIn ? (
-                <Link className="button is-light" to="/" onClick={this.logout}>
-                  Logout
-                </Link>
+                <React.Fragment>
+                  <Link className="button is-light is-hidden-mobile" to="/" onClick={this.logout}>
+                    Logout
+                  </Link>
+                  <NavbarBurger className="is-hidden-tablet" isActive={open} onClick={this.toggleOpen} />
+                </React.Fragment>
               ) : (
                 <Link className="button is-light" to="/login">
                   Login
@@ -41,30 +58,30 @@ class Nav extends React.Component {
               )}
             </div>
           </div>
-          <div className="navbar__nav">
-            <NavbarItem className="navbar__item" path="/" title="Home" exact>
+          <div className={classNames('navbar__nav', { 'is-active': open })}>
+            <NavbarItem path="/" title="Home" exact {...itemProps}>
               Home
             </NavbarItem>
 
             {loggedIn ? (
               <React.Fragment>
-                <NavbarItem className="navbar__item" path="/schedule" title="Schedule">
+                <NavbarItem path="/schedule" title="Schedule" {...itemProps}>
                   Schedule
                 </NavbarItem>
-                <NavbarItem className="navbar__item" path="/profile" title="Profile">
+                <NavbarItem path="/profile" title="Profile" {...itemProps}>
                   Profile
                 </NavbarItem>
-                <NavbarItem className="navbar__item" path="/team" title="Team">
+                <NavbarItem path="/team" title="Team" {...itemProps}>
                   Team
                 </NavbarItem>
-                <NavbarItem className="navbar__item" path="/event" title="Event">
+                <NavbarItem path="/event" title="Event" {...itemProps}>
                   Event
                 </NavbarItem>
               </React.Fragment>
             ) : null}
 
             {isAdmin ? (
-              <NavbarItem className="navbar__item" path="/admin" title="Admin">
+              <NavbarItem path="/admin" title="Admin" {...itemProps}>
                 Admin
               </NavbarItem>
             ) : null}
@@ -73,17 +90,17 @@ class Nav extends React.Component {
           <Route
             path="/admin"
             render={() => (
-              <div className="navbar__nav navbar__nav__admin">
-                <NavbarItem className="navbar__item" path="/admin/students" exact>
+              <div className={classNames('navbar__nav navbar__nav__admin', { 'is-active': open })}>
+                <NavbarItem path="/admin/students" exact {...itemProps}>
                   Students
                 </NavbarItem>
-                <NavbarItem className="navbar__item" path="/admin/teams" exact>
+                <NavbarItem path="/admin/teams" exact {...itemProps}>
                   Teams
                 </NavbarItem>
-                <NavbarItem className="navbar__item" path="/admin/events" exact>
+                <NavbarItem path="/admin/events" exact {...itemProps}>
                   Events
                 </NavbarItem>
-                <NavbarItem className="navbar__item" path="/admin/tickets" exact>
+                <NavbarItem path="/admin/tickets" exact {...itemProps}>
                   Tickets
                 </NavbarItem>
               </div>
@@ -94,6 +111,5 @@ class Nav extends React.Component {
     );
   }
 }
-
 
 export default withRouter(inject('user')(observer(Nav)));
