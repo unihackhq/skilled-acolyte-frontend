@@ -36,7 +36,7 @@ class FirstLaunch extends React.Component {
   render() {
     return (
       <Container>
-        <Title tag="h2" isSize={4}>Confirm Your Details</Title>
+        <Title isSize={3} tag="h1">Confirm Your Details</Title>
         <div className="first-launch__blurb">
           <p>Welcome to the UNIHACK web app!</p>
           <p>
