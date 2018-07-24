@@ -1,0 +1,13 @@
+{
+  "short_name": "UNIHACK",
+  "name": "UNIHACK",
+  "icons": {
+    "16": "img/favicon-16x16.png",
+    "32": "img/favicon-32x32.png",
+    "96": "img/favicon-96x96.png"
+  },
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffc300",
+  "background_color": "#ffffff"
+}
