@@ -2,9 +2,10 @@ import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { reaction } from 'mobx';
 import { Title } from 'bloomer';
-import Loader from './Loader';
-import Page from './Page';
-import ScheduleItem from './ScheduleItem';
+import Loader from '../Loader';
+import Page from '../Page';
+import ScheduleItem from '../ScheduleItem';
+import './index.scss';
 
 class Schedule extends React.Component {
   static propTypes = {
@@ -39,7 +40,13 @@ class Schedule extends React.Component {
     return (
       <Page>
         <Title isSize={3} tag="h1">Schedule</Title>
-        {events.schedule.map(item => <ScheduleItem key={item.id} item={item} />)}
+        {events.schedule.map(item => (
+          <ScheduleItem
+            className="schedule__item"
+            key={item.id}
+            item={item}
+          />
+        ))}
       </Page>
     );
   }

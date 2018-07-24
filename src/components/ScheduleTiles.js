@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
 import { reaction } from 'mobx';
-import { Title } from 'bloomer';
+import { Title, Notification } from 'bloomer';
 import groupBy from 'lodash.groupby';
 import * as constant from '../constants';
 import Loader from './Loader';
@@ -68,13 +68,17 @@ class ScheduleTiles extends React.Component {
         {nextSchedule ? (
           <React.Fragment>
             <Title isSize={4} tag="h2">Next Up</Title>
-            <ScheduleItem item={nextSchedule} />
+            <Notification>
+              <ScheduleItem item={nextSchedule} />
+            </Notification>
           </React.Fragment>
         ) : null}
         {nextTechTalk ? (
           <React.Fragment>
             <Title isSize={4} tag="h2">Next Tech Talk</Title>
-            <ScheduleItem item={nextTechTalk} />
+            <Notification>
+              <ScheduleItem item={nextTechTalk} />
+            </Notification>
           </React.Fragment>
         ) : null}
       </React.Fragment>

@@ -1,0 +1,10 @@
+@import "../../variables.scss";
+
+.schedule__item {
+  padding: 20px;
+  border-top: 1px solid $grey-lighter;
+
+  &:last-child {
+    border-bottom: 1px solid $grey-lighter;
+  }
+}

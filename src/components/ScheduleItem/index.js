@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Notification, Title, Tag } from 'bloomer';
+import { Title, Tag } from 'bloomer';
 import * as constant from '../../constants';
 import './index.scss';
 
 class ScheduleItem extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
+    className: PropTypes.string,
+  }
+
+  static defaultProps = {
+    className: '',
   }
 
   getType = (type) => {
@@ -37,9 +42,9 @@ class ScheduleItem extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, className } = this.props;
     return (
-      <Notification key={item.id}>
+      <div className={className} key={item.id}>
         <div className="schedule__title">
           <Title
             isSize={5}
@@ -55,7 +60,7 @@ class ScheduleItem extends React.Component {
         </div>
         <p>{item.description}</p>
         <p>{item.location}</p>
-      </Notification>
+      </div>
     );
   }
 }
