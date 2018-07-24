@@ -115,6 +115,8 @@ class Events {
     this.error = null;
     this.fetching = false;
     this.selectedId = null;
+    this.attendees = null;
+    this.schedule = null;
   }
 }
 
