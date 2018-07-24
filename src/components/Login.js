@@ -53,7 +53,7 @@ class Login extends React.Component {
 
     return (
       <Container>
-        <Title>Login</Title>
+        <Title isSize={3} tag="h1">Login</Title>
 
         {sent ? (
           <Message isColor="success" isFullWidth={false}>
