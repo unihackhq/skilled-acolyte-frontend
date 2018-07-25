@@ -26,6 +26,11 @@ class Nav extends React.Component {
     this.setState({ open: !this.state.open });
   }
 
+  mobileLogout = () => {
+    this.toggleOpen();
+    this.logout();
+  }
+
   render() {
     const { open } = this.state;
     const { user } = this.props;
@@ -77,6 +82,9 @@ class Nav extends React.Component {
                 <NavbarItem path="/event" title="Event" {...itemProps}>
                   Event
                 </NavbarItem>
+                <Link className="button is-light is-hidden-tablet" to="/" onClick={this.mobileLogout}>
+                  Logout
+                </Link>
               </React.Fragment>
             ) : null}
 
