@@ -71,17 +71,14 @@ class EditTeam extends React.Component {
     const { saving, error, name, shortDescription,
       devpostLink, stack, longDescription } = this.state;
 
-    if (error) {
-      return (
-        <Message isColor="danger">
-          <MessageHeader>Something went wrong!</MessageHeader>
-          <MessageBody>{error}</MessageBody>
-        </Message>
-      );
-    }
-
     return (
       <form onSubmit={this.handleSubmit}>
+        {error ? (
+          <Message isColor="danger">
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
+          </Message>
+        ) : null}
         <Title isSize={3} tag="h1">Edit Team Details</Title>
         <Field>
           <Label htmlFor="edit-team-name">Team Name</Label>
