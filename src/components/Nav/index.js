@@ -84,6 +84,9 @@ class Nav extends React.Component {
                 <NavbarItem path="/event" title="Event" {...itemProps}>
                   Event
                 </NavbarItem>
+                <NavbarItem path="/settings" title="Settings" {...itemProps}>
+                  Settings
+                </NavbarItem>
                 <Link className="button is-light is-hidden-tablet" to="/" onClick={this.mobileLogout}>
                   Logout
                 </Link>
