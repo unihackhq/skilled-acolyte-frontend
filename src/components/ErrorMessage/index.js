@@ -10,6 +10,7 @@ import {
 } from 'bloomer';
 import ArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import * as constant from '../../constants';
 import './index.scss';
 
 class ErrorMessage extends React.Component {
@@ -33,7 +34,7 @@ class ErrorMessage extends React.Component {
           <MessageHeader>Something went wrong!</MessageHeader>
           <MessageBody>
             <Content>
-              <p>Please refresh this page. If this issue persists please contact us.</p>
+              <p>Please refresh this page. If this issue persists please <a href={`mailto:${constant.SUPPORT_EMAIL}`}>contact us</a>.</p>
               <Button className="error-message__details" onClick={this.toggleOpen}>
                 <span>Details</span>
                 {open ? <ArrowUpIcon /> : <ArrowDownIcon />}

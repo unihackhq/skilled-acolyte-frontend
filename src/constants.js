@@ -5,3 +5,4 @@ export const NOTIFICATION_TYPE_TECH_TALK = 'techTalk';
 export const NOTIFICATION_TYPE_SESSION = 'session';
 export const NOTIFICATION_TYPE_SPECIAL = 'mealsRafflesEtc';
 export const NOTIFICATION_TYPE_EVENT = 'event';
+export const SUPPORT_EMAIL = 'tech@unihack.net';
