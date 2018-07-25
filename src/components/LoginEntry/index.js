@@ -56,10 +56,11 @@ class LoginEntry extends React.Component {
           <Title isSize={3} tag="h1">Login</Title>
           <Content className="login-entry__root">
             <p>
-              Looks like you&apos;re on iOS. You can download our iOS app from the app store.
+              Looks like you&apos;re on iOS. We have a native app available on the App Store.
+              If you&apos;ve already got the app just continue.
             </p>
             <p>
-              Of course you can still use the web app.
+              Of course you can always use the web app too.
             </p>
             <Button
               tag="button"
