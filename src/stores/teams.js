@@ -51,10 +51,6 @@ class Teams {
       );
   }
 
-  append(team) {
-    this.list.push(team);
-  }
-
   apiFail(error) {
     this.error = error.body.message;
     this.fetching = false;
@@ -74,7 +70,6 @@ export default decorate(Teams, {
   fetched: computed,
   loading: computed,
   fetchList: action.bound,
-  append: action.bound,
   apiFail: action.bound,
   clear: action.bound,
 });

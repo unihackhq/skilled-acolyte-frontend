@@ -38,10 +38,9 @@ class CreateTeam extends React.Component {
       eventId: events.selected.id,
     })
       .then(
-        async (resp) => {
-          const team = await resp.json();
+        async () => {
           this.setState({ loading: false });
-          teams.append(team);
+          teams.fetchList();
         },
         (error) => {
           this.setState({ error: error.body.message, loading: false });
