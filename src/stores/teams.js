@@ -1,17 +1,19 @@
-import { decorate, observable, computed, action, runInAction } from 'mobx';
+import { observable, computed, action, runInAction } from 'mobx';
 import { createTransformer } from 'mobx-utils';
 import jwtDecode from 'jwt-decode';
 import { apiGet } from '../utils/api';
 
 class Teams {
-  list = null;
-  fetching = false;
-  error = null;
+  @observable list = null;
+  @observable fetching = false;
+  @observable error = null;
 
+  @computed
   get fetched() {
     return this.list !== null;
   }
 
+  @computed
   get loading() {
     return this.fetching || !this.fetched;
   }
@@ -24,6 +26,7 @@ class Teams {
     teamId => this.list.find(team => team.id === teamId) || null,
   )
 
+  @action.bound
   fetchList() {
     if (this.fetching) return;
 
@@ -51,11 +54,13 @@ class Teams {
       );
   }
 
+  @action.bound
   apiFail(error) {
     this.error = error.body.message;
     this.fetching = false;
   }
 
+  @action.bound
   clear() {
     this.list = null;
     this.fetching = false;
@@ -63,13 +68,4 @@ class Teams {
   }
 }
 
-export default decorate(Teams, {
-  list: observable,
-  fetching: observable,
-  error: observable,
-  fetched: computed,
-  loading: computed,
-  fetchList: action.bound,
-  apiFail: action.bound,
-  clear: action.bound,
-});
+export default Teams;

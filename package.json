@@ -17,6 +17,7 @@
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-preset-react-app": "^3.1.1",
     "babel-runtime": "6.26.0",
     "bloomer": "^0.6.3",
@@ -112,6 +113,9 @@
     ]
   },
   "babel": {
+    "plugins": [
+      "babel-plugin-transform-decorators-legacy"
+    ],
     "presets": [
       "react-app"
     ]
