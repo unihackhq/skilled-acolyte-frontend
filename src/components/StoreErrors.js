@@ -1,28 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Message, MessageHeader, MessageBody } from 'bloomer';
-
-const ErrorMessage = ({ error }) => (
-  <Container>
-    <Message isColor="danger">
-      <MessageHeader>Something went wrong!</MessageHeader>
-      <MessageBody>
-        <p>{error}</p>
-        <p>Please refresh this page. If this issue persists please contact us.</p>
-      </MessageBody>
-    </Message>
-  </Container>
-);
-ErrorMessage.propTypes = {
-  error: PropTypes.string.isRequired,
-};
+import ErrorMessage from './ErrorMessage';
 
 const StoreErrors = ({ user, events, teams, invites }) => {
-  if (user.error) return <ErrorMessage error={user.error} />;
-  if (events.error) return <ErrorMessage error={events.error} />;
-  if (teams.error) return <ErrorMessage error={teams.error} />;
-  if (invites.error) return <ErrorMessage error={invites.error} />;
+  if (user.error) return <ErrorMessage><p>{user.error}</p></ErrorMessage>;
+  if (events.error) return <ErrorMessage><p>{events.error}</p></ErrorMessage>;
+  if (teams.error) return <ErrorMessage><p>{teams.error}</p></ErrorMessage>;
+  if (invites.error) return <ErrorMessage><p>{invites.error}</p></ErrorMessage>;
   return null;
 };
 StoreErrors.propTypes = {
