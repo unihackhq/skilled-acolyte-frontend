@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Container, Title } from 'bloomer';
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { reaction } from 'mobx';
-import InternalEditProfile from '../Profile/InternalEditProfile';
-import './index.scss';
+import InternalEditProfile from './Profile/InternalEditProfile';
 
 class FirstLaunch extends React.Component {
   static propTypes = {
@@ -37,7 +36,7 @@ class FirstLaunch extends React.Component {
     return (
       <Container>
         <Title isSize={3} tag="h1">Confirm Your Details</Title>
-        <div className="first-launch__blurb">
+        <div className="margin-bottom">
           <p>Welcome to the UNIHACK web app!</p>
           <p>
             We&apos;ve imported your details from eventbrite.

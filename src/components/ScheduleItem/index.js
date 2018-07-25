@@ -19,6 +19,9 @@ class ScheduleItem extends React.Component {
     if (type === constant.NOTIFICATION_TYPE_SPECIAL) {
       return 'Special';
     }
+    if (type === constant.NOTIFICATION_TYPE_EVENT) {
+      return 'Event';
+    }
     return 'Unknown';
   }
 
