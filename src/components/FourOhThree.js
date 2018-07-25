@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container } from 'bloomer';
+import Page from './Page';
 
 const FourOhThree = () => (
-  <Container>
+  <Page>
     <p>You can&apos;t access this page. Please login first!</p>
-  </Container>
+  </Page>
 );
 
 export default FourOhThree;

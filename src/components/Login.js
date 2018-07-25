@@ -1,8 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Message, MessageHeader, MessageBody,
+import { Message, MessageHeader, MessageBody,
   Field, Label, Control, Input, Button, Title } from 'bloomer';
+import Page from './Page';
 import { apiPostNoAuth } from '../utils/api';
 
 class Login extends React.Component {
@@ -52,27 +53,19 @@ class Login extends React.Component {
     }
 
     return (
-      <Container>
+      <Page>
         <Title isSize={3} tag="h1">Login</Title>
 
         {sent ? (
-          <Message isColor="success" isFullWidth={false}>
-            <MessageHeader>
-              Check your inbox
-            </MessageHeader>
-            <MessageBody>
-              An email with login instructions has been sent to your email.
-            </MessageBody>
+          <Message isColor="success">
+            <MessageHeader>Check your inbox</MessageHeader>
+            <MessageBody>An email with login instructions has been sent to your email.</MessageBody>
           </Message>
         ) : null}
         {error ? (
-          <Message isColor="danger" isFullWidth={false}>
-            <MessageHeader>
-              Something went wrong!
-            </MessageHeader>
-            <MessageBody>
-              {error}
-            </MessageBody>
+          <Message isColor="danger">
+            <MessageHeader>Something went wrong!</MessageHeader>
+            <MessageBody>{error}</MessageBody>
           </Message>
         ) : null}
 
@@ -102,7 +95,7 @@ class Login extends React.Component {
             </Control>
           </Field>
         </form>
-      </Container>
+      </Page>
     );
   }
 }

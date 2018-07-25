@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer, inject, PropTypes as MobxPropTypes } from 'mobx-react';
-import { Container, Title, Button } from 'bloomer';
+import { Title, Button } from 'bloomer';
 import Loader from '../Loader';
+import Page from '../Page';
 import './ProfileDetails.scss';
 
 const ProfileDetails = ({ user: userStore }) => {
@@ -17,7 +18,7 @@ const ProfileDetails = ({ user: userStore }) => {
   });
 
   return (
-    <Container>
+    <Page>
       {userStore.fetching ? (
         /* show some indication something is going on while also showing the old data */
         <Loader />
@@ -67,7 +68,7 @@ const ProfileDetails = ({ user: userStore }) => {
       <Button
         render={props => <Link to="/profile/edit" {...props}>Edit</Link>}
       />
-    </Container>
+    </Page>
   );
 };
 ProfileDetails.propTypes = {
