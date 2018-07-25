@@ -183,23 +183,26 @@ class NotificationBanner extends React.Component {
 
     return (
       <React.Fragment>
-        {error ? <Notification>{error}</Notification> : null}
-        {subscribed ? (
-          <Button
-            onClick={this.unsubscribe}
-            isLoading={loading}
-          >
-            Unsubscribe
-          </Button>
-        ) : (
-          <Button
-            onClick={this.subscribe}
-            disabled={!key}
-            isLoading={loading}
-          >
-            Subscribe
-          </Button>
-        )}
+        {error ? <Notification isColor="danger">{error}</Notification> : null}
+        <Notification isColor="success">
+          <p className="margin-bottom">Subscribe to push notifications to get updates about the event</p>
+          {subscribed ? (
+            <Button
+              onClick={this.unsubscribe}
+              isLoading={loading}
+            >
+              Unsubscribe
+            </Button>
+          ) : (
+            <Button
+              onClick={this.subscribe}
+              disabled={!key}
+              isLoading={loading}
+            >
+              Subscribe
+            </Button>
+          )}
+        </Notification>
       </React.Fragment>
     );
   }
