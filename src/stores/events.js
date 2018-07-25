@@ -1,23 +1,26 @@
-import { decorate, observable, computed, action, runInAction } from 'mobx';
+import { observable, computed, action, runInAction } from 'mobx';
 import jwtDecode from 'jwt-decode';
 import { apiGet } from '../utils/api';
 
 class Events {
-  list = null;
-  error = null;
-  fetching = false;
-  selectedId = null;
-  attendees = null;
-  schedule = null;
+  @observable list = null;
+  @observable error = null;
+  @observable fetching = false;
+  @observable selectedId = null;
+  @observable attendees = null;
+  @observable schedule = null;
 
+  @computed
   get fetched() {
     return this.list !== null;
   }
 
+  @computed
   get loading() {
     return this.fetching || !this.fetched;
   }
 
+  @computed
   get selected() {
     if (!this.selectedId) {
       return null;
@@ -26,11 +29,13 @@ class Events {
     return this.list.find(event => event.id === this.selectedId) || null;
   }
 
+  @action.bound
   changeSelected(id) {
     this.selectedId = id;
     this.attendees = null;
   }
 
+  @action.bound
   fetchList() {
     if (this.fetching) return;
 
@@ -63,6 +68,7 @@ class Events {
       );
   }
 
+  @action.bound
   fetchAttendees() {
     // if we're logged in, jwt is in localstorage
     const jwt = localStorage.getItem('jwt');
@@ -84,6 +90,7 @@ class Events {
       );
   }
 
+  @action.bound
   fetchSchedule() {
     // if we're logged in, jwt is in localstorage
     const jwt = localStorage.getItem('jwt');
@@ -105,11 +112,13 @@ class Events {
       );
   }
 
+  @action.bound
   apiFail(error) {
     this.error = error.body.message;
     this.fetching = false;
   }
 
+  @action.bound
   clear() {
     this.list = null;
     this.error = null;
@@ -120,20 +129,4 @@ class Events {
   }
 }
 
-export default decorate(Events, {
-  list: observable,
-  error: observable,
-  fetching: observable,
-  selectedId: observable,
-  attendees: observable,
-  schedule: observable,
-  fetched: computed,
-  loading: computed,
-  selected: computed,
-  changeSelected: action.bound,
-  fetchList: action.bound,
-  fetchAttendees: action.bound,
-  fetchSchedule: action.bound,
-  apiFail: action.bound,
-  clear: action.bound,
-});
+export default Events;

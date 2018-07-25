@@ -53,7 +53,7 @@ class Team extends React.Component {
 
   render() {
     const { teams, events } = this.props;
-    const { loading, error, findByEvent } = teams;
+    const { loading, error, filterByEvent } = teams;
 
     if (error) {
       return (
@@ -77,7 +77,7 @@ class Team extends React.Component {
       return null;
     }
 
-    const eventTeams = findByEvent(events.selected.id);
+    const eventTeams = filterByEvent(events.selected.id);
     if (eventTeams.length === 0) {
       return (
         <Container>

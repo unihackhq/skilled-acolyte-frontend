@@ -1,12 +1,12 @@
-import { decorate, observable, computed, action, runInAction } from 'mobx';
+import { observable, computed, action, runInAction } from 'mobx';
 import jwtDecode from 'jwt-decode';
 import { apiPostNoAuth, apiGet } from '../utils/api';
 
 class User {
-  jwt = null;
-  error = null;
-  fetching = false;
-  details = null;
+  @observable jwt = null;
+  @observable error = null;
+  @observable fetching = false;
+  @observable details = null;
 
   constructor() {
     const jwt = localStorage.getItem('jwt');
@@ -17,10 +17,12 @@ class User {
     }
   }
 
+  @computed
   get loggedIn() {
     return this.details !== null;
   }
 
+  @action.bound
   setJwt(jwt) {
     this.jwt = jwt;
 
@@ -31,6 +33,7 @@ class User {
     }
   }
 
+  @action.bound
   login(token) {
     apiPostNoAuth('/token', { token })
       .then(
@@ -46,6 +49,7 @@ class User {
       );
   }
 
+  @action.bound
   fetchDetails() {
     if (this.fetching) return;
     this.fetching = true;
@@ -66,16 +70,19 @@ class User {
       );
   }
 
+  @action.bound
   apiFail(error) {
     this.error = error.body.message;
     this.fetching = false;
   }
 
+  @action.bound
   logout() {
     this.setJwt(null);
     this.clear();
   }
 
+  @action.bound
   clear() {
     this.jwt = null;
     this.error = null;
@@ -84,16 +91,4 @@ class User {
   }
 }
 
-export default decorate(User, {
-  jwt: observable,
-  error: observable,
-  fetching: observable,
-  details: observable,
-  loggedIn: computed,
-  setJwt: action.bound,
-  login: action.bound,
-  fetchDetails: action.bound,
-  apiFail: action.bound,
-  logout: action.bound,
-  clear: action.bound,
-});
+export default User;

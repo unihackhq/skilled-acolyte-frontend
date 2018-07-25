@@ -1,21 +1,24 @@
-import { decorate, observable, computed, action, runInAction } from 'mobx';
+import { observable, computed, action, runInAction } from 'mobx';
 import { createTransformer } from 'mobx-utils';
 import jwtDecode from 'jwt-decode';
 import { apiGet } from '../utils/api';
 
 class Invites {
-  list = null;
-  error = null;
-  fetching = false;
+  @observable list = null;
+  @observable error = null;
+  @observable fetching = false;
 
+  @computed
   get fetched() {
     return this.list !== null;
   }
 
+  @computed
   get loading() {
     return this.fetching || !this.fetched;
   }
 
+  @computed
   get count() {
     return this.fetched ? this.list.length : 0;
   }
@@ -24,6 +27,7 @@ class Invites {
     teamId => this.list.find(team => team.id === teamId) || null,
   )
 
+  @action.bound
   fetchList() {
     if (this.fetching) return;
 
@@ -51,11 +55,13 @@ class Invites {
       );
   }
 
+  @action.bound
   apiFail(error) {
     this.error = error.body.message;
     this.fetching = false;
   }
 
+  @action.bound
   clear() {
     this.list = null;
     this.error = null;
@@ -63,14 +69,4 @@ class Invites {
   }
 }
 
-export default decorate(Invites, {
-  list: observable,
-  error: observable,
-  fetching: observable,
-  fetched: computed,
-  loading: computed,
-  count: computed,
-  fetchList: action.bound,
-  apiFail: action.bound,
-  clear: action.bound,
-});
+export default Invites;
