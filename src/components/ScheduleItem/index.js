@@ -34,26 +34,32 @@ class ScheduleItem extends React.Component {
     const startDate = new Date(item.startDate);
     const endDate = new Date(item.endDate);
 
-    const options = { hour: 'numeric', minute: 'numeric' };
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const day = days[startDate.getDay()];
+
+    const options = { hour: 'numeric', minute: 'numeric', hour12: false };
     const start = startDate.toLocaleTimeString('en-AU', options);
     const end = endDate.toLocaleTimeString('en-AU', options);
 
-    return `${start} to ${end}`;
+    if (start === end) {
+      return `${day} ${start}`;
+    }
+    return `${day} ${start} to ${end}`;
   }
 
   render() {
     const { item, className } = this.props;
     return (
       <div className={className} key={item.id}>
-        <div className="schedule__title">
-          <Title
-            isSize={5}
-            tag="h2"
-            className="schedule__title__heading"
-          >
-            {item.name}
-          </Title>
-          <div className="schedule__title__tag">
+        <div className="schedule__heading">
+          <div className="schedule__title">
+            <Title
+              isSize={5}
+              tag="h2"
+              className="schedule__title__heading"
+            >
+              {item.name}
+            </Title>
             <Tag isColor="dark">{this.getType(item.type)}</Tag>
           </div>
           <p>{this.renderTime(item)}</p>
