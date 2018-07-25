@@ -1,0 +1,12 @@
+.login-entry__root {
+  display: flex;
+  flex-flow: column nowrap;
+
+  .button {
+    align-self: center;
+  }
+
+  .button:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
