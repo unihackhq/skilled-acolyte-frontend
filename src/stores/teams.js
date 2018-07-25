@@ -18,7 +18,7 @@ class Teams {
     return this.fetching || !this.fetched;
   }
 
-  findByEvent = createTransformer(
+  filterByEvent = createTransformer(
     eventId => this.list.filter(team => team.eventId === eventId),
   )
 
