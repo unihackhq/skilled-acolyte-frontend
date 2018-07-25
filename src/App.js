@@ -4,6 +4,7 @@ import { configure, reaction } from 'mobx';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Nav from './components/Nav';
 import StoreErrors from './components/StoreErrors';
+import ErrorMessage from './components/ErrorMessage';
 import User from './stores/user';
 import Events from './stores/events';
 import Teams from './stores/teams';
@@ -28,21 +29,41 @@ reaction(
   },
 );
 
-const App = () => (
-  <Router>
-    <Provider
-      user={userStore}
-      events={eventStore}
-      teams={teamStore}
-      invites={inviteStore}
-    >
-      <React.Fragment>
-        <Nav />
-        <StoreErrors />
-        <Routes />
-      </React.Fragment>
-    </Provider>
-  </Router>
-);
+class App extends React.Component {
+  state = { error: null };
+
+  componentDidCatch(error) {
+    this.setState({ error: error.message });
+  }
+
+  render() {
+    const { error } = this.state;
+
+    if (error) {
+      return (
+        <ErrorMessage>
+          <p>{error}</p>
+        </ErrorMessage>
+      );
+    }
+
+    return (
+      <Router>
+        <Provider
+          user={userStore}
+          events={eventStore}
+          teams={teamStore}
+          invites={inviteStore}
+        >
+          <React.Fragment>
+            <Nav />
+            <StoreErrors />
+            <Routes />
+          </React.Fragment>
+        </Provider>
+      </Router>
+    );
+  }
+}
 
 export default App;
