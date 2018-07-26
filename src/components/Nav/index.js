@@ -49,7 +49,9 @@ class Nav extends React.Component {
               <NavLogo />
             </div>
             <div className="navbar__user">
-              {loggedIn ? (
+              {/* we check for jwt and not loggedIn because user might have an invalid jwt
+                  and we want them to be able to get rid of it */}
+              {localStorage.getItem('jwt') ? (
                 <React.Fragment>
                   <Link className="button is-light is-hidden-mobile" to="/" onClick={this.logout}>
                     Logout
@@ -81,6 +83,9 @@ class Nav extends React.Component {
                 </NavbarItem>
                 <NavbarItem path="/event" title="Event" {...itemProps}>
                   Event
+                </NavbarItem>
+                <NavbarItem path="/settings" title="Settings" {...itemProps}>
+                  Settings
                 </NavbarItem>
                 <Link className="button is-light is-hidden-tablet" to="/" onClick={this.mobileLogout}>
                   Logout

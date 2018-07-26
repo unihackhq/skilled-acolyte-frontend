@@ -25,6 +25,7 @@ const Profile = withLazyLoad(() => import('./components/Profile'));
 const FirstLaunch = withLazyLoad(() => import('./components/FirstLaunch'));
 const Schedule = withLazyLoad(() => import('./components/Schedule'));
 const Event = withLazyLoad(() => import('./components/Event'));
+const Settings = withLazyLoad(() => import('./components/Settings'));
 
 // HOC to restrict access to a component when user isn't logged in
 const restricted = (C) => {
@@ -74,6 +75,7 @@ const Routes = ({ user, events, teams, invites }) => {
         <Route exact path="/first-launch" component={restricted(FirstLaunch)} />
         <Route exact path="/schedule" component={restricted(Schedule)} />
         <Route exact path="/event" component={restricted(Event)} />
+        <Route exact path="/settings" component={restricted(Settings)} />
         <Route exact path="/" component={Home} />
         <Route component={FourOhFour} />
       </Switch>
