@@ -1,0 +1,11 @@
+.notification-banner__text {
+  margin-bottom: .5rem;
+}
+
+.notification-banner__button {
+  margin-top: .5rem;
+
+  &:not(:last-child) {
+    margin-right: .5rem;
+  }
+}

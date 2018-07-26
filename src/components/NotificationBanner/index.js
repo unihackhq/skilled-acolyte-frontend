@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Notification } from 'bloomer';
-import NotificationHOC from './NotificationHOC';
+import NotificationHOC from '../NotificationHOC';
+import './index.scss';
 
 const NotificationBanner = (props) => {
   const { enabled, bannerHidden, subscribed, error, loading, onSubscribe, onHide } = props;
@@ -16,16 +17,19 @@ const NotificationBanner = (props) => {
         <Notification isColor="danger">{error}</Notification>
       ) : (
         <Notification isColor="success">
-          <p className="margin-bottom">Subscribe to push notifications to get updates about the event</p>
+          <p className="notification-banner__text">
+            Subscribe to push notifications to get updates about the event.
+          </p>
           <Button
             onClick={onSubscribe}
+            className="notification-banner__button"
             isLoading={loading}
-            className="margin-right"
           >
             Subscribe
           </Button>
           <Button
             onClick={onHide}
+            className="notification-banner__button"
             isColor="dark"
             isOutlined
           >

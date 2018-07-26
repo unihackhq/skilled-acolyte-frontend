@@ -74,9 +74,9 @@ class Invite extends React.Component {
 
     return (
       <div className="invites__invite__root">
-        <div className="invites__invite__left">
+        <p className="invites__invite__left">
           {team.name} ({memberCount} member{memberCount > 1 ? 's' : null})
-        </div>
+        </p>
         <div className="invites__invite__right">
           <Button
             onClick={this.handleAccept}

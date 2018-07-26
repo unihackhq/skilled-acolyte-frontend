@@ -1,5 +1,6 @@
 .navbar-logo__img {
-  height: 50px;
+  height: 3.5rem;
+  vertical-align: bottom;
 }
 
 .navbar-logo__title {
@@ -17,7 +18,7 @@
       box-shadow: none;
 
       svg {
-        margin-top: 6px;
+        margin-top: .3rem;
       }
     }
   }
