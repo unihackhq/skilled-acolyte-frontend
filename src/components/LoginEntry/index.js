@@ -43,10 +43,10 @@ class LoginEntry extends React.Component {
   render() {
     const { ios } = this.state;
     const { user, match } = this.props;
-    const { loggedIn } = user;
+    const { loggedIn, details } = user;
     const { token } = match.params;
 
-    if (loggedIn) {
+    if (loggedIn && !details.firstLaunch) {
       return <Redirect to="/" />;
     }
 
