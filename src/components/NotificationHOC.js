@@ -23,6 +23,8 @@ const urlBase64ToUint8Array = (base64String) => {
   return outputArray;
 };
 
+const bannerHiddenKey = 'NotificationBannerHidden';
+
 const NotificationHOC = C => inject('user', 'events')(observer(
   class Notification extends React.Component {
     static propTypes = {
@@ -30,7 +32,8 @@ const NotificationHOC = C => inject('user', 'events')(observer(
     }
 
     state = {
-      show: true,
+      enabled: true,
+      bannerHidden: false,
       subscribed: false,
       error: null,
       loading: false,
@@ -61,11 +64,15 @@ const NotificationHOC = C => inject('user', 'events')(observer(
     }
 
     initialState = async () => {
+      if (localStorage.getItem(bannerHiddenKey)) {
+        this.setState({ bannerHidden: true });
+      }
+
       // feature detect for service worker, push manager or notifications
       if (!('serviceWorker' in navigator && 'PushManager' in window
         && 'showNotification' in ServiceWorkerRegistration.prototype)) {
         this.setState({
-          show: false,
+          enabled: false,
           subscribed: false,
           error: 'Your browser does not support notifications.',
         });
@@ -180,18 +187,26 @@ const NotificationHOC = C => inject('user', 'events')(observer(
       }
     }
 
+    hide = () => {
+      // value doesn't matter as long as it is set
+      localStorage.setItem(bannerHiddenKey, 'true');
+      this.setState({ bannerHidden: true });
+    }
+
     render() {
-      const { show, subscribed, error, loading, key } = this.state;
+      const { enabled, bannerHidden, subscribed, error, loading, key } = this.state;
 
       if (key) {
         return (
           <C
-            show={show}
+            enabled={enabled}
+            bannerHidden={bannerHidden}
             subscribed={subscribed}
             error={error}
             loading={loading}
             onSubscribe={this.subscribe}
             onUnsubscribe={this.unsubscribe}
+            onHide={this.hide}
           />
         );
       }

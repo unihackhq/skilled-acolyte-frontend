@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Button, Notification } from 'bloomer';
 import NotificationHOC from './NotificationHOC';
 
-const NotificationBanner = ({ show, subscribed, error, loading, onSubscribe }) => {
-  if (!show || subscribed) {
+const NotificationBanner = (props) => {
+  const { enabled, bannerHidden, subscribed, error, loading, onSubscribe, onHide } = props;
+
+  if (!enabled || subscribed || bannerHidden) {
     return null;
   }
 
@@ -18,8 +20,16 @@ const NotificationBanner = ({ show, subscribed, error, loading, onSubscribe }) =
           <Button
             onClick={onSubscribe}
             isLoading={loading}
+            className="margin-right"
           >
             Subscribe
+          </Button>
+          <Button
+            onClick={onHide}
+            isColor="dark"
+            isOutlined
+          >
+            Not Interested
           </Button>
         </Notification>
       )}
@@ -27,14 +37,17 @@ const NotificationBanner = ({ show, subscribed, error, loading, onSubscribe }) =
   );
 };
 NotificationBanner.propTypes = {
-  show: PropTypes.bool,
+  enabled: PropTypes.bool,
+  bannerHidden: PropTypes.bool,
   subscribed: PropTypes.bool,
   error: PropTypes.string,
   loading: PropTypes.bool,
   onSubscribe: PropTypes.func.isRequired,
+  onHide: PropTypes.func.isRequired,
 };
 NotificationBanner.defaultProps = {
-  show: false,
+  enabled: false,
+  bannerHidden: false,
   subscribed: false,
   error: null,
   loading: false,
