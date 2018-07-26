@@ -1,23 +1,31 @@
-.schedule__title {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  margin-bottom: 1em;
+@import '../../variables.scss';
+@import "~bulma/sass/utilities/mixins";
 
-  > * {
-    flex: 0 0 auto;
+.schedule {
+  &__heading {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 1em;
   }
-}
 
-.schedule__title__heading {
-  margin-right: 10px;
+  &__title {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    flex: 1 0 auto;
+  }
 
+
+  &__title__heading,
   // to match bulma's specificity
-  &, &:not(:last-child) {
+  &__title__heading:not(:last-child) {
+    margin-right: 10px;
     margin-bottom: 0;
   }
 }
 
-.schedule__title__tag {
-  flex: 1 0 auto;
+@include desktop {
+  .schedule__heading {
+    flex-flow: row wrap;
+  }
 }

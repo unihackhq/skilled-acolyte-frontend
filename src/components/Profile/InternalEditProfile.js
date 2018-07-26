@@ -165,7 +165,7 @@ class InternalEditProfile extends React.Component {
             <Label htmlFor="edit-profile-DOB">
               Date of Birth
               <small className="edit-profile__label-subtitle">
-                Please enter your date in YYYY-MM-DD format
+                Please enter in YYYY-MM-DD format
               </small>
             </Label>
             <Control>
