@@ -2,12 +2,17 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  margin-top: -.5rem;
 
-  button {
-    margin-left: 10px;
+  // gap in case they wrap
+  > * {
+    margin-top: .5rem;
+  }
 
-    &:first-child {
-      margin-left: 0;
+  // gap between buttons and text
+  button, p {
+    &:not(:last-child) {
+      margin-right: .5rem;
     }
   }
 }

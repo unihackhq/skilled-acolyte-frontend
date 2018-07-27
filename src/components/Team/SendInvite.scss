@@ -2,9 +2,14 @@
   display: flex;
   flex-flow: row wrap;
   align-items: flex-end;
-  margin-bottom: 1.5rem;
+  margin-bottom: .5rem;
+
+  // gap if they wrap
+  > * {
+    margin-bottom: .5rem;
+  }
 }
 
 .send-invite__dropdown {
-  margin-right: 5px;
+  margin-right: .5rem;
 }

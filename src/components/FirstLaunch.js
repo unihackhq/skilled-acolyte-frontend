@@ -14,7 +14,7 @@ const FirstLaunch = ({ user }) => {
   return (
     <Page>
       <Title isSize={3} tag="h1">Confirm Your Details</Title>
-      <div className="first-launch__blurb">
+      <div className="margin-bottom">
         <p>Welcome to the UNIHACK web app!</p>
         <p>
           We&apos;ve imported your details from eventbrite.

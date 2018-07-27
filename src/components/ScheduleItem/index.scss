@@ -2,13 +2,12 @@
 @import "~bulma/sass/utilities/mixins";
 
 .schedule {
-  &__heading {
+  &__top-row {
     display: flex;
     flex-flow: column;
-    margin-bottom: 1em;
   }
 
-  &__title {
+  &__heading {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -16,11 +15,17 @@
   }
 
 
-  &__title__heading,
-  // to match bulma's specificity
-  &__title__heading:not(:last-child) {
-    margin-right: 10px;
-    margin-bottom: 0;
+  // high specificity to match bulma's specificity
+  &__name,
+  &__name:not(:last-child) {
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  &__text {
+    margin-bottom: .5rem;
+    // hard to read past this width
+    max-width: 500px;
   }
 }
 

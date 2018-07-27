@@ -51,21 +51,17 @@ class ScheduleItem extends React.Component {
     const { item, className } = this.props;
     return (
       <div className={className} key={item.id}>
-        <div className="schedule__heading">
-          <div className="schedule__title">
-            <Title
-              isSize={5}
-              tag="h2"
-              className="schedule__title__heading"
-            >
+        <div className="schedule__top-row">
+          <div className="schedule__heading">
+            <Title isSize={5} tag="h2" className="schedule__name">
               {item.name}
             </Title>
-            <Tag isColor="dark">{this.getType(item.type)}</Tag>
+            <Tag isColor="dark" className="schedule__text">{this.getType(item.type)}</Tag>
           </div>
-          <p>{this.renderTime(item)}</p>
+          <p className="schedule__text">{this.renderTime(item)}</p>
         </div>
-        <p>{item.description}</p>
-        <p>{item.location}</p>
+        <p className="schedule__text">{item.location}</p>
+        <p className="schedule__text">{item.description}</p>
       </div>
     );
   }
