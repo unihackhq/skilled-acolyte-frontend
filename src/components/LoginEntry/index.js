@@ -23,13 +23,16 @@ class LoginEntry extends React.Component {
 
     // detect ios (wondering why the MSStream? cause fucking MS https://bit.ly/2LmlUhD)
     const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const android = /Android/i.test(navigator.userAgent);
 
-    this.state = { ios };
+    this.state = { ios, android };
   }
 
   componentDidMount() {
-    const { ios } = this.state;
-    if (!ios) {
+    const { ios, android } = this.state;
+
+    // proceed with web login if not Android or iOS
+    if (!(ios || android)) {
       this.login();
     }
   }
@@ -41,7 +44,7 @@ class LoginEntry extends React.Component {
   }
 
   render() {
-    const { ios } = this.state;
+    const { ios, android } = this.state;
     const { user, match } = this.props;
     const { loggedIn, details } = user;
     const { token } = match.params;
@@ -50,15 +53,23 @@ class LoginEntry extends React.Component {
       return <Redirect to="/" />;
     }
 
-    if (ios) {
+    if (ios || android) {
       return (
         <Page>
           <Title isSize={3} tag="h1">Login</Title>
           <Content className="login-entry__root">
-            <p>
-              Looks like you&apos;re on iOS. We have a native app available on the App Store.
-              If you&apos;ve already got the app just continue.
-            </p>
+            {ios ? (
+              <p>
+                Looks like you&apos;re on iOS. We have a native app available on the App Store.
+                If you&apos;ve already got the app just continue.
+              </p>
+            ) : null}
+            {android ? (
+              <p>
+                Looks like you&apos;re on Android. We have a native app available on the Play Store.
+                If you&apos;ve already got the app just continue.
+              </p>
+            ) : null}
             <p>
               Of course you can always use the web app too.
             </p>
