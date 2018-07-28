@@ -1,0 +1,13 @@
+.admin-teams__row {
+  display: flex;
+  flex-flow: row;
+  align-items: flex-end;
+}
+
+.admin-teams__search {
+  flex: 1 0 auto;
+}
+
+.admin-teams__actions {
+  margin-bottom: .75rem;
+}

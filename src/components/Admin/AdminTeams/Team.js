@@ -10,7 +10,7 @@ const Team = ({ team: t }) => (
     <p className="margin-bottom">{t.name}</p>
 
     <p><b>Description</b></p>
-    <p className="margin-bottom">{t.description}</p>
+    <p className="margin-bottom">{t.shortDescription}</p>
 
     <p><b>Stack</b></p>
     <p className="margin-bottom">{t.stack}</p>

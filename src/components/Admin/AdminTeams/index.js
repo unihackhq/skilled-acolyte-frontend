@@ -1,9 +1,22 @@
 import React from 'react';
-import { Container, Message, MessageHeader, MessageBody, Field, Control, Label, Input } from 'bloomer';
+import {
+  Container,
+  Message,
+  MessageHeader,
+  MessageBody,
+  Field,
+  Control,
+  Label,
+  Input,
+  Button,
+} from 'bloomer';
+import Papa from 'papaparse';
+import FileSaver from 'file-saver';
 import { Accordion, AccordionItem } from '../../Accordion';
 import { apiGet } from '../../../utils/api';
 import Team from './Team';
 import Loader from '../../Loader';
+import './index.scss';
 
 class AdminTeams extends React.Component {
   state = {
@@ -28,6 +41,24 @@ class AdminTeams extends React.Component {
 
   handleSearchChange = (event) => {
     this.setState({ query: event.target.value });
+  }
+
+  downloadCsv = () => {
+    const { teams } = this.state;
+
+    const data = teams.map(t => ({
+      Name: t.name,
+      Description: t.shortDescription,
+      Stack: t.stack,
+      LongDescription: t.longDescription,
+      Devpost: t.devpostLink,
+      Members: t.members.map(s => `${s.user.preferredName} ${s.user.lastName}`).join(', '),
+    }));
+
+    const csv = Papa.unparse(data);
+
+    const file = new Blob([csv], { type: 'text/csv' });
+    FileSaver.saveAs(file, 'teams.csv');
   }
 
   render() {
@@ -58,12 +89,17 @@ class AdminTeams extends React.Component {
 
     return (
       <Container>
-        <Field>
-          <Label>Filter by name</Label>
-          <Control>
-            <Input value={query} onChange={this.handleSearchChange} />
-          </Control>
-        </Field>
+        <div className="admin-teams__row">
+          <Field className="admin-teams__search">
+            <Label>Filter by name</Label>
+            <Control>
+              <Input value={query} onChange={this.handleSearchChange} />
+            </Control>
+          </Field>
+          <div className="admin-teams__actions">
+            <Button onClick={this.downloadCsv}>Download CSV</Button>
+          </div>
+        </div>
         <Accordion>
           {filteredTeams.map(t => (
             <AccordionItem title={t.name} key={t.id}>
