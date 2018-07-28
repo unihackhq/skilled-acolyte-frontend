@@ -73,7 +73,7 @@ class AdminStudents extends React.Component {
                 <span>
                   {s.user.preferredName} {s.user.lastName}
                   <br />
-                  <small>{s.user.email})</small>
+                  <small>{s.user.email}</small>
                 </span>
               )}
               key={s.id}
